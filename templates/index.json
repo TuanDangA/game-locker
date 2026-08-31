@@ -518,7 +518,7 @@
               "type": "text",
               "name": "t:names.text",
               "settings": {
-                "text": "<p><strong>SHOP BY GAME</strong></p>",
+                "text": "<p>HANDPICKED BY THE CREW</p>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
@@ -544,7 +544,7 @@
               "type": "text",
               "name": "t:names.text",
               "settings": {
-                "text": "<h3>MOST WANTED TCG'S</h3>",
+                "text": "<h3>BEST SELLING TCG ACCESSORIES</h3>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
@@ -570,7 +570,7 @@
               "type": "text",
               "name": "t:names.text",
               "settings": {
-                "text": "<p>Beyond Magic — here's everything else our shelves are stacked with.</p>",
+                "text": "<p>The gear our own staff actually use at the tables every week.</p>",
                 "width": "100%",
                 "max_width": "none",
                 "alignment": "center",
