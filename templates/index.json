@@ -138,39 +138,39 @@
           "settings": {
             "icon": "shopify://shop_images/Vector.png",
             "heading": "Have a question",
-            "text": "Email or call us"
+            "text": "Email or call (02) 8677 1966"
           }
         },
         "item_YgXcxF": {
           "type": "item",
           "settings": {
             "icon": "shopify://shop_images/Vector_1.png",
-            "heading": "Have a question",
-            "text": "Email or call us"
+            "heading": "STORE PICKUP AVAILABLE",
+            "text": "Card singles from Frankston only"
           }
         },
         "item_Jbterg": {
           "type": "item",
           "settings": {
             "icon": "shopify://shop_images/storefront_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24_1.png",
-            "heading": "Have a question",
-            "text": "Email or call us"
+            "heading": "STORE PICKUP AVAILABLE",
+            "text": "Seven Hills"
           }
         },
         "item_NR8yPE": {
           "type": "item",
           "settings": {
             "icon": "shopify://shop_images/Vector_2.png",
-            "heading": "Have a question",
-            "text": "Email or call us"
+            "heading": "DECK BUILDER",
+            "text": "Got a list, paste it in here"
           }
         },
         "item_c6bXp7": {
           "type": "item",
           "settings": {
             "icon": "shopify://shop_images/Vector_3.png",
-            "heading": "Have a question",
-            "text": "Email or call us"
+            "heading": "JOIN COMMUNITY",
+            "text": "Find closest General Games store"
           }
         }
       },
@@ -775,7 +775,7 @@
         "background_color": "#e8f1fb",
         "accent_color": "#207fc4",
         "button_border": "#d6edfe",
-        "heading_color": "#1D1A17",
+        "heading_color": "#1d1a17",
         "section_width": "page-width",
         "padding-block-start": 32,
         "padding-block-end": 32
@@ -830,7 +830,7 @@
       "name": "Feature bar",
       "settings": {
         "background_color": "#a10a0a",
-        "heading_color": "#F7F1E4",
+        "heading_color": "#f7f1e4",
         "subheading_color": "#f7f1ea",
         "section_width": "page-width",
         "padding-block-start": 16,
