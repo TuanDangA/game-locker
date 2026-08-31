@@ -9,22 +9,200 @@
  */
 {
   "sections": {
-    "product_list_fa6P9H": {
-      "type": "product-list",
+    "custom_hero_carousel_ypMhQ4": {
+      "type": "custom-hero-carousel",
       "blocks": {
-        "static-header": {
-          "type": "_product-list-content",
-          "name": "t:names.header",
-          "static": true,
+        "slide_X6Kg4x": {
+          "type": "slide",
           "settings": {
-            "content_direction": "row",
-            "vertical_on_mobile": false,
-            "horizontal_alignment": "space-between",
-            "vertical_alignment": "flex-end",
-            "align_baseline": true,
-            "horizontal_alignment_flex_direction_column": "flex-start",
+            "image": "shopify://shop_images/Hero_Banner.png",
+            "heading": "RIFTBOUND: ORIGINS",
+            "subheading": "PRE-ORDER NOW",
+            "description": "The Runeterra you know, now in your hands. Build your legend with  Champions like Ahri, Yasuo and Jinx in Riot Games' first-ever TCG.",
+            "text_align": "center",
+            "button_label": "Shop now",
+            "button_link": "",
+            "button_label_2": "View Release Event",
+            "button_link_2": ""
+          }
+        },
+        "slide_QXjUhL": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/Hero_Banner.png",
+            "heading": "RIFTBOUND: ORIGINS",
+            "subheading": "PRE-ORDER NOW",
+            "description": "The Runeterra you know, now in your hands. Build your legend with  Champions like Ahri, Yasuo and Jinx in Riot Games' first-ever TCG.",
+            "text_align": "center",
+            "button_label": "Shop now",
+            "button_link": "",
+            "button_label_2": "View Release Event",
+            "button_link_2": ""
+          }
+        },
+        "slide_mVAzjP": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/Hero_Banner.png",
+            "heading": "RIFTBOUND: ORIGINS",
+            "subheading": "PRE-ORDER NOW",
+            "description": "The Runeterra you know, now in your hands. Build your legend with  Champions like Ahri, Yasuo and Jinx in Riot Games' first-ever TCG.",
+            "text_align": "center",
+            "button_label": "Shop now",
+            "button_link": "",
+            "button_label_2": "View Release Event",
+            "button_link_2": ""
+          }
+        }
+      },
+      "block_order": [
+        "slide_X6Kg4x",
+        "slide_QXjUhL",
+        "slide_mVAzjP"
+      ],
+      "disabled": true,
+      "name": "Hero carousel",
+      "settings": {
+        "background_color": "",
+        "section_width": "page-width",
+        "padding-block-start": 32,
+        "padding-block-end": 32,
+        "autoplay": true,
+        "autoplay_speed": 5
+      }
+    },
+    "custom_hero_slider_CyxXjd": {
+      "type": "custom-hero-slider",
+      "blocks": {
+        "slide_AFF4jW": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/Hero_Banner.png",
+            "heading": "RIFTBOUND: ORIGINS",
+            "subheading": "Pre-order now",
+            "description": "The Runeterra you know, now in your hands. Build your legend with Champions like Ahri, Yasuo and Jinx in Riot Games' first-ever TCG.",
+            "text_align": "center",
+            "button_label": "Shop now",
+            "button_link": "",
+            "button_label_2": "View release event",
+            "button_link_2": ""
+          }
+        },
+        "slide_EGKQmr": {
+          "type": "slide",
+          "settings": {
+            "heading": "RIFTBOUND: ORIGINS",
+            "subheading": "Pre-order now",
+            "description": "The Runeterra you know, now in your hands. Build your legend with Champions like Ahri, Yasuo and Jinx in Riot Games' first-ever TCG.",
+            "text_align": "center",
+            "button_label": "Shop now",
+            "button_link": "",
+            "button_label_2": "View release event",
+            "button_link_2": ""
+          }
+        },
+        "slide_PaXyBe": {
+          "type": "slide",
+          "settings": {
+            "heading": "RIFTBOUND: ORIGINS",
+            "subheading": "Pre-order now",
+            "description": "The Runeterra you know, now in your hands. Build your legend with Champions like Ahri, Yasuo and Jinx in Riot Games' first-ever TCG.",
+            "text_align": "center",
+            "button_label": "Shop now",
+            "button_link": "",
+            "button_label_2": "View release event",
+            "button_link_2": ""
+          }
+        }
+      },
+      "block_order": [
+        "slide_AFF4jW",
+        "slide_EGKQmr",
+        "slide_PaXyBe"
+      ],
+      "name": "Hero carousel",
+      "settings": {
+        "background_color": "",
+        "section_width": "page-width",
+        "padding-block-start": 32,
+        "padding-block-end": 32,
+        "autoplay": false,
+        "autoplay_speed": 5
+      }
+    },
+    "custom_icon_columns_kDcKV4": {
+      "type": "custom-icon-columns",
+      "blocks": {
+        "item_XQcigM": {
+          "type": "item",
+          "settings": {
+            "icon": "shopify://shop_images/Vector.png",
+            "heading": "Have a question",
+            "text": "Email or call us"
+          }
+        },
+        "item_YgXcxF": {
+          "type": "item",
+          "settings": {
+            "icon": "shopify://shop_images/Vector_1.png",
+            "heading": "Have a question",
+            "text": "Email or call us"
+          }
+        },
+        "item_Jbterg": {
+          "type": "item",
+          "settings": {
+            "icon": "shopify://shop_images/storefront_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24_1.png",
+            "heading": "Have a question",
+            "text": "Email or call us"
+          }
+        },
+        "item_NR8yPE": {
+          "type": "item",
+          "settings": {
+            "icon": "shopify://shop_images/Vector_2.png",
+            "heading": "Have a question",
+            "text": "Email or call us"
+          }
+        },
+        "item_c6bXp7": {
+          "type": "item",
+          "settings": {
+            "icon": "shopify://shop_images/Vector_3.png",
+            "heading": "Have a question",
+            "text": "Email or call us"
+          }
+        }
+      },
+      "block_order": [
+        "item_XQcigM",
+        "item_YgXcxF",
+        "item_Jbterg",
+        "item_NR8yPE",
+        "item_c6bXp7"
+      ],
+      "name": "Icon columns",
+      "settings": {
+        "section_width": "page-width",
+        "padding-block-start": 0,
+        "padding-block-end": 32
+      }
+    },
+    "collection_list_Tp6wpc": {
+      "type": "collection-list",
+      "blocks": {
+        "group_7kjtCj": {
+          "type": "group",
+          "name": "t:names.header",
+          "settings": {
+            "content_direction": "column",
+            "vertical_on_mobile": true,
+            "horizontal_alignment": "flex-start",
+            "vertical_alignment": "center",
+            "align_baseline": false,
+            "horizontal_alignment_flex_direction_column": "center",
             "vertical_alignment_flex_direction_column": "center",
-            "gap": 12,
+            "gap": 8,
             "width": "fill",
             "custom_width": 100,
             "width_mobile": "fill",
@@ -35,33 +213,40 @@
             "background_color": "",
             "video_position": "cover",
             "background_image_position": "cover",
+            "toggle_overlay": false,
+            "overlay_color": "#00000026",
+            "overlay_style": "solid",
+            "gradient_direction": "to top",
             "border": "none",
             "border_width": 1,
             "border_opacity": 100,
             "border_color": "",
             "border_radius": 0,
+            "link": "",
+            "open_in_new_tab": false,
+            "placeholder": "",
             "padding-block-start": 0,
             "padding-block-end": 0,
             "padding-inline-start": 0,
             "padding-inline-end": 0
           },
           "blocks": {
-            "product_list_text_YFtzcL": {
-              "type": "_product-list-text",
-              "name": "t:names.collection_title",
+            "text_X33cmy": {
+              "type": "text",
+              "name": "t:names.text",
               "settings": {
-                "text": "<h3>{{ closest.collection.title }}</h3>",
+                "text": "<p><strong>SHOP BY GAME</strong></p>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
-                "type_preset": "h4",
+                "type_preset": "custom",
                 "font": "var(--font-body--family)",
-                "font_size": "1rem",
+                "font_size": "0.75rem",
                 "line_height": "normal",
                 "letter_spacing": "normal",
                 "case": "none",
                 "wrap": "pretty",
-                "text_color": "",
+                "text_color": "#207fc4",
                 "background": false,
                 "background_color": "#00000026",
                 "corner_radius": 0,
@@ -72,58 +257,25 @@
               },
               "blocks": {}
             },
-            "product_list_button_MWeP9V": {
-              "type": "_product-list-button",
-              "name": "t:names.product_list_button",
+            "text_phWTAa": {
+              "type": "text",
+              "name": "t:names.text",
               "settings": {
-                "label": "View all",
-                "open_in_new_tab": false,
-                "style_class": "link",
-                "custom_button_background": "{{ settings.color_palette.foreground }}",
-                "custom_button_text": "{{ settings.color_palette.background }}",
-                "custom_button_border": "{{ settings.color_palette.background }}",
-                "link_text_color": "",
+                "text": "<h3>MOST WANTED TCG'S</h3>",
                 "width": "fit-content",
-                "custom_width": 100,
-                "width_mobile": "fit-content",
-                "custom_width_mobile": 100
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "product_list_text_YFtzcL",
-            "product_list_button_MWeP9V"
-          ]
-        },
-        "static-product-card": {
-          "type": "_product-card",
-          "name": "t:names.product_card",
-          "static": true,
-          "settings": {
-            "product_card_gap": 4,
-            "background_color": "",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_color": "",
-            "border_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "product_card_gallery_677WP3": {
-              "type": "_product-card-gallery",
-              "name": "t:names.product_card_media",
-              "settings": {
-                "image_ratio": "adapt",
-                "border": "none",
-                "border_width": 1,
-                "border_opacity": 100,
-                "border_color": "",
-                "border_radius": 0,
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "custom",
+                "font": "var(--font-heading--family)",
+                "font_size": "2rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "text_color": "#1d1a17",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
@@ -131,13 +283,14 @@
               },
               "blocks": {}
             },
-            "product_title_YXxMTj": {
-              "type": "product-title",
-              "name": "t:names.product_title",
+            "text_dCc6VG": {
+              "type": "text",
+              "name": "t:names.text",
               "settings": {
+                "text": "<p>Beyond Magic — here's everything else our shelves are stacked with.</p>",
                 "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
+                "max_width": "none",
+                "alignment": "center",
                 "type_preset": "rte",
                 "font": "var(--font-body--family)",
                 "font_size": "1rem",
@@ -145,33 +298,10 @@
                 "letter_spacing": "normal",
                 "case": "none",
                 "wrap": "pretty",
-                "text_color": "",
+                "text_color": "#5c554c",
                 "background": false,
                 "background_color": "#00000026",
                 "corner_radius": 0,
-                "padding-block-start": 4,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "price_JQzVV4": {
-              "type": "price",
-              "name": "t:names.product_price",
-              "settings": {
-                "show_sale_price_first": true,
-                "show_installments": false,
-                "show_tax_info": false,
-                "type_preset": "h6",
-                "width": "100%",
-                "alignment": "left",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "text_color": "",
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
@@ -181,35 +311,542 @@
             }
           },
           "block_order": [
-            "product_card_gallery_677WP3",
-            "product_title_YXxMTj",
-            "price_JQzVV4"
+            "text_X33cmy",
+            "text_phWTAa",
+            "text_dCc6VG"
+          ]
+        },
+        "static-collection-card": {
+          "type": "_collection-card",
+          "name": "t:names.collection_card",
+          "static": true,
+          "settings": {
+            "placement": "on_image",
+            "horizontal_alignment": "center",
+            "vertical_alignment": "flex-end",
+            "collection_card_gap": 8,
+            "background_color": "{{ settings.color_palette.foreground }}",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_color": "",
+            "border_radius": 12
+          },
+          "blocks": {
+            "collection_title_CTk3L3": {
+              "type": "collection-title",
+              "name": "t:names.collection_title",
+              "settings": {
+                "width": "100%",
+                "max_width": "none",
+                "alignment": "center",
+                "type_preset": "custom",
+                "font": "var(--font-heading--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "background": true,
+                "background_color": "{{ settings.color_palette.foreground }}",
+                "text_color": "#f7f1e4",
+                "corner_radius": 0,
+                "padding-block-start": 8,
+                "padding-block-end": 8,
+                "padding-inline-start": 16,
+                "padding-inline-end": 16
+              },
+              "blocks": {}
+            },
+            "collection-card-image": {
+              "type": "_collection-card-image",
+              "name": "t:names.collection_card_image",
+              "static": true,
+              "settings": {
+                "image_ratio": "adapt",
+                "toggle_overlay": false,
+                "overlay_color": "#00000026",
+                "overlay_style": "solid",
+                "gradient_direction": "to top",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_color": "",
+                "border_radius": 0
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "collection_title_CTk3L3"
           ]
         }
       },
-      "name": "t:names.product_list",
+      "block_order": [
+        "group_7kjtCj"
+      ],
+      "custom_css": [
+        ".collection-card.collection-card--image-bg .collection-card__content {padding: 0px;}",
+        "slideshow-slides[gutters*=\"end\"] {padding-inline-end: 0;}"
+      ],
+      "name": "t:names.collections_carousel",
       "settings": {
-        "collection": "all",
-        "layout_type": "grid",
+        "collection_list": [
+          "one-piece-tcg",
+          "one-piece-tcg-copy",
+          "riftbound",
+          "riftbound-1",
+          "yu-gi-oh"
+        ],
+        "layout_type": "carousel",
         "carousel_on_mobile": false,
-        "max_products": 8,
-        "columns": 4,
+        "columns": 5,
         "mobile_columns": "2",
         "mobile_card_size": "60cqw",
-        "columns_gap": 8,
-        "rows_gap": 24,
-        "icons_style": "arrow",
-        "icons_shape": "none",
+        "columns_gap": 24,
+        "bento_gap": 8,
+        "rows_gap": 8,
+        "max_collections": 4,
+        "icons_style": "none",
+        "icons_shape": "circle",
         "section_width": "page-width",
-        "horizontal_alignment": "flex-start",
-        "gap": 28,
-        "background_color": "{{ settings.color_palette.background }}",
+        "gap": 16,
+        "background_color": "",
         "padding-block-start": 48,
         "padding-block-end": 48
+      }
+    },
+    "custom_products_tabs_VjGWXx": {
+      "type": "custom-products-tabs",
+      "blocks": {
+        "tab_NdgepX": {
+          "type": "tab",
+          "settings": {
+            "collection": "riftbound",
+            "tab_label": "Singles",
+            "product_limit": 6
+          }
+        },
+        "tab_8YKzBr": {
+          "type": "tab",
+          "settings": {
+            "collection": "automated-collection",
+            "tab_label": "SEALED",
+            "product_limit": 6
+          }
+        },
+        "tab_cjcANn": {
+          "type": "tab",
+          "settings": {
+            "collection": "automated-collection",
+            "tab_label": "SUPPLIES",
+            "product_limit": 6
+          }
+        },
+        "tab_NgMieL": {
+          "type": "tab",
+          "settings": {
+            "collection": "automated-collection",
+            "tab_label": "HOT BUY LIST",
+            "product_limit": 6
+          }
+        }
+      },
+      "block_order": [
+        "tab_NdgepX",
+        "tab_8YKzBr",
+        "tab_cjcANn",
+        "tab_NgMieL"
+      ],
+      "name": "Products Tabs",
+      "settings": {
+        "eyebrow": "Fresh off the shelf",
+        "heading": "Trending now",
+        "subheading": "Priced and verified by the crew who actually play these games.",
+        "view_all_label": "View all",
+        "accent_color": "#207fc4",
+        "heading_color": "#1d1a17",
+        "section_width": "page-width",
+        "padding-block-start": 32,
+        "padding-block-end": 32
+      }
+    },
+    "collection_list_93zjHF": {
+      "type": "collection-list",
+      "blocks": {
+        "group_6Xr9Gf": {
+          "type": "group",
+          "name": "t:names.header",
+          "settings": {
+            "content_direction": "column",
+            "vertical_on_mobile": true,
+            "horizontal_alignment": "flex-start",
+            "vertical_alignment": "center",
+            "align_baseline": false,
+            "horizontal_alignment_flex_direction_column": "center",
+            "vertical_alignment_flex_direction_column": "center",
+            "gap": 8,
+            "width": "fill",
+            "custom_width": 100,
+            "width_mobile": "fill",
+            "custom_width_mobile": 100,
+            "height": "fit",
+            "custom_height": 100,
+            "background_media": "none",
+            "background_color": "",
+            "video_position": "cover",
+            "background_image_position": "cover",
+            "toggle_overlay": false,
+            "overlay_color": "#00000026",
+            "overlay_style": "solid",
+            "gradient_direction": "to top",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_color": "",
+            "border_radius": 0,
+            "link": "",
+            "open_in_new_tab": false,
+            "placeholder": "",
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {
+            "text_cePRiQ": {
+              "type": "text",
+              "name": "t:names.text",
+              "settings": {
+                "text": "<p><strong>SHOP BY GAME</strong></p>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "custom",
+                "font": "var(--font-body--family)",
+                "font_size": "0.75rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "text_color": "#207fc4",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "text_QV8ep4": {
+              "type": "text",
+              "name": "t:names.text",
+              "settings": {
+                "text": "<h3>MOST WANTED TCG'S</h3>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "custom",
+                "font": "var(--font-heading--family)",
+                "font_size": "2rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "text_color": "#1d1a17",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "text_aj3Ad3": {
+              "type": "text",
+              "name": "t:names.text",
+              "settings": {
+                "text": "<p>Beyond Magic — here's everything else our shelves are stacked with.</p>",
+                "width": "100%",
+                "max_width": "none",
+                "alignment": "center",
+                "type_preset": "rte",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "text_color": "#5c554c",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "text_cePRiQ",
+            "text_QV8ep4",
+            "text_aj3Ad3"
+          ]
+        },
+        "static-collection-card": {
+          "type": "_collection-card",
+          "name": "t:names.collection_card",
+          "static": true,
+          "settings": {
+            "placement": "on_image",
+            "horizontal_alignment": "center",
+            "vertical_alignment": "flex-end",
+            "collection_card_gap": 8,
+            "background_color": "{{ settings.color_palette.foreground }}",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_color": "",
+            "border_radius": 12
+          },
+          "blocks": {
+            "collection_title_A47Wpe": {
+              "type": "collection-title",
+              "name": "t:names.collection_title",
+              "settings": {
+                "width": "100%",
+                "max_width": "none",
+                "alignment": "center",
+                "type_preset": "custom",
+                "font": "var(--font-heading--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "background": true,
+                "background_color": "{{ settings.color_palette.foreground }}",
+                "text_color": "#f7f1e4",
+                "corner_radius": 0,
+                "padding-block-start": 8,
+                "padding-block-end": 8,
+                "padding-inline-start": 16,
+                "padding-inline-end": 16
+              },
+              "blocks": {}
+            },
+            "collection-card-image": {
+              "type": "_collection-card-image",
+              "name": "t:names.collection_card_image",
+              "static": true,
+              "settings": {
+                "image_ratio": "adapt",
+                "toggle_overlay": false,
+                "overlay_color": "#00000026",
+                "overlay_style": "solid",
+                "gradient_direction": "to top",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_color": "",
+                "border_radius": 0
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "collection_title_A47Wpe"
+          ]
+        }
+      },
+      "block_order": [
+        "group_6Xr9Gf"
+      ],
+      "custom_css": [
+        ".collection-card.collection-card--image-bg .collection-card__content {padding: 0px;}",
+        "slideshow-slides[gutters*=\"end\"] {padding-inline-end: 0;}"
+      ],
+      "name": "t:names.collections_carousel",
+      "settings": {
+        "collection_list": [
+          "one-piece-tcg",
+          "one-piece-tcg-copy",
+          "riftbound",
+          "riftbound-1",
+          "yu-gi-oh"
+        ],
+        "layout_type": "carousel",
+        "carousel_on_mobile": false,
+        "columns": 5,
+        "mobile_columns": "2",
+        "mobile_card_size": "60cqw",
+        "columns_gap": 24,
+        "bento_gap": 8,
+        "rows_gap": 8,
+        "max_collections": 4,
+        "icons_style": "none",
+        "icons_shape": "circle",
+        "section_width": "page-width",
+        "gap": 16,
+        "background_color": "",
+        "padding-block-start": 48,
+        "padding-block-end": 48
+      }
+    },
+    "custom_stats_banner_XzUWxB": {
+      "type": "custom-stats-banner",
+      "blocks": {
+        "stat_peWb6L": {
+          "type": "stat",
+          "settings": {
+            "value": "4.5",
+            "show_star": true,
+            "label": "Average rating on Google"
+          }
+        },
+        "stat_X3nWGL": {
+          "type": "stat",
+          "settings": {
+            "value": "165+",
+            "show_star": false,
+            "label": "Verified customer reviews"
+          }
+        },
+        "stat_9nCUqN": {
+          "type": "stat",
+          "settings": {
+            "value": "98%",
+            "show_star": false,
+            "label": "Would shop with us again"
+          }
+        }
+      },
+      "block_order": [
+        "stat_peWb6L",
+        "stat_X3nWGL",
+        "stat_9nCUqN"
+      ],
+      "name": "Testimonial with stats",
+      "settings": {
+        "background_color": "{{ settings.color_palette.foreground }}",
+        "section_width": "page-width",
+        "padding-block-start": 32,
+        "padding-block-end": 32,
+        "subheading": "What players say",
+        "quote": "You can tell they actually play. Every recommendation just... made sense.",
+        "attribution": "Sarah T., Google Reviews"
+      }
+    },
+    "custom_team_slider_NkUJ67": {
+      "type": "custom-team-slider",
+      "blocks": {
+        "member_LyUA6A": {
+          "type": "member",
+          "settings": {
+            "image": "shopify://shop_images/Photos.png",
+            "heading": "Lindsay Heming",
+            "badge_text": "Level 3 MTG Judge",
+            "description": "Lindsay has been playing Magic since 1995 and has head-judged two Grand Prix events for Wizards of the Coast. If a ruling gets complicated, he's the one everyone calls."
+          }
+        },
+        "member_ppYNaQ": {
+          "type": "member",
+          "settings": {
+            "image": "shopify://shop_images/Photos.png",
+            "heading": "Lindsay Heming 2",
+            "badge_text": "Level 3 MTG Judge",
+            "description": "Lindsay has been playing Magic since 1995 and has head-judged two Grand Prix events for Wizards of the Coast. If a ruling gets complicated, he's the one everyone calls."
+          }
+        }
+      },
+      "block_order": [
+        "member_LyUA6A",
+        "member_ppYNaQ"
+      ],
+      "name": "Meet the team",
+      "settings": {
+        "eyebrow": "Meet the team",
+        "background_color": "#e8f1fb",
+        "accent_color": "#207fc4",
+        "button_border": "#d6edfe",
+        "heading_color": "#1D1A17",
+        "section_width": "page-width",
+        "padding-block-start": 32,
+        "padding-block-end": 32
+      }
+    },
+    "custom_feature_bar_k9NM8b": {
+      "type": "custom-feature-bar",
+      "blocks": {
+        "item_Jp3tWX": {
+          "type": "item",
+          "settings": {
+            "icon": "shopify://shop_images/package_2_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24_1.png",
+            "heading": "Australia's Premier",
+            "subheading": "Magic Singles Site",
+            "link": ""
+          }
+        },
+        "item_UnzWNd": {
+          "type": "item",
+          "settings": {
+            "icon": "shopify://shop_images/package_2_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24_1.png",
+            "heading": "Card Condition Guide",
+            "subheading": "Card Condition Guide",
+            "link": ""
+          }
+        },
+        "item_fNzCAX": {
+          "type": "item",
+          "settings": {
+            "icon": "shopify://shop_images/package_2_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24_1.png",
+            "heading": "Returns & Exchanges",
+            "subheading": "All you need to know",
+            "link": ""
+          }
+        },
+        "item_qk9nmC": {
+          "type": "item",
+          "settings": {
+            "icon": "shopify://shop_images/package_2_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24_1.png",
+            "heading": "Terms & Conditions",
+            "subheading": "Magic Singles Site",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "item_Jp3tWX",
+        "item_UnzWNd",
+        "item_fNzCAX",
+        "item_qk9nmC"
+      ],
+      "name": "Feature bar",
+      "settings": {
+        "background_color": "#a10a0a",
+        "heading_color": "#F7F1E4",
+        "subheading_color": "#f7f1ea",
+        "section_width": "page-width",
+        "padding-block-start": 16,
+        "padding-block-end": 16
       }
     }
   },
   "order": [
-    "product_list_fa6P9H"
+    "custom_hero_carousel_ypMhQ4",
+    "custom_hero_slider_CyxXjd",
+    "custom_icon_columns_kDcKV4",
+    "collection_list_Tp6wpc",
+    "custom_products_tabs_VjGWXx",
+    "collection_list_93zjHF",
+    "custom_stats_banner_XzUWxB",
+    "custom_team_slider_NkUJ67",
+    "custom_feature_bar_k9NM8b"
   ]
 }
