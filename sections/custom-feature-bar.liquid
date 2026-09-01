@@ -13,7 +13,7 @@
 .feature-bar__item-main {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
 }
 
 .feature-bar__item {
@@ -63,9 +63,9 @@
 }
 
 @media screen and (max-width: 749px) {
-  .feature-bar__heading {
+  {% comment %} .feature-bar__heading {
     font-size: 18px;
-  }
+  } {% endcomment %}
   .feature-bar__item{
     min-width: 240px;
   }
