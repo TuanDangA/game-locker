@@ -65,7 +65,7 @@
     position: relative;
   }
 
-  .trending__track {
+  {% comment %} .trending__track {
     display: flex;
     gap: 1.25rem;
     overflow-x: auto;
@@ -73,7 +73,35 @@
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     padding-bottom: 0.5rem;
-  }
+  } {% endcomment %}
+
+  .trending__track {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 220px;
+  grid-template-rows: auto auto auto auto auto; /* image / title / price / selects / cart-row */
+  gap: 1.25rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding-bottom: 0.5rem;
+}
+
+.trending__track::-webkit-scrollbar {
+  display: none;
+}
+
+.trending__card {
+  display: grid;
+  grid-row: span 5;
+  grid-template-rows: subgrid;
+  scroll-snap-align: start;
+  border: 1px solid #e5e5e5;
+  border-radius: 6px;
+  padding: 0.75rem;
+  background: #ffffff;
+}
 
   .trending__track::-webkit-scrollbar {
     display: none;
@@ -98,14 +126,14 @@
   .trending__arrow--prev { left: -8px; }
   .trending__arrow--next { right: -8px; }
 
-  .trending__card {
+  {% comment %} .trending__card {
     flex: 0 0 220px;
     scroll-snap-align: start;
     border: 1px solid #e5e5e5;
     border-radius: 6px;
     padding: 0.75rem;
     background: #ffffff;
-  }
+  } {% endcomment %}
 
   .trending__card-image {
     position: relative;
