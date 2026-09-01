@@ -169,8 +169,13 @@
     background-size: contain;
     vertical-align: middle;
   }
+
+  .tgc-nav__item.has-mega > .tgc-nav__link::after:hover{
+    color: var(--tgc-accent) !important;
+    transform: rotate(180);
+}
     .tgc-nav__item:hover > .tgc-nav__link,
-    .tgc-nav__item.is-open > .tgc-nav__link { color: var(--tgc-accent); }
+    .tgc-nav__item.is-open > .tgc-nav__link { color: var(--tgc-accent) !important; }
 
     .tgc-mega {
       display: none; position: absolute; left: 0; right: 0; top: 100%; background: #ffffff;
