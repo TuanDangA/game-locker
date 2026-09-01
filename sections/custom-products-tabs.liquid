@@ -65,43 +65,26 @@
     position: relative;
   }
 
-  {% comment %} .trending__track {
-    display: flex;
+  /* ---------- TRACK: horizontal-scrolling grid of columns ----------
+     grid-auto-flow: column keeps the same left-to-right scrolling
+     carousel behavior as the old flex layout. grid-template-rows
+     defines 5 shared row tracks: image / title / price / selects /
+     cart-row. Every card below spans all 5 via subgrid, so each row
+     only grows to match its own tallest sibling across the row of
+     cards (title can grow taller for a long product name; price,
+     selects and cart-row stay locked to a consistent height). */
+  .trending__track {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 220px;
+    grid-template-rows: auto auto auto auto auto; /* image / title / price / selects / cart-row */
     gap: 1.25rem;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     padding-bottom: 0.5rem;
-  } {% endcomment %}
-
-  .trending__track {
-  display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: 220px;
-  grid-template-rows: auto auto auto auto auto; /* image / title / price / selects / cart-row */
-  gap: 1.25rem;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
-  padding-bottom: 0.5rem;
-}
-
-.trending__track::-webkit-scrollbar {
-  display: none;
-}
-
-.trending__card {
-  display: grid;
-  grid-row: span 5;
-  grid-template-rows: subgrid;
-  scroll-snap-align: start;
-  border: 1px solid #e5e5e5;
-  border-radius: 6px;
-  padding: 0.75rem;
-  background: #ffffff;
-}
+  }
 
   .trending__track::-webkit-scrollbar {
     display: none;
@@ -126,14 +109,21 @@
   .trending__arrow--prev { left: -8px; }
   .trending__arrow--next { right: -8px; }
 
-  {% comment %} .trending__card {
-    flex: 0 0 220px;
+  /* Each card must have exactly 5 direct children matching the 5
+     grid-template-rows above: .trending__card-image,
+     .trending__card-title-row, .trending__price-row,
+     .trending__selects (wraps BOTH the option select and the
+     location select as one row), .trending__cart-row. */
+  .trending__card {
+    display: grid;
+    grid-row: span 5;
+    grid-template-rows: subgrid;
     scroll-snap-align: start;
     border: 1px solid #e5e5e5;
     border-radius: 6px;
     padding: 0.75rem;
     background: #ffffff;
-  } {% endcomment %}
+  }
 
   .trending__card-image {
     position: relative;
@@ -149,7 +139,7 @@
 
   .trending__card-title-row {
     display: flex;
-    align-items: center;
+    align-items: flex-start; /* keeps titles flush at the top of the row instead of centering when the row grows taller for a neighboring card */
     justify-content: space-between;
     gap: 0.5rem;
     margin-bottom: 8px;
@@ -208,6 +198,14 @@
     color: #2E7D4F;
   }
 
+  /* Wraps every <select> (product options + location select) as
+     ONE grid row, so the number of selects a product happens to
+     have never breaks the 5-row subgrid alignment. */
+  .trending__selects {
+    display: flex;
+    flex-direction: column;
+  }
+
   .trending__select {
     width: 100%;
     padding: 0.5rem 0.6rem;
@@ -264,7 +262,6 @@
   }
 
   .trending__add {
-    {% comment %} flex: 1; {% endcomment %}
     height: 48px;
     width: 60px;
     border: none;
@@ -316,9 +313,6 @@
     .trending__tabs {
       gap: 1.1rem;
     }
-    {% comment %} .trending__card {
-      flex: 0 0 170px;
-    } {% endcomment %}
   }
 </style>
 
@@ -407,123 +401,106 @@
                       {% endif %}
                     </div>
 
-                    {% for option in product.options_with_values %}
-                      <select
-                        class="trending__select"
-                        data-option-name="{{ option.name | escape }}"
-                        data-option-position="{{ forloop.index }}"
-                      >
-                        {% for value in option.values %}
-                          {% case value %}
-                            {% when 'NM' %}
-                              {% assign display_value = 'Near Mint' %}
-                            {% when 'LP' %}
-                              {% assign display_value = 'Lightly Played' %}
-                            {% when 'MP' %}
-                              {% assign display_value = 'Moderately Played' %}
-                            {% when 'HP' %}
-                              {% assign display_value = 'Heavily Played' %}
-                            {% when 'DMG' %}
-                              {% assign display_value = 'Damaged' %}
-                            {% else %}
-                              {% assign display_value = value %}
-                          {% endcase %}
-                          <option
-                            value="{{ value | escape }}"
-                            {% if variant.options[forloop.parentloop.index0] == value %}
-                              selected
-                            {% endif %}
-                          >
-                            {{ display_value }}
-                          </option>
-                        {% endfor %}
-                      </select>
-                    {% endfor %}
+                    <div class="trending__selects">
+                      {% for option in product.options_with_values %}
+                        <select
+                          class="trending__select"
+                          data-option-name="{{ option.name | escape }}"
+                          data-option-position="{{ forloop.index }}"
+                        >
+                          {% for value in option.values %}
+                            {% case value %}
+                              {% when 'NM' %}
+                                {% assign display_value = 'Near Mint' %}
+                              {% when 'LP' %}
+                                {% assign display_value = 'Lightly Played' %}
+                              {% when 'MP' %}
+                                {% assign display_value = 'Moderately Played' %}
+                              {% when 'HP' %}
+                                {% assign display_value = 'Heavily Played' %}
+                              {% when 'DMG' %}
+                                {% assign display_value = 'Damaged' %}
+                              {% else %}
+                                {% assign display_value = value %}
+                            {% endcase %}
+                            <option
+                              value="{{ value | escape }}"
+                              {% if variant.options[forloop.parentloop.index0] == value %}
+                                selected
+                              {% endif %}
+                            >
+                              {{ display_value }}
+                            </option>
+                          {% endfor %}
+                        </select>
+                      {% endfor %}
 
-                    {% comment %}
-                      {% assign location_tags = '' %}
+                      {% comment %}
+                        ==========================================
+                        HARD-CODED STORE LOCATIONS
+
+                        Add all your store locations below.
+
+                        Product tag format:
+                        Location: Melbourne
+                        Location: My Custom Location
+                        Location: Shop location
+                        ==========================================
+                      {% endcomment %}
+
+                      {% assign all_locations = 'Melbourne||My Custom Location||Shop location' | split: '||' %}
+
+                      {% comment %}
+                        Get product location tags
+                      {% endcomment %}
+
+                      {% assign product_location_names = '' %}
+
                       {% for tag in product.tags %}
-                        {% if tag contains 'Location:' %}
-                          {% assign location_tags = location_tags | append: tag | append: '||' %}
+                        {% assign tag_prefix = tag | slice: 0, 9 %}
+
+                        {% if tag_prefix == 'Location:' %}
+                          {% assign location_name = tag | remove_first: 'Location:' | strip %}
+
+                          {% assign product_location_names = product_location_names
+                            | append: location_name
+                            | append: '||'
+                          %}
                         {% endif %}
                       {% endfor %}
 
-                      {% if location_tags != '' %}
-                        <select class="trending__select" data-store-select>
-                          {% assign locations = location_tags | split: '||' %}
-                          {% for loc in locations %}
-                            {% assign clean_name = loc | remove: 'Location:' | strip %}
-                            <option value="{{ clean_name }}">{{ clean_name }}</option>
+                      {% assign product_locations = product_location_names | split: '||' %}
+
+                      <select class="trending__select" data-store-select>
+                        {% for location in all_locations %}
+                          {% assign is_available = false %}
+
+                          {% for product_location in product_locations %}
+                            {% assign clean_product_location = product_location | strip %}
+
+                            {% if clean_product_location == location %}
+                              {% assign is_available = true %}
+                              {% break %}
+                            {% endif %}
                           {% endfor %}
-                        </select>
-                      {% endif %}
-                    {% endcomment %}
 
-                    {% comment %}
-                      ==========================================
-                      HARD-CODED STORE LOCATIONS
+                          <option
+                            value="{{ location | escape }}"
+                            {% if is_available %}
+                              selected
+                            {% else %}
+                              disabled
+                            {% endif %}
+                          >
+                            {{ location }}
 
-                      Add all your store locations below.
-
-                      Product tag format:
-                      Location: Melbourne
-                      Location: My Custom Location
-                      Location: Shop location
-                      ==========================================
-                    {% endcomment %}
-
-                    {% assign all_locations = 'Melbourne||My Custom Location||Shop location' | split: '||' %}
-
-                    {% comment %}
-                      Get product location tags
-                    {% endcomment %}
-
-                    {% assign product_location_names = '' %}
-
-                    {% for tag in product.tags %}
-                      {% assign tag_prefix = tag | slice: 0, 9 %}
-
-                      {% if tag_prefix == 'Location:' %}
-                        {% assign location_name = tag | remove_first: 'Location:' | strip %}
-
-                        {% assign product_location_names = product_location_names
-                          | append: location_name
-                          | append: '||'
-                        %}
-                      {% endif %}
-                    {% endfor %}
-
-                    {% assign product_locations = product_location_names | split: '||' %}
-
-                    <select class="trending__select" data-store-select>
-                      {% for location in all_locations %}
-                        {% assign is_available = false %}
-
-                        {% for product_location in product_locations %}
-                          {% assign clean_product_location = product_location | strip %}
-
-                          {% if clean_product_location == location %}
-                            {% assign is_available = true %}
-                            {% break %}
-                          {% endif %}
+                            {% unless is_available %}
+                              (Unavailable)
+                            {% endunless %}
+                          </option>
                         {% endfor %}
-
-                        <option
-                          value="{{ location | escape }}"
-                          {% if is_available %}
-                            selected
-                          {% else %}
-                            disabled
-                          {% endif %}
-                        >
-                          {{ location }}
-
-                          {% unless is_available %}
-                            (Unavailable)
-                          {% endunless %}
-                        </option>
-                      {% endfor %}
-                    </select>
+                      </select>
+                    </div>
 
                     <div class="trending__cart-row">
                       <div class="trending__qty">
