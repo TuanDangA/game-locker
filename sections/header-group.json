@@ -81,6 +81,7 @@
           "blocks": {}
         }
       },
+      "disabled": true,
       "settings": {
         "logo_position": "left",
         "menu_position": "left",
@@ -125,10 +126,56 @@
         "collection_inverse_logo": false,
         "text_color_transparent_collection": ""
       }
+    },
+    "custom_header_k3BA7T": {
+      "type": "custom-header",
+      "blocks": {
+        "mega_image_Wf6NTb": {
+          "type": "mega_image",
+          "settings": {
+            "parent_label": "abc",
+            "image_1": "shopify://shop_images/Media.png",
+            "title_1": "",
+            "link_1": "",
+            "image_2": "shopify://shop_images/Media_1.png",
+            "title_2": "",
+            "link_2": ""
+          }
+        },
+        "search_scope_cALrA4": {
+          "type": "search_scope",
+          "settings": {
+            "label": "Buy List",
+            "filter_type": "",
+            "redirect_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "mega_image_Wf6NTb",
+        "search_scope_cALrA4"
+      ],
+      "name": "Custom Header",
+      "settings": {
+        "main_menu": "main-menu",
+        "logo": "shopify://shop_images/Logo_1.png",
+        "logo_width": 120,
+        "search_placeholder": "Search store",
+        "cta_button_text": "Buylist",
+        "cta_button_link": "",
+        "show_currency_selector": true,
+        "show_language_selector": false,
+        "color_top_bg": "#b91c1c",
+        "color_top_text": "#ffffff",
+        "color_nav_bg": "#161616",
+        "color_nav_text": "#ffffff",
+        "color_accent": "#2d7dd2"
+      }
     }
   },
   "order": [
     "header_announcements_9jGBFp",
-    "header_section"
+    "header_section",
+    "custom_header_k3BA7T"
   ]
 }
