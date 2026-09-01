@@ -1,303 +1,304 @@
-
 <style>
-.trending {
-  text-align: center;
-}
+  .trending {
+    text-align: center;
+  }
 
-.trending__eyebrow {
-  margin: 0 0 0.4rem;
-  font-size: 12px;
-  font-weight: 600;
-  text-transform: uppercase;
-  color: {{ section.settings.accent_color | default: '#2f6fed' }};
-}
+  .trending__eyebrow {
+    margin: 0 0 0.4rem;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: {{ section.settings.accent_color | default: '#2f6fed' }};
+  }
 
-.trending__heading {
-  margin: 0 0 0.5rem;
-  font-size: 32px;
-  font-weight: 600;
-  color: {{ section.settings.heading_color | default: '#141414' }};
-}
+  .trending__heading {
+    margin: 0 0 0.5rem;
+    font-size: 32px;
+    font-weight: 600;
+    color: {{ section.settings.heading_color | default: '#141414' }};
+  }
 
-.trending__subheading {
-  margin: 0 0 1.5rem;
-  font-size: 14px;
-  color: #5C554C;
-}
+  .trending__subheading {
+    margin: 0 0 1.5rem;
+    font-size: 14px;
+    color: #5C554C;
+  }
 
-.trending__tabs {
-  display: flex;
-  justify-content: center;
-  gap: 2rem;
-  border-bottom: 1px solid #e5e5e5;
-  margin-bottom: 2rem;
-  flex-wrap: wrap;
-}
+  .trending__tabs {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    border-bottom: 1px solid #e5e5e5;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+  }
 
-.trending__tab {
-  background: none;
-  border: none;
-  border-bottom: 2px solid transparent;
-  padding: 0.6rem 0.1rem;
-  font-size: 14px;
-  font-weight: 400;
-  text-transform: uppercase;
-  color: #8C8377;
-  font-family: var(--font-h3--family) !important;
-  cursor: pointer;
-}
+  .trending__tab {
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    padding: 0.6rem 0.1rem;
+    font-size: 14px;
+    font-weight: 400;
+    text-transform: uppercase;
+    color: #8C8377;
+    font-family: var(--font-h3--family) !important;
+    cursor: pointer;
+  }
 
-.trending__tab.is-active {
-  color: #1D1A17;
-  border-bottom-color: {{ section.settings.accent_color | default: '#2f6fed' }};
-}
+  .trending__tab.is-active {
+    color: #1D1A17;
+    border-bottom-color: {{ section.settings.accent_color | default: '#2f6fed' }};
+  }
 
-.trending__panel {
-  display: none;
-  position: relative;
-  text-align: left;
-}
+  .trending__panel {
+    display: none;
+    position: relative;
+    text-align: left;
+  }
 
-.trending__panel.is-active {
-  display: block;
-}
+  .trending__panel.is-active {
+    display: block;
+  }
 
-.trending__track-wrap {
-  position: relative;
-}
+  .trending__track-wrap {
+    position: relative;
+  }
 
-.trending__track {
-  display: flex;
-  gap: 1.25rem;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
-  padding-bottom: 0.5rem;
-}
+  .trending__track {
+    display: flex;
+    gap: 1.25rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 0.5rem;
+  }
 
-.trending__track::-webkit-scrollbar {
-  display: none;
-}
+  .trending__track::-webkit-scrollbar {
+    display: none;
+  }
 
-.trending__arrow {
-  position: absolute;
-  top: 40%;
-  transform: translateY(-50%);
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  border: 1px solid #e0e0e0;
-  background: #ffffff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  z-index: 2;
-}
+  .trending__arrow {
+    position: absolute;
+    top: 40%;
+    transform: translateY(-50%);
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: 1px solid #e0e0e0;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 2;
+  }
 
-.trending__arrow--prev { left: -8px; }
-.trending__arrow--next { right: -8px; }
+  .trending__arrow--prev { left: -8px; }
+  .trending__arrow--next { right: -8px; }
 
-.trending__card {
-  flex: 0 0 220px;
-  scroll-snap-align: start;
-  border: 1px solid #e5e5e5;
-  border-radius: 6px;
-  padding: 0.75rem;
-  background: #ffffff;
-}
+  .trending__card {
+    flex: 0 0 220px;
+    scroll-snap-align: start;
+    border: 1px solid #e5e5e5;
+    border-radius: 6px;
+    padding: 0.75rem;
+    background: #ffffff;
+  }
 
-.trending__card-image {
-  position: relative;
-  margin-bottom: 0.75rem;
-}
+  .trending__card-image {
+    position: relative;
+    margin-bottom: 0.75rem;
+  }
 
-.trending__card-image img {
-  display: block;
-  width: 100%;
-  height: auto;
-  border-radius: 4px;
-}
+  .trending__card-image img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+  }
 
-.trending__card-title-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.5rem;
-  margin-bottom: 8px;
-}
+  .trending__card-title-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-bottom: 8px;
+  }
 
-.trending__card-title {
-  margin: 0;
-  font-size: 20px;
-  font-weight: 500;
-  color: #1D1A17;
-  font-family: var(--font-h3--family) !important;
-}
+  .trending__card-title {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 500;
+    color: #1D1A17;
+    font-family: var(--font-h3--family) !important;
+  }
 
-.trending__badge {
-    flex-shrink: 0;
+  .trending__badge {
+      flex-shrink: 0;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 12px 4px 8px;
+      border-radius: 999px;
+      background: #e6edfb;
+      color: #6d8591;
+      background: linear-gradient(
+  90deg, #EAF4FC 50%, #C7E0F4 100%, #8FB8DC 100%);
+      border-radius: 1000px;
+      box-sizing: border-box;
+      border: 1px solid #D6EDFE;
+  }
+
+  .trending__price-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 4px;
+  }
+
+  .trending__price {
+    font-size: 15px;
+    font-weight: 700;
+    color: #3c8fcb;
+  }
+
+  .trending__stock {
     font-size: 11px;
     font-weight: 700;
-    padding: 4px 12px 4px 8px;
-    border-radius: 999px;
-    background: #e6edfb;
-    color: #6d8591;
-    background: linear-gradient(
-90deg, #EAF4FC 50%, #C7E0F4 100%, #8FB8DC 100%);
-    border-radius: 1000px;
-    box-sizing: border-box;
-    border: 1px solid #D6EDFE;
-}
-
-.trending__price-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 4px;
-}
-
-.trending__price {
-  font-size: 15px;
-  font-weight: 700;
-  color: #3c8fcb;
-}
-
-.trending__stock {
-  font-size: 11px;
-  font-weight: 700;
-  padding: 0.15rem 0.5rem;
-  border-radius: 4px;
-}
-
-.trending__stock--low {
-  background: #FCE6D6;
-  color: #C25A1E;
-}
-
-.trending__stock--ok {
-  background: #E3F3E9;
-  color: #2E7D4F;
-}
-
-.trending__select {
-  width: 100%;
-  padding: 0.5rem 0.6rem;
-  border: 1px solid #C0DFF6;
-  border-radius: 4px;
-  font-size: 15px;
-  margin-bottom: 0.5rem;
-  background: #fff;
-  height: 48px;
-}
-
-.trending__select {
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6 7.4L0 1.4L1.4 0L6 4.6L10.6 0L12 1.4L6 7.4Z' fill='%235C554C'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 12px center;
-  background-size: 12px 8px;
-  padding-right: 30px;
-}
-
-.trending__cart-row {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.trending__qty {
-  display: flex;
-  align-items: center;
-  border: 1px solid #C0DFF6;
-  border-radius: 4px;
-  width: -webkit-fill-available;
-  justify-content: space-evenly;
-  height: 48px;
-}
-
-.trending__qty button {
-  width: 30px;
-  height: 34px;
-  border: none;
-  background: none;
-  cursor: pointer;
-  font-size: 24px;
-}
-
-.trending__qty input {
-  width: 32px;
-  border: none;
-  text-align: center;
-  font-size: 15px;
-  font-weight: 400;
-}
-
-.trending__add {
-  {% comment %} flex: 1; {% endcomment %}
-  height: 48px;
-  width: 60px;
-  border: none;
-  border-radius: 4px;
-  background: #1D1A17;
-  color: #fff;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.trending__add svg {
-  width: 24px;
-  height: 24px;
-}
-
-.trending__add.is-loading {
-  opacity: 0.6;
-  pointer-events: none;
-}
-
-.trending__view-all {
-  display: none;
-  text-align: center;
-  margin-top: 2rem;
-}
-
-.trending__view-all.is-active {
-  display: block;
-}
-
-.trending__view-all a {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 0.6rem 1.4rem;
-  border: 1px solid #1D1A17;
-  border-radius: 4px;
-  font-size: 14px;
-  font-weight: 600;
-  text-transform: uppercase;
-  text-decoration: none;
-  color: #1D1A17;
-  font-family: var(--font-h3--family)  !important;
-}
-
-@media screen and (max-width: 749px) {
-  .trending__tabs {
-    gap: 1.1rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
   }
-  {% comment %} .trending__card {
-    flex: 0 0 170px;
-  } {% endcomment %}
-}
+
+  .trending__stock--low {
+    background: #FCE6D6;
+    color: #C25A1E;
+  }
+
+  .trending__stock--ok {
+    background: #E3F3E9;
+    color: #2E7D4F;
+  }
+
+  .trending__select {
+    width: 100%;
+    padding: 0.5rem 0.6rem;
+    border: 1px solid #C0DFF6;
+    border-radius: 4px;
+    font-size: 15px;
+    margin-bottom: 0.5rem;
+    background: #fff;
+    height: 48px;
+  }
+
+  .trending__select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6 7.4L0 1.4L1.4 0L6 4.6L10.6 0L12 1.4L6 7.4Z' fill='%235C554C'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 12px 8px;
+    padding-right: 30px;
+  }
+
+  .trending__cart-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .trending__qty {
+    display: flex;
+    align-items: center;
+    border: 1px solid #C0DFF6;
+    border-radius: 4px;
+    width: -webkit-fill-available;
+    justify-content: space-evenly;
+    height: 48px;
+  }
+
+  .trending__qty button {
+    width: 30px;
+    height: 34px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 24px;
+  }
+
+  .trending__qty input {
+    width: 32px;
+    border: none;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 400;
+  }
+
+  .trending__add {
+    {% comment %} flex: 1; {% endcomment %}
+    height: 48px;
+    width: 60px;
+    border: none;
+    border-radius: 4px;
+    background: #1D1A17;
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .trending__add svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .trending__add.is-loading {
+    opacity: 0.6;
+    pointer-events: none;
+  }
+
+  .trending__view-all {
+    display: none;
+    text-align: center;
+    margin-top: 2rem;
+  }
+
+  .trending__view-all.is-active {
+    display: block;
+  }
+
+  .trending__view-all a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0.6rem 1.4rem;
+    border: 1px solid #1D1A17;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: #1D1A17;
+    font-family: var(--font-h3--family)  !important;
+  }
+
+  @media screen and (max-width: 749px) {
+    .trending__tabs {
+      gap: 1.1rem;
+    }
+    {% comment %} .trending__card {
+      flex: 0 0 170px;
+    } {% endcomment %}
+  }
 </style>
 
-<div class="section section--{{ section.settings.section_width }} spacing-style" style="{% render 'spacing-padding', settings: section.settings %}">
+<div
+  class="section section--{{ section.settings.section_width }} spacing-style"
+  style="{% render 'spacing-padding', settings: section.settings %}"
+>
   <div class="trending" id="trending-{{ section.id }}">
-
     {% if section.settings.eyebrow != blank %}
       <p class="trending__eyebrow">{{ section.settings.eyebrow }}</p>
     {% endif %}
@@ -312,7 +313,11 @@
       <div class="trending__tabs" role="tablist">
         {% for block in section.blocks %}
           {% if block.type == 'tab' %}
-            <button type="button" class="trending__tab{% if forloop.first %} is-active{% endif %}" data-tab-index="{{ forloop.index0 }}">
+            <button
+              type="button"
+              class="trending__tab{% if forloop.first %} is-active{% endif %}"
+              data-tab-index="{{ forloop.index0 }}"
+            >
               {{ block.settings.tab_label | default: block.settings.collection.title }}
             </button>
           {% endif %}
@@ -322,13 +327,21 @@
 
     {% for block in section.blocks %}
       {% if block.type == 'tab' %}
-        <div class="trending__panel{% if forloop.first %} is-active{% endif %}" data-panel-index="{{ forloop.index0 }}" {{ block.shopify_attributes }}>
+        <div
+          class="trending__panel{% if forloop.first %} is-active{% endif %}"
+          data-panel-index="{{ forloop.index0 }}"
+          {{ block.shopify_attributes }}
+        >
           <div class="trending__track-wrap">
             <button type="button" class="trending__arrow trending__arrow--prev" aria-label="Previous products">
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M15 18l-6-6 6-6"/>
+              </svg>
             </button>
             <button type="button" class="trending__arrow trending__arrow--next" aria-label="Next products">
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 18l6-6-6-6"/>
+              </svg>
             </button>
 
             <div class="trending__track">
@@ -338,7 +351,11 @@
                   <div class="trending__card" data-product-id="{{ product.id }}">
                     <div class="trending__card-image">
                       {% if product.featured_image %}
-                        <img src="{{ product.featured_image | image_url: width: 400 }}" alt="{{ product.title | escape }}" loading="lazy">
+                        <img
+                          src="{{ product.featured_image | image_url: width: 400 }}"
+                          alt="{{ product.title | escape }}"
+                          loading="lazy"
+                        >
                       {% endif %}
                     </div>
 
@@ -353,7 +370,9 @@
                       <span class="trending__price">{{ variant.price | money }}</span>
                       {% if variant.inventory_management != blank %}
                         {% if variant.inventory_quantity <= 10 and variant.inventory_quantity > 0 %}
-                          <span class="trending__stock trending__stock--low">{{ variant.inventory_quantity }} left</span>
+                          <span class="trending__stock trending__stock--low">
+                            {{- variant.inventory_quantity }} left</span
+                          >
                         {% elsif variant.inventory_quantity > 10 %}
                           <span class="trending__stock trending__stock--ok">{{ variant.inventory_quantity }} left</span>
                         {% endif %}
@@ -361,7 +380,11 @@
                     </div>
 
                     {% for option in product.options_with_values %}
-                      <select class="trending__select" data-option-name="{{ option.name | escape }}" data-option-position="{{ forloop.index }}">
+                      <select
+                        class="trending__select"
+                        data-option-name="{{ option.name | escape }}"
+                        data-option-position="{{ forloop.index }}"
+                      >
                         {% for value in option.values %}
                           {% case value %}
                             {% when 'NM' %}
@@ -377,27 +400,73 @@
                             {% else %}
                               {% assign display_value = value %}
                           {% endcase %}
-                          <option value="{{ value | escape }}" {% if variant.options[forloop.parentloop.index0] == value %}selected{% endif %}>{{ display_value }}</option>
+                          <option
+                            value="{{ value | escape }}"
+                            {% if variant.options[forloop.parentloop.index0] == value %}
+                              selected
+                            {% endif %}
+                          >
+                            {{ display_value }}
+                          </option>
                         {% endfor %}
                       </select>
                     {% endfor %}
 
-                    {% assign location_tags = '' %}
+                    {% comment %}
+                      {% assign location_tags = '' %}
+                      {% for tag in product.tags %}
+                        {% if tag contains 'Location:' %}
+                          {% assign location_tags = location_tags | append: tag | append: '||' %}
+                        {% endif %}
+                      {% endfor %}
+
+                      {% if location_tags != '' %}
+                        <select class="trending__select" data-store-select>
+                          {% assign locations = location_tags | split: '||' %}
+                          {% for loc in locations %}
+                            {% assign clean_name = loc | remove: 'Location:' | strip %}
+                            <option value="{{ clean_name }}">{{ clean_name }}</option>
+                          {% endfor %}
+                        </select>
+                      {% endif %}
+                    {% endcomment %}
+
+                    {% comment %} 1. Pull the location names off this product's tags {% endcomment %}
+                    {% assign product_locations = '' %}
                     {% for tag in product.tags %}
                       {% if tag contains 'Location:' %}
-                        {% assign location_tags = location_tags | append: tag | append: '||' %}
+                        {% assign loc_name = tag | remove: 'Location:' | strip %}
+                        {% assign product_locations = product_locations | append: loc_name | append: '||' %}
                       {% endif %}
                     {% endfor %}
+                    {% assign product_location_list = product_locations | split: '||' %}
 
-                    {% if location_tags != '' %}
-                      <select class="trending__select" data-store-select>
-                        {% assign locations = location_tags | split: '||' %}
-                        {% for loc in locations %}
-                          {% assign clean_name = loc | remove: 'Location:' | strip %}
-                          <option value="{{ clean_name }}">{{ clean_name }}</option>
+                    {% comment %} 2. Loop your store's locations, enable only the matching one(s) {% endcomment %}
+                    <div class="location-selector">
+                      {% for location in shop.locations %}
+                        {% assign is_available = false %}
+                        {% for loc in product_location_list %}
+                          {% if loc != blank and location.name == loc %}
+                            {% assign is_available = true %}
+                          {% endif %}
                         {% endfor %}
-                      </select>
-                    {% endif %}
+
+                        <label class="location-option {% unless is_available %}is-disabled{% endunless %}">
+                          <input
+                            type="radio"
+                            name="pickup_location"
+                            value="{{ location.id }}"
+                            {% unless is_available %}
+                              disabled
+                            {% endunless %}
+                            {% if is_available %}
+                              checked
+                            {% endif %}
+                          >
+                          {{ location.name }}
+                        </label>
+                      {% endfor %}
+                    </div>
 
                     <div class="trending__cart-row">
                       <div class="trending__qty">
@@ -405,11 +474,17 @@
                         <input type="number" value="1" min="1" data-qty-input>
                         <button type="button" data-qty-plus>+</button>
                       </div>
-                      <button type="button" class="trending__add" data-variant-id="{{ variant.id }}" data-add-to-cart aria-label="Add to cart">
+                      <button
+                        type="button"
+                        class="trending__add"
+                        data-variant-id="{{ variant.id }}"
+                        data-add-to-cart
+                        aria-label="Add to cart"
+                      >
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M11 9V6H8V4H11V1H13V4H16V6H13V9H11ZM5.5875 21.4125C5.19583 21.0208 5 20.55 5 20C5 19.45 5.19583 18.9792 5.5875 18.5875C5.97917 18.1958 6.45 18 7 18C7.55 18 8.02083 18.1958 8.4125 18.5875C8.80417 18.9792 9 19.45 9 20C9 20.55 8.80417 21.0208 8.4125 21.4125C8.02083 21.8042 7.55 22 7 22C6.45 22 5.97917 21.8042 5.5875 21.4125ZM15.5875 21.4125C15.1958 21.0208 15 20.55 15 20C15 19.45 15.1958 18.9792 15.5875 18.5875C15.9792 18.1958 16.45 18 17 18C17.55 18 18.0208 18.1958 18.4125 18.5875C18.8042 18.9792 19 19.45 19 20C19 20.55 18.8042 21.0208 18.4125 21.4125C18.0208 21.8042 17.55 22 17 22C16.45 22 15.9792 21.8042 15.5875 21.4125ZM1 4V2H4.275L8.525 11H15.525L19.425 4H21.7L17.3 11.95C17.1167 12.2833 16.8708 12.5417 16.5625 12.725C16.2542 12.9083 15.9167 13 15.55 13H8.1L7 15H19V17H7C6.25 17 5.67917 16.675 5.2875 16.025C4.89583 15.375 4.88333 14.7167 5.25 14.05L6.6 11.6L3 4H1Z" fill="#E3E3E3"/>
-</svg>
-</button>
+                          <path d="M11 9V6H8V4H11V1H13V4H16V6H13V9H11ZM5.5875 21.4125C5.19583 21.0208 5 20.55 5 20C5 19.45 5.19583 18.9792 5.5875 18.5875C5.97917 18.1958 6.45 18 7 18C7.55 18 8.02083 18.1958 8.4125 18.5875C8.80417 18.9792 9 19.45 9 20C9 20.55 8.80417 21.0208 8.4125 21.4125C8.02083 21.8042 7.55 22 7 22C6.45 22 5.97917 21.8042 5.5875 21.4125ZM15.5875 21.4125C15.1958 21.0208 15 20.55 15 20C15 19.45 15.1958 18.9792 15.5875 18.5875C15.9792 18.1958 16.45 18 17 18C17.55 18 18.0208 18.1958 18.4125 18.5875C18.8042 18.9792 19 19.45 19 20C19 20.55 18.8042 21.0208 18.4125 21.4125C18.0208 21.8042 17.55 22 17 22C16.45 22 15.9792 21.8042 15.5875 21.4125ZM1 4V2H4.275L8.525 11H15.525L19.425 4H21.7L17.3 11.95C17.1167 12.2833 16.8708 12.5417 16.5625 12.725C16.2542 12.9083 15.9167 13 15.55 13H8.1L7 15H19V17H7C6.25 17 5.67917 16.675 5.2875 16.025C4.89583 15.375 4.88333 14.7167 5.25 14.05L6.6 11.6L3 4H1Z" fill="#E3E3E3"/>
+                        </svg>
+                      </button>
                     </div>
 
                     <script type="application/json" data-variants-json>
@@ -432,136 +507,155 @@
           </div>
 
           {% if block.settings.collection != blank %}
-            <div class="trending__view-all{% if forloop.first %} is-active{% endif %}" data-view-all-index="{{ forloop.index0 }}">
+            <div
+              class="trending__view-all{% if forloop.first %} is-active{% endif %}"
+              data-view-all-index="{{ forloop.index0 }}"
+            >
               <a href="{{ block.settings.collection.url }}">
                 {{ section.settings.view_all_label | default: 'View all' }}
-                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M5 12h14M13 6l6 6-6 6"/>
+                </svg>
               </a>
             </div>
           {% endif %}
         </div>
       {% endif %}
     {% endfor %}
-
   </div>
 </div>
 
 <script>
-document.addEventListener('DOMContentLoaded', function () {
-  var root = document.getElementById('trending-{{ section.id }}');
-  if (!root) return;
+  document.addEventListener('DOMContentLoaded', function () {
+    var root = document.getElementById('trending-{{ section.id }}');
+    if (!root) return;
 
-  /* --- Tabs --- */
-  var tabs = root.querySelectorAll('.trending__tab');
-  var panels = root.querySelectorAll('.trending__panel');
-  var viewAlls = root.querySelectorAll('.trending__view-all');
+    /* --- Tabs --- */
+    var tabs = root.querySelectorAll('.trending__tab');
+    var panels = root.querySelectorAll('.trending__panel');
+    var viewAlls = root.querySelectorAll('.trending__view-all');
 
-  tabs.forEach(function (tab) {
-    tab.addEventListener('click', function () {
-      var index = tab.dataset.tabIndex;
+    tabs.forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        var index = tab.dataset.tabIndex;
 
-      tabs.forEach(function (t) { t.classList.toggle('is-active', t === tab); });
-      panels.forEach(function (p) { p.classList.toggle('is-active', p.dataset.panelIndex === index); });
-      viewAlls.forEach(function (v) { v.classList.toggle('is-active', v.dataset.viewAllIndex === index); });
-    });
-  });
-
-  /* --- Arrow scroll --- */
-  root.querySelectorAll('.trending__track-wrap').forEach(function (wrap) {
-    var track = wrap.querySelector('.trending__track');
-    var prev = wrap.querySelector('.trending__arrow--prev');
-    var next = wrap.querySelector('.trending__arrow--next');
-    var scrollAmount = 240;
-
-    if (prev) prev.addEventListener('click', function () { track.scrollBy({ left: -scrollAmount, behavior: 'smooth' }); });
-    if (next) next.addEventListener('click', function () { track.scrollBy({ left: scrollAmount, behavior: 'smooth' }); });
-  });
-
-  /* --- Per-card logic: variant matching, qty stepper, add to cart --- */
-  root.querySelectorAll('.trending__card').forEach(function (card) {
-    var variantsJson = card.querySelector('[data-variants-json]');
-    var variants = variantsJson ? JSON.parse(variantsJson.textContent) : [];
-    var optionSelects = card.querySelectorAll('.trending__select[data-option-position]');
-    var addBtn = card.querySelector('[data-add-to-cart]');
-    var priceEl = card.querySelector('.trending__price');
-    var qtyInput = card.querySelector('[data-qty-input]');
-
-    function findMatchingVariant() {
-      var chosenOptions = [];
-      optionSelects.forEach(function (select) {
-        var position = parseInt(select.dataset.optionPosition, 10) - 1;
-        chosenOptions[position] = select.value;
-      });
-
-      return variants.find(function (v) {
-        return chosenOptions.every(function (val, i) {
-          return v.options[i] === val;
+        tabs.forEach(function (t) {
+          t.classList.toggle('is-active', t === tab);
+        });
+        panels.forEach(function (p) {
+          p.classList.toggle('is-active', p.dataset.panelIndex === index);
+        });
+        viewAlls.forEach(function (v) {
+          v.classList.toggle('is-active', v.dataset.viewAllIndex === index);
         });
       });
-    }
-
-    function updateForVariant(variant) {
-      if (!variant) return;
-      addBtn.dataset.variantId = variant.id;
-      if (priceEl) {
-        priceEl.textContent = Shopify && Shopify.formatMoney
-          ? Shopify.formatMoney(variant.price, '{{ shop.money_format }}')
-          : '$' + (variant.price / 100).toFixed(2);
-      }
-      addBtn.disabled = !variant.available;
-    }
-
-    optionSelects.forEach(function (select) {
-      select.addEventListener('change', function () {
-        var match = findMatchingVariant();
-        updateForVariant(match);
-      });
     });
 
-    /* Quantity stepper */
-    var minusBtn = card.querySelector('[data-qty-minus]');
-    var plusBtn = card.querySelector('[data-qty-plus]');
+    /* --- Arrow scroll --- */
+    root.querySelectorAll('.trending__track-wrap').forEach(function (wrap) {
+      var track = wrap.querySelector('.trending__track');
+      var prev = wrap.querySelector('.trending__arrow--prev');
+      var next = wrap.querySelector('.trending__arrow--next');
+      var scrollAmount = 240;
 
-    if (minusBtn) {
-      minusBtn.addEventListener('click', function () {
-        var val = Math.max(1, parseInt(qtyInput.value, 10) - 1);
-        qtyInput.value = val;
-      });
-    }
-    if (plusBtn) {
-      plusBtn.addEventListener('click', function () {
-        var val = parseInt(qtyInput.value, 10) + 1;
-        qtyInput.value = val;
-      });
-    }
+      if (prev)
+        prev.addEventListener('click', function () {
+          track.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+        });
+      if (next)
+        next.addEventListener('click', function () {
+          track.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        });
+    });
 
-    /* Add to cart (AJAX) */
-    if (addBtn) {
-      addBtn.addEventListener('click', function () {
-        var variantId = addBtn.dataset.variantId;
-        var qty = qtyInput ? parseInt(qtyInput.value, 10) : 1;
+    /* --- Per-card logic: variant matching, qty stepper, add to cart --- */
+    root.querySelectorAll('.trending__card').forEach(function (card) {
+      var variantsJson = card.querySelector('[data-variants-json]');
+      var variants = variantsJson ? JSON.parse(variantsJson.textContent) : [];
+      var optionSelects = card.querySelectorAll('.trending__select[data-option-position]');
+      var addBtn = card.querySelector('[data-add-to-cart]');
+      var priceEl = card.querySelector('.trending__price');
+      var qtyInput = card.querySelector('[data-qty-input]');
 
-        addBtn.classList.add('is-loading');
+      function findMatchingVariant() {
+        var chosenOptions = [];
+        optionSelects.forEach(function (select) {
+          var position = parseInt(select.dataset.optionPosition, 10) - 1;
+          chosenOptions[position] = select.value;
+        });
 
-        fetch('/cart/add.js', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ id: variantId, quantity: qty })
-        })
-          .then(function (res) { return res.json(); })
-          .then(function () {
-            document.dispatchEvent(new CustomEvent('cart:updated'));
-          })
-          .catch(function (err) {
-            console.error('Add to cart failed:', err);
-          })
-          .finally(function () {
-            addBtn.classList.remove('is-loading');
+        return variants.find(function (v) {
+          return chosenOptions.every(function (val, i) {
+            return v.options[i] === val;
           });
+        });
+      }
+
+      function updateForVariant(variant) {
+        if (!variant) return;
+        addBtn.dataset.variantId = variant.id;
+        if (priceEl) {
+          priceEl.textContent =
+            Shopify && Shopify.formatMoney
+              ? Shopify.formatMoney(variant.price, '{{ shop.money_format }}')
+              : '$' + (variant.price / 100).toFixed(2);
+        }
+        addBtn.disabled = !variant.available;
+      }
+
+      optionSelects.forEach(function (select) {
+        select.addEventListener('change', function () {
+          var match = findMatchingVariant();
+          updateForVariant(match);
+        });
       });
-    }
+
+      /* Quantity stepper */
+      var minusBtn = card.querySelector('[data-qty-minus]');
+      var plusBtn = card.querySelector('[data-qty-plus]');
+
+      if (minusBtn) {
+        minusBtn.addEventListener('click', function () {
+          var val = Math.max(1, parseInt(qtyInput.value, 10) - 1);
+          qtyInput.value = val;
+        });
+      }
+      if (plusBtn) {
+        plusBtn.addEventListener('click', function () {
+          var val = parseInt(qtyInput.value, 10) + 1;
+          qtyInput.value = val;
+        });
+      }
+
+      /* Add to cart (AJAX) */
+      if (addBtn) {
+        addBtn.addEventListener('click', function () {
+          var variantId = addBtn.dataset.variantId;
+          var qty = qtyInput ? parseInt(qtyInput.value, 10) : 1;
+
+          addBtn.classList.add('is-loading');
+
+          fetch('/cart/add.js', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ id: variantId, quantity: qty }),
+          })
+            .then(function (res) {
+              return res.json();
+            })
+            .then(function () {
+              document.dispatchEvent(new CustomEvent('cart:updated'));
+            })
+            .catch(function (err) {
+              console.error('Add to cart failed:', err);
+            })
+            .finally(function () {
+              addBtn.classList.remove('is-loading');
+            });
+        });
+      }
+    });
   });
-});
 </script>
 
 {% schema %}
@@ -672,9 +766,7 @@ document.addEventListener('DOMContentLoaded', function () {
   "presets": [
     {
       "name": "Trending products",
-      "blocks": [
-        { "type": "tab" }
-      ]
+      "blocks": [{ "type": "tab" }]
     }
   ]
 }
