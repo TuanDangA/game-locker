@@ -97,12 +97,15 @@
   border-radius: 50%;
   border: none;
   background: #ffffff;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  {% comment %} box-shadow: 0 2px 8px rgba(0,0,0,0.12); {% endcomment %}
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   color: #141414;
+  box-shadow:
+    0 8px 4px 0 rgba(29, 26, 23, 0.12),
+    0 1px 4px 0 rgba(29, 26, 23, 0.04);
 }
 
 .team-slider__arrow:hover {
