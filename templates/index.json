@@ -705,7 +705,7 @@
         "stat_peWb6L": {
           "type": "stat",
           "settings": {
-            "value": "4.5",
+            "value": "4.5 ⭐",
             "show_star": true,
             "label": "Average rating on Google"
           }
