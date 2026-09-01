@@ -399,37 +399,48 @@
                       </select>
                     {% endif %}
 
-                    
-                    {% assign location_tags = '' %}
+                    {% assign product_location_names = '' %}
+
 {% for tag in product.tags %}
   {% if tag contains 'Location:' %}
-    {% assign location_tags = location_tags | append: tag | append: '||' %}
+    {% assign location_name = tag | remove: 'Location:' | strip %}
+    {% assign product_location_names = product_location_names | append: location_name | append: '||' %}
   {% endif %}
 {% endfor %}
 
-{% if location_tags != '' %}
-  {% assign product_locations = location_tags | split: '||' %}
-  {% assign clean_product_locations = '' %}
-  {% for loc in product_locations %}
-    {% assign clean_name = loc | remove: 'Location:' | strip %}
-    {% assign clean_product_locations = clean_product_locations | append: clean_name | append: '||' %}
-  {% endfor %}
-  {% assign clean_product_location_list = clean_product_locations | split: '||' %}
+{% assign product_locations = product_location_names | split: '||' %}
 
-  <select class="trending__select" data-store-select>
-    {% for location in shop.locations %}
-      {% assign is_available = false %}
-      {% for loc in clean_product_location_list %}
-        {% if loc != blank and location.name == loc %}
+
+<select class="trending__select" data-store-select>
+
+  {% for location in shop.locations %}
+
+    {% assign is_available = false %}
+
+    {% for product_location in product_locations %}
+      {% if product_location != blank %}
+        {% if location.name == product_location %}
           {% assign is_available = true %}
+          {% break %}
         {% endif %}
-      {% endfor %}
-      <option value="{{ location.name }}" {% unless is_available %}disabled{% endunless %} {% if is_available %}selected{% endif %}>
-        {{ location.name }}{% unless is_available %} (unavailable){% endunless %}
-      </option>
+      {% endif %}
     {% endfor %}
-  </select>
-{% endif %}
+
+
+    <option
+      value="{{ location.name }}"
+      {% unless is_available %}disabled{% endunless %}
+      {% if is_available %}selected{% endif %}
+    >
+      {{ location.name }}
+      {% unless is_available %}
+        (Unavailable)
+      {% endunless %}
+    </option>
+
+  {% endfor %}
+
+</select>
 
                     <div class="trending__cart-row">
                       <div class="trending__qty">
