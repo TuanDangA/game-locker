@@ -431,42 +431,71 @@
                       {% endif %}
                     {% endcomment %}
 
-                    {% comment %} 1. Pull the location names off this product's tags {% endcomment %}
-                    {% assign product_locations = '' %}
+                    {% comment %}
+                      ==========================================
+                      HARD-CODED STORE LOCATIONS
+
+                      Add all your store locations below.
+
+                      Product tag format:
+                      Location: Melbourne
+                      Location: My Custom Location
+                      Location: Shop location
+                      ==========================================
+                    {% endcomment %}
+
+                    {% assign all_locations = 'Melbourne||My Custom Location||Shop location' | split: '||' %}
+
+                    {% comment %}
+                      Get product location tags
+                    {% endcomment %}
+
+                    {% assign product_location_names = '' %}
+
                     {% for tag in product.tags %}
-                      {% if tag contains 'Location:' %}
-                        {% assign loc_name = tag | remove: 'Location:' | strip %}
-                        {% assign product_locations = product_locations | append: loc_name | append: '||' %}
+                      {% assign tag_prefix = tag | slice: 0, 9 %}
+
+                      {% if tag_prefix == 'Location:' %}
+                        {% assign location_name = tag | remove_first: 'Location:' | strip %}
+
+                        {% assign product_location_names = product_location_names
+                          | append: location_name
+                          | append: '||'
+                        %}
                       {% endif %}
                     {% endfor %}
-                    {% assign product_location_list = product_locations | split: '||' %}
 
-                    {% comment %} 2. Loop your store's locations, enable only the matching one(s) {% endcomment %}
-                    <div class="location-selector">
-                      {% for location in shop.locations %}
+                    {% assign product_locations = product_location_names | split: '||' %}
+
+                    <select class="trending__select" data-store-select>
+                      {% for location in all_locations %}
                         {% assign is_available = false %}
-                        {% for loc in product_location_list %}
-                          {% if loc != blank and location.name == loc %}
+
+                        {% for product_location in product_locations %}
+                          {% assign clean_product_location = product_location | strip %}
+
+                          {% if clean_product_location == location %}
                             {% assign is_available = true %}
+                            {% break %}
                           {% endif %}
                         {% endfor %}
 
-                        <label class="location-option {% unless is_available %}is-disabled{% endunless %}">
-                          <input
-                            type="radio"
-                            name="pickup_location"
-                            value="{{ location.id }}"
-                            {% unless is_available %}
-                              disabled
-                            {% endunless %}
-                            {% if is_available %}
-                              checked
-                            {% endif %}
-                          >
-                          {{ location.name }}
-                        </label>
+                        <option
+                          value="{{ location | escape }}"
+                          {% if is_available %}
+                            selected
+                          {% else %}
+                            disabled
+                          {% endif %}
+                        >
+                          {{ location }}
+
+                          {% unless is_available %}
+                            (Unavailable)
+                          {% endunless %}
+                        </option>
                       {% endfor %}
-                    </div>
+                    </select>
 
                     <div class="trending__cart-row">
                       <div class="trending__qty">
