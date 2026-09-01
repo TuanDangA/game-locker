@@ -398,21 +398,24 @@
   {% endfor %}
   {% assign clean_product_location_list = clean_product_locations | split: '||' %}
 
+  {% comment %} All store locations, hardcoded — edit this list to match your admin locations {% endcomment %}
+  {% assign all_locations = 'Melbourne||My Custom Location||Shop location' | split: '||' %}
+
   <select class="trending__select" data-store-select>
-    {% for location in shop.locations %}
+    {% for location_name in all_locations %}
       {% assign is_available = false %}
       {% for loc in clean_product_location_list %}
-        {% if loc != blank and location.name == loc %}
+        {% if loc != blank and location_name == loc %}
           {% assign is_available = true %}
         {% endif %}
       {% endfor %}
 
       <option
-        value="{{ location.name }}"
+        value="{{ location_name }}"
         {% unless is_available %}disabled{% endunless %}
         {% if is_available %}selected{% endif %}
       >
-        {{ location.name }}{% unless is_available %} (unavailable){% endunless %}
+        {{ location_name }}{% unless is_available %} (unavailable){% endunless %}
       </option>
     {% endfor %}
   </select>
