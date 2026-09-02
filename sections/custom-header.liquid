@@ -531,7 +531,7 @@
           {% form 'localization', id: 'tgc-language-form', class: 'tgc-localization-form' %}
             <select name="locale_code" class="tgc-select" aria-label="Language" onchange="this.form.submit()">
               {% for language in localization.available_languages %}
-                <option
+                <option class="localization-form__list-item"
                   value="{{ language.iso_code }}"
                   {% if language.iso_code == localization.language.iso_code %}
                     selected
