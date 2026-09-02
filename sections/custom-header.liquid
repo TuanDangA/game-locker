@@ -551,7 +551,7 @@
             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
           </svg>
         </a>
-        <a href="{{ routes.cart_url }}" class="tgc-icon-link tgc-cart-link" aria-label="Cart" data-cart-link>
+        {% comment %} <a href="{{ routes.cart_url }}" class="tgc-icon-link tgc-cart-link" aria-label="Cart" data-cart-link>
           <svg
             width="20"
             height="20"
@@ -566,7 +566,7 @@
           </svg>
           <span class="tgc-cart-count" data-cart-count>{{ cart.item_count }}</span>
           <span class="tgc-cart-spinner" data-cart-spinner></span>
-        </a>
+        </a> {% endcomment %}
         <button
           class="header-actions__action button-unstyled"
           on:click="#cart-drawer/toggle"
