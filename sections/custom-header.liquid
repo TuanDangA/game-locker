@@ -927,6 +927,31 @@
       });
     }
 
+    addBtn.addEventListener('click', function () {
+  var variantId = addBtn.dataset.variantId;
+  var qty = qtyInput ? parseInt(qtyInput.value, 10) : 1;
+
+  addBtn.classList.add('is-loading');
+  document.dispatchEvent(new CustomEvent('cart:loading')); // add this line
+
+  fetch('/cart/add.js', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ id: variantId, quantity: qty }),
+  })
+    .then(function (res) { return res.json(); })
+    .then(function () {
+      document.dispatchEvent(new CustomEvent('cart:updated'));
+    })
+    .catch(function (err) {
+      console.error('Add to cart failed:', err);
+      document.dispatchEvent(new CustomEvent('cart:updated')); // also clear spinner on failure
+    })
+    .finally(function () {
+      addBtn.classList.remove('is-loading');
+    });
+});
+
     /* ---------- Predictive search ---------- */
     var input = root.querySelector('[data-predictive-search-input]');
     var resultsBox = document.getElementById('tgc-search-results-{{ section.id }}');
