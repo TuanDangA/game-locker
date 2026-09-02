@@ -370,6 +370,7 @@
             <div class="trending__track">
               {% if block.settings.collection != blank %}
                 {% for product in block.settings.collection.products limit: block.settings.product_limit %}
+                    {% form 'product', product, class: 'trending__product-form' %}
                   {% assign variant = product.selected_or_first_available_variant %}
                   <div
                     class="trending__card"
@@ -542,6 +543,7 @@
                       ]
                     </script>
                   </div>
+                {% endform %}
                 {% endfor %}
               {% endif %}
             </div>
