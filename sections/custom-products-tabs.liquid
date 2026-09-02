@@ -669,7 +669,6 @@
           var qty = qtyInput ? parseInt(qtyInput.value, 10) : 1;
 
           addBtn.classList.add('is-loading');
-          document.dispatchEvent(new CustomEvent('cart:loading'));
 
           fetch('/cart/add.js', {
             method: 'POST',
@@ -680,16 +679,7 @@
               return res.json();
             })
             .then(function () {
-              return fetch('/cart.js').then(function (res) {
-                return res.json();
-              });
-            })
-            .then(function (cart) {
-              document.dispatchEvent(
-                new CustomEvent('cart:updated', {
-                  detail: { itemCount: cart.item_count },
-                })
-              );
+              document.dispatchEvent(new CustomEvent('cart:updated'));
             })
             .catch(function (err) {
               console.error('Add to cart failed:', err);
