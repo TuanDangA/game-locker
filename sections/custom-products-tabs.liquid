@@ -371,7 +371,11 @@
               {% if block.settings.collection != blank %}
                 {% for product in block.settings.collection.products limit: block.settings.product_limit %}
                   {% assign variant = product.selected_or_first_available_variant %}
-                  <div class="trending__card" data-product-id="{{ product.id }}">
+                  <div
+                    class="trending__card"
+                    data-product-id="{{ product.id }}"
+                    data-product-url="{{ product.url }}"
+                  >
                     <div class="trending__card-image">
                       <a href="{{ product.url }}" class="trending__product-link">
                         {% if product.featured_image %}
@@ -563,412 +567,412 @@
 </div>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function () {
-    var root = document.getElementById('trending-{{ section.id }}');
-    if (!root) return;
+    document.addEventListener('DOMContentLoaded', function () {
+      var root = document.getElementById('trending-{{ section.id }}');
+      if (!root) return;
 
-    /* --- Tabs --- */
-    var tabs = root.querySelectorAll('.trending__tab');
-    var panels = root.querySelectorAll('.trending__panel');
-    var viewAlls = root.querySelectorAll('.trending__view-all');
+      /* --- Tabs --- */
+      var tabs = root.querySelectorAll('.trending__tab');
+      var panels = root.querySelectorAll('.trending__panel');
+      var viewAlls = root.querySelectorAll('.trending__view-all');
 
-    tabs.forEach(function (tab) {
-      tab.addEventListener('click', function () {
-        var index = tab.dataset.tabIndex;
+      tabs.forEach(function (tab) {
+        tab.addEventListener('click', function () {
+          var index = tab.dataset.tabIndex;
 
-        tabs.forEach(function (t) {
-          t.classList.toggle('is-active', t === tab);
-        });
-        panels.forEach(function (p) {
-          p.classList.toggle('is-active', p.dataset.panelIndex === index);
-        });
-        viewAlls.forEach(function (v) {
-          v.classList.toggle('is-active', v.dataset.viewAllIndex === index);
-        });
-      });
-    });
-
-    /* --- Arrow scroll --- */
-    root.querySelectorAll('.trending__track-wrap').forEach(function (wrap) {
-      var track = wrap.querySelector('.trending__track');
-      var prev = wrap.querySelector('.trending__arrow--prev');
-      var next = wrap.querySelector('.trending__arrow--next');
-      var scrollAmount = 240;
-
-      if (prev)
-        prev.addEventListener('click', function () {
-          track.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-        });
-      if (next)
-        next.addEventListener('click', function () {
-          track.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-        });
-    });
-
-    /* --- Per-card logic: variant matching, qty stepper, add to cart --- */
-    root.querySelectorAll('.trending__card').forEach(function (card) {
-      var variantsJson = card.querySelector('[data-variants-json]');
-      var variants = variantsJson ? JSON.parse(variantsJson.textContent) : [];
-      var optionSelects = card.querySelectorAll('.trending__select[data-option-position]');
-      var addBtn = card.querySelector('[data-add-to-cart]');
-      var priceEl = card.querySelector('.trending__price');
-      var qtyInput = card.querySelector('[data-qty-input]');
-
-      function findMatchingVariant() {
-        var chosenOptions = [];
-        optionSelects.forEach(function (select) {
-          var position = parseInt(select.dataset.optionPosition, 10) - 1;
-          chosenOptions[position] = select.value;
-        });
-
-        return variants.find(function (v) {
-          return chosenOptions.every(function (val, i) {
-            return v.options[i] === val;
+          tabs.forEach(function (t) {
+            t.classList.toggle('is-active', t === tab);
+          });
+          panels.forEach(function (p) {
+            p.classList.toggle('is-active', p.dataset.panelIndex === index);
+          });
+          viewAlls.forEach(function (v) {
+            v.classList.toggle('is-active', v.dataset.viewAllIndex === index);
           });
         });
-      }
+      });
 
-      function updateForVariant(variant) {
-        if (!variant) return;
-        addBtn.dataset.variantId = variant.id;
-        if (priceEl) {
-          if (priceEl) {
-  if (
-    typeof Shopify !== 'undefined' &&
-    typeof Shopify.formatMoney === 'function'
-  ) {
-    priceEl.textContent = Shopify.formatMoney(
-      variant.price,
-      '{{ shop.money_format }}'
-    );
-  } else {
-    priceEl.textContent = '$' + (variant.price / 100).toFixed(2);
-  }
-}
+      /* --- Arrow scroll --- */
+      root.querySelectorAll('.trending__track-wrap').forEach(function (wrap) {
+        var track = wrap.querySelector('.trending__track');
+        var prev = wrap.querySelector('.trending__arrow--prev');
+        var next = wrap.querySelector('.trending__arrow--next');
+        var scrollAmount = 240;
+
+        if (prev)
+          prev.addEventListener('click', function () {
+            track.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+          });
+        if (next)
+          next.addEventListener('click', function () {
+            track.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+          });
+      });
+
+      /* --- Per-card logic: variant matching, qty stepper, add to cart --- */
+      root.querySelectorAll('.trending__card').forEach(function (card) {
+        var variantsJson = card.querySelector('[data-variants-json]');
+        var variants = variantsJson ? JSON.parse(variantsJson.textContent) : [];
+        var optionSelects = card.querySelectorAll('.trending__select[data-option-position]');
+        var addBtn = card.querySelector('[data-add-to-cart]');
+        var priceEl = card.querySelector('.trending__price');
+        var qtyInput = card.querySelector('[data-qty-input]');
+
+        function findMatchingVariant() {
+          var chosenOptions = [];
+          optionSelects.forEach(function (select) {
+            var position = parseInt(select.dataset.optionPosition, 10) - 1;
+            chosenOptions[position] = select.value;
+          });
+
+          return variants.find(function (v) {
+            return chosenOptions.every(function (val, i) {
+              return v.options[i] === val;
+            });
+          });
         }
-        addBtn.disabled = !variant.available;
-      }
 
-      optionSelects.forEach(function (select) {
-        select.addEventListener('change', function () {
-          var match = findMatchingVariant();
-          updateForVariant(match);
-        });
-      });
-
-      /* Quantity stepper */
-      var minusBtn = card.querySelector('[data-qty-minus]');
-      var plusBtn = card.querySelector('[data-qty-plus]');
-
-      if (minusBtn) {
-        minusBtn.addEventListener('click', function () {
-          var val = Math.max(1, parseInt(qtyInput.value, 10) - 1);
-          qtyInput.value = val;
-        });
-      }
-      if (plusBtn) {
-        plusBtn.addEventListener('click', function () {
-          var val = parseInt(qtyInput.value, 10) + 1;
-          qtyInput.value = val;
-        });
-      }
-
-      /* Add to cart (AJAX) */
-      /* --- Per-card functionality --- */
-root.querySelectorAll('.trending__card').forEach(function (card) {
-
-  var variantsJson = card.querySelector('[data-variants-json]');
-
-  if (!variantsJson) {
-    console.error('Variants JSON not found');
-    return;
+        function updateForVariant(variant) {
+          if (!variant) return;
+          addBtn.dataset.variantId = variant.id;
+          if (priceEl) {
+            if (priceEl) {
+    if (
+      typeof Shopify !== 'undefined' &&
+      typeof Shopify.formatMoney === 'function'
+    ) {
+      priceEl.textContent = Shopify.formatMoney(
+        variant.price,
+        '{{ shop.money_format }}'
+      );
+    } else {
+      priceEl.textContent = '$' + (variant.price / 100).toFixed(2);
+    }
   }
+          }
+          addBtn.disabled = !variant.available;
+        }
 
-  var variants = [];
+        optionSelects.forEach(function (select) {
+          select.addEventListener('change', function () {
+            var match = findMatchingVariant();
+            updateForVariant(match);
+          });
+        });
 
-  try {
-    variants = JSON.parse(variantsJson.textContent);
-  } catch (error) {
-    console.error('Unable to parse variants:', error);
-    return;
-  }
+        /* Quantity stepper */
+        var minusBtn = card.querySelector('[data-qty-minus]');
+        var plusBtn = card.querySelector('[data-qty-plus]');
 
+        if (minusBtn) {
+          minusBtn.addEventListener('click', function () {
+            var val = Math.max(1, parseInt(qtyInput.value, 10) - 1);
+            qtyInput.value = val;
+          });
+        }
+        if (plusBtn) {
+          plusBtn.addEventListener('click', function () {
+            var val = parseInt(qtyInput.value, 10) + 1;
+            qtyInput.value = val;
+          });
+        }
 
-  var optionSelects = card.querySelectorAll(
-    '.trending__select[data-option-position]'
-  );
+        /* Add to cart (AJAX) */
+        /* --- Per-card functionality --- */
+  root.querySelectorAll('.trending__card').forEach(function (card) {
 
-  var addBtn = card.querySelector('[data-add-to-cart]');
-  var priceEl = card.querySelector('.trending__price');
-  var qtyInput = card.querySelector('[data-qty-input]');
+    var variantsJson = card.querySelector('[data-variants-json]');
 
+    if (!variantsJson) {
+      console.error('Variants JSON not found');
+      return;
+    }
 
-  /* Find matching variant */
-  function findMatchingVariant() {
+    var variants = [];
 
-    var chosenOptions = [];
-
-    optionSelects.forEach(function (select) {
-
-      var position =
-        parseInt(select.dataset.optionPosition, 10) - 1;
-
-      chosenOptions[position] = select.value;
-
-    });
-
-
-    return variants.find(function (variant) {
-
-      return chosenOptions.every(function (value, index) {
-
-        return variant.options[index] === value;
-
-      });
-
-    });
-
-  }
-
-
-  /* Update card when variant changes */
-  function updateForVariant(variant) {
-
-    if (!variant) {
-      console.error('No matching variant found');
+    try {
+      variants = JSON.parse(variantsJson.textContent);
+    } catch (error) {
+      console.error('Unable to parse variants:', error);
       return;
     }
 
 
-    if (addBtn) {
-      addBtn.dataset.variantId = variant.id;
-      addBtn.disabled = !variant.available;
+    var optionSelects = card.querySelectorAll(
+      '.trending__select[data-option-position]'
+    );
+
+    var addBtn = card.querySelector('[data-add-to-cart]');
+    var priceEl = card.querySelector('.trending__price');
+    var qtyInput = card.querySelector('[data-qty-input]');
+
+
+    /* Find matching variant */
+    function findMatchingVariant() {
+
+      var chosenOptions = [];
+
+      optionSelects.forEach(function (select) {
+
+        var position =
+          parseInt(select.dataset.optionPosition, 10) - 1;
+
+        chosenOptions[position] = select.value;
+
+      });
+
+
+      return variants.find(function (variant) {
+
+        return chosenOptions.every(function (value, index) {
+
+          return variant.options[index] === value;
+
+        });
+
+      });
+
     }
 
 
-    if (priceEl) {
+    /* Update card when variant changes */
+    function updateForVariant(variant) {
 
-      if (
-        typeof Shopify !== 'undefined' &&
-        typeof Shopify.formatMoney === 'function'
-      ) {
-
-        priceEl.textContent = Shopify.formatMoney(
-          variant.price,
-          '{{ shop.money_format }}'
-        );
-
-      } else {
-
-        priceEl.textContent =
-          '$' + (variant.price / 100).toFixed(2);
-
-      }
-
-    }
-
-  }
-
-
-  /* Variant selection */
-  optionSelects.forEach(function (select) {
-
-    select.addEventListener('change', function () {
-
-      var variant = findMatchingVariant();
-
-      updateForVariant(variant);
-
-    });
-
-  });
-
-
-  /* Quantity buttons */
-  var minusBtn = card.querySelector('[data-qty-minus]');
-  var plusBtn = card.querySelector('[data-qty-plus]');
-
-
-  if (minusBtn && qtyInput) {
-
-    minusBtn.addEventListener('click', function () {
-
-      var currentValue =
-        parseInt(qtyInput.value, 10) || 1;
-
-      qtyInput.value =
-        Math.max(1, currentValue - 1);
-
-    });
-
-  }
-
-
-  if (plusBtn && qtyInput) {
-
-    plusBtn.addEventListener('click', function () {
-
-      var currentValue =
-        parseInt(qtyInput.value, 10) || 1;
-
-      qtyInput.value =
-        currentValue + 1;
-
-    });
-
-  }
-
-
-  /* Add to cart */
-  if (addBtn) {
-
-    addBtn.addEventListener('click', function (event) {
-
-      event.preventDefault();
-
-
-      var variantId = addBtn.dataset.variantId;
-
-      var quantity = qtyInput
-        ? parseInt(qtyInput.value, 10) || 1
-        : 1;
-
-
-      if (!variantId) {
-
-        console.error('Variant ID is missing');
-
+      if (!variant) {
+        console.error('No matching variant found');
         return;
-
       }
 
 
-      addBtn.classList.add('is-loading');
+      if (addBtn) {
+        addBtn.dataset.variantId = variant.id;
+        addBtn.disabled = !variant.available;
+      }
 
-      addBtn.disabled = true;
 
+      if (priceEl) {
 
-      fetch('/cart/add.js', {
+        if (
+          typeof Shopify !== 'undefined' &&
+          typeof Shopify.formatMoney === 'function'
+        ) {
 
-        method: 'POST',
+          priceEl.textContent = Shopify.formatMoney(
+            variant.price,
+            '{{ shop.money_format }}'
+          );
 
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
+        } else {
 
-        body: JSON.stringify({
-          id: Number(variantId),
-          quantity: quantity
-        })
-
-      })
-
-      .then(function (response) {
-
-        if (!response.ok) {
-
-          return response.json()
-            .then(function (error) {
-
-              throw error;
-
-            });
+          priceEl.textContent =
+            '$' + (variant.price / 100).toFixed(2);
 
         }
 
-        return response.json();
+      }
 
-      })
-
-
-      .then(function (item) {
-
-        console.log('Product added:', item);
+    }
 
 
-        /* Notify Shopify theme */
-        document.dispatchEvent(
+    /* Variant selection */
+    optionSelects.forEach(function (select) {
 
-          new CustomEvent('cart:updated', {
+      select.addEventListener('change', function () {
 
-            bubbles: true,
+        var variant = findMatchingVariant();
 
-            detail: {
-              productId: item.product_id
-            }
-
-          })
-
-        );
-
-
-        return fetch('/cart.js');
-
-      })
-
-
-      .then(function (response) {
-
-        return response.json();
-
-      })
-
-
-      .then(function (cart) {
-
-        console.log('Cart updated:', cart);
-
-
-        /* Update cart count */
-        document.dispatchEvent(
-
-          new CustomEvent('cart:change', {
-
-            bubbles: true,
-
-            detail: {
-              cart: cart
-            }
-
-          })
-
-        );
-
-      })
-
-
-      .catch(function (error) {
-
-        console.error(
-          'Add to cart failed:',
-          error
-        );
-
-        alert(
-          error.description ||
-          'Unable to add this product to cart.'
-        );
-
-      })
-
-
-      .finally(function () {
-
-        addBtn.classList.remove('is-loading');
-
-        addBtn.disabled = false;
+        updateForVariant(variant);
 
       });
 
     });
 
-  }
 
-});
-      }
-    });
+    /* Quantity buttons */
+    var minusBtn = card.querySelector('[data-qty-minus]');
+    var plusBtn = card.querySelector('[data-qty-plus]');
+
+
+    if (minusBtn && qtyInput) {
+
+      minusBtn.addEventListener('click', function () {
+
+        var currentValue =
+          parseInt(qtyInput.value, 10) || 1;
+
+        qtyInput.value =
+          Math.max(1, currentValue - 1);
+
+      });
+
+    }
+
+
+    if (plusBtn && qtyInput) {
+
+      plusBtn.addEventListener('click', function () {
+
+        var currentValue =
+          parseInt(qtyInput.value, 10) || 1;
+
+        qtyInput.value =
+          currentValue + 1;
+
+      });
+
+    }
+
+
+    /* Add to cart */
+    if (addBtn) {
+
+      addBtn.addEventListener('click', function (event) {
+
+        event.preventDefault();
+
+
+        var variantId = addBtn.dataset.variantId;
+
+        var quantity = qtyInput
+          ? parseInt(qtyInput.value, 10) || 1
+          : 1;
+
+
+        if (!variantId) {
+
+          console.error('Variant ID is missing');
+
+          return;
+
+        }
+
+
+        addBtn.classList.add('is-loading');
+
+        addBtn.disabled = true;
+
+
+        fetch('/cart/add.js', {
+
+          method: 'POST',
+
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+
+          body: JSON.stringify({
+            id: Number(variantId),
+            quantity: quantity
+          })
+
+        })
+
+        .then(function (response) {
+
+          if (!response.ok) {
+
+            return response.json()
+              .then(function (error) {
+
+                throw error;
+
+              });
+
+          }
+
+          return response.json();
+
+        })
+
+
+        .then(function (item) {
+
+          console.log('Product added:', item);
+
+
+          /* Notify Shopify theme */
+          document.dispatchEvent(
+
+            new CustomEvent('cart:updated', {
+
+              bubbles: true,
+
+              detail: {
+                productId: item.product_id
+              }
+
+            })
+
+          );
+
+
+          return fetch('/cart.js');
+
+        })
+
+
+        .then(function (response) {
+
+          return response.json();
+
+        })
+
+
+        .then(function (cart) {
+
+          console.log('Cart updated:', cart);
+
+
+          /* Update cart count */
+          document.dispatchEvent(
+
+            new CustomEvent('cart:change', {
+
+              bubbles: true,
+
+              detail: {
+                cart: cart
+              }
+
+            })
+
+          );
+
+        })
+
+
+        .catch(function (error) {
+
+          console.error(
+            'Add to cart failed:',
+            error
+          );
+
+          alert(
+            error.description ||
+            'Unable to add this product to cart.'
+          );
+
+        })
+
+
+        .finally(function () {
+
+          addBtn.classList.remove('is-loading');
+
+          addBtn.disabled = false;
+
+        });
+
+      });
+
+    }
+
   });
+        }
+      });
+    });
 </script>
 
 {% schema %}
