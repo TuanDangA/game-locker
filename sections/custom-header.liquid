@@ -513,7 +513,7 @@
           {% form 'localization', id: 'tgc-currency-form', class: 'tgc-localization-form' %}
             <select name="country_code" class="tgc-select" aria-label="Currency" onchange="this.form.submit()">
               {% for country in localization.available_countries %}
-                <option
+                <option class="localization-form__list-item"
                   value="{{ country.iso_code }}"
                   {% if country.iso_code == localization.country.iso_code %}
                     selected
