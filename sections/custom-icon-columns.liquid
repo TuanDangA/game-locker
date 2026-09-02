@@ -1,68 +1,68 @@
 <style>
-.icon-columns {
-  position: relative;
-}
+  .icon-columns {
+    position: relative;
+  }
 
-.icon-columns__track {
-  display: flex;
-  gap: 1rem;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
-  padding-bottom: 0.5rem;
-  justify-content: space-between;
-}
+  .icon-columns__track {
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 0.5rem;
+    justify-content: space-between;
+  }
 
-.icon-columns__track::-webkit-scrollbar {
-  display: none;
-}
+  .icon-columns__track::-webkit-scrollbar {
+    display: none;
+  }
 
-.icon-columns__item {
-  flex: 1 0 200px;
-  max-width: 50%;
-  scroll-snap-align: center;
-  border: 1px solid #E3F3FF;
-  background: white;
-  border-radius: 12px;
-  padding: 1.5rem 1rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-}
+  .icon-columns__item {
+    flex: 1 0 200px;
+    max-width: 50%;
+    scroll-snap-align: center;
+    border: 1px solid #E3F3FF;
+    background: {{  section.settings.background_color_box }};
+    border-radius: 12px;
+    padding: 1.5rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
 
-.icon-columns__icon {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  background: #eaf2ff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 0.75rem;
-}
+  .icon-columns__icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: {{ section.settings.image_color_picker }};
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.75rem;
+  }
 
-.icon-columns__icon img {
-  width: 22px;
-  height: 22px;
-  object-fit: contain;
-}
+  .icon-columns__icon img {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+  }
 
-.icon-columns__heading {
-  font-size: 15px;
-  font-weight: 600;
-  text-transform: uppercase;
-  {% comment %} letter-spacing: 0.03em; {% endcomment %}
-  margin: 0 0 0.35rem;
-}
+  .icon-columns__heading {
+    font-size: 15px;
+    font-weight: 600;
+    text-transform: uppercase;
+    {% comment %} letter-spacing: 0.03em; {% endcomment %}
+    margin: 0 0 0.35rem;
+  }
 
-.icon-columns__text {
-  font-size: 13px;
-  color: #5C554C;
-  margin: 0;
-  line-height: 1.4;
-}
+  .icon-columns__text {
+    font-size: 13px;
+    color: #5C554C;
+    margin: 0;
+    line-height: 1.4;
+  }
 </style>
 
 {% liquid
@@ -78,38 +78,37 @@
   class="section section--{{ section.settings.section_width }} spacing-style{% if section.settings.background_color != blank %} color-custom-{{ section.id }}{% endif %}"
   style="{% render 'spacing-padding', settings: section.settings %}"
 >
-<div class="" style="{% render 'spacing-padding', settings: section.settings %}">
-  <div class="icon-columns" id="icon-columns-{{ section.id }}" data-slider-mobile="true">
-    <div class="icon-columns__track">
-      {% for block in section.blocks %}
-        {% if block.type == 'item' %}
-          <div class="icon-columns__item" {{ block.shopify_attributes }}>
-            {% if block.settings.icon %}
-              <div class="icon-columns__icon">
-                <img
-                  src="{{ block.settings.icon | image_url: width: 80 }}"
-                  alt="{{ block.settings.heading | escape }}"
-                  width="32"
-                  height="32"
-                  loading="lazy"
-                >
-              </div>
-            {% endif %}
+  <div class="" style="{% render 'spacing-padding', settings: section.settings %}">
+    <div class="icon-columns" id="icon-columns-{{ section.id }}" data-slider-mobile="true">
+      <div class="icon-columns__track">
+        {% for block in section.blocks %}
+          {% if block.type == 'item' %}
+            <div class="icon-columns__item" {{ block.shopify_attributes }}>
+              {% if block.settings.icon %}
+                <div class="icon-columns__icon">
+                  <img
+                    src="{{ block.settings.icon | image_url: width: 80 }}"
+                    alt="{{ block.settings.heading | escape }}"
+                    width="32"
+                    height="32"
+                    loading="lazy"
+                  >
+                </div>
+              {% endif %}
 
-            {% if block.settings.heading != blank %}
-              <h3 class="icon-columns__heading">{{ block.settings.heading }}</h3>
-            {% endif %}
+              {% if block.settings.heading != blank %}
+                <h3 class="icon-columns__heading">{{ block.settings.heading }}</h3>
+              {% endif %}
 
-            {% if block.settings.text != blank %}
-              <p class="icon-columns__text">{{ block.settings.text }}</p>
-            {% endif %}
-          </div>
-        {% endif %}
-      {% endfor %}
+              {% if block.settings.text != blank %}
+                <p class="icon-columns__text">{{ block.settings.text }}</p>
+              {% endif %}
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
     </div>
   </div>
-</div>
-
 </div>
 
 {% schema %}
@@ -123,6 +122,18 @@
       "id": "background_color",
       "label": "t:settings.background_color",
       "placeholder": "t:settings.default"
+    },
+    {
+      "type": "color",
+      "id": "background_color_box",
+      "label": "Block Background Color",
+      "placeholder": "t:settings.default"
+    },
+    {
+      "type": "color",
+      "id": "image_color_picker",
+      "label": "Image Color Picker",
+      "default": "#eaf2ff"
     },
     {
       "type": "select",
@@ -174,13 +185,7 @@
   "presets": [
     {
       "name": "Icon columns",
-      "blocks": [
-        { "type": "item" },
-        { "type": "item" },
-        { "type": "item" },
-        { "type": "item" },
-        { "type": "item" }
-      ]
+      "blocks": [{ "type": "item" }, { "type": "item" }, { "type": "item" }, { "type": "item" }, { "type": "item" }]
     }
   ]
 }
