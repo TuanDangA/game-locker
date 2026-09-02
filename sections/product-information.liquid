@@ -368,6 +368,46 @@
   }
 {% endstylesheet %}
 
+<script>
+  /* Add to cart (AJAX) */
+if (addBtn) {
+  addBtn.addEventListener('click', function () {
+    var variantId = addBtn.dataset.variantId;
+    var qty = qtyInput ? parseInt(qtyInput.value, 10) : 1;
+
+    addBtn.classList.add('is-loading');
+    document.dispatchEvent(new CustomEvent('cart:loading'));
+
+    fetch('/cart/add.js', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id: variantId, quantity: qty }),
+    })
+      .then(function (res) {
+        return res.json();
+      })
+      .then(function () {
+        return fetch('/cart.js').then(function (res) {
+          return res.json();
+        });
+      })
+      .then(function (cart) {
+        document.dispatchEvent(
+          new CustomEvent('cart:updated', {
+            detail: { itemCount: cart.item_count },
+          })
+        );
+      })
+      .catch(function (err) {
+        console.error('Add to cart failed:', err);
+      })
+      .finally(function () {
+        addBtn.classList.remove('is-loading');
+      });
+  });
+}
+</script>
+
 {% schema %}
 {
   "name": "t:names.product_information",
