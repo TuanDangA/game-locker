@@ -547,6 +547,8 @@
             </div>
           </div>
 
+          {% render 'product-card', children: children, product: product, block: block %}
+
           {% if block.settings.collection != blank %}
             <div
               class="trending__view-all{% if forloop.first %} is-active{% endif %}"
