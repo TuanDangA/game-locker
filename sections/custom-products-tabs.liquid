@@ -1,17 +1,3 @@
-{% comment %}
-  COLOR SCHEME NOTE:
-  This section now pulls its accent + heading color from the theme's shared
-  Color Schemes (Theme Settings → Color schemes) instead of its own pickers.
-
-  Role mapping used below — adjust if your theme's scheme roles are named
-  differently (check config/settings_schema.json under color_scheme_group):
-    - Heading text  → var(--color-foreground)          (the scheme's "Text" role)
-    - Accent color  → var(--color-primary-button-background)  (the scheme's "Button" role)
-
-  If your palettes don't define a button/accent role you're happy using here,
-  tell me which role should represent "accent" and I'll swap it.
-{% endcomment %}
-
 <style>
   .trending {
     text-align: center;
@@ -22,14 +8,14 @@
     font-size: 12px;
     font-weight: 600;
     text-transform: uppercase;
-    color: rgb(var(--color-primary-button-background));
+    color: {{ section.settings.accent_color | default: '#2f6fed' }};
   }
 
   .trending__heading {
     margin: 0 0 0.5rem;
     font-size: 32px;
     font-weight: 600;
-    color: rgb(var(--color-foreground));
+    color: {{ section.settings.heading_color | default: '#141414' }};
   }
 
   .trending__subheading {
@@ -62,7 +48,7 @@
 
   .trending__tab.is-active {
     color: #1D1A17;
-    border-bottom-color: rgb(var(--color-primary-button-background));
+    border-bottom-color: {{ section.settings.accent_color | default: '#2f6fed' }};
   }
 
   .trending__panel {
@@ -332,7 +318,7 @@
 </style>
 
 <div
-  class="section section--{{ section.settings.section_width }} spacing-style color-{{ section.settings.color_scheme }}"
+  class="section section--{{ section.settings.section_width }} spacing-style"
   style="{% render 'spacing-padding', settings: section.settings %}"
 >
   <div class="trending" id="trending-{{ section.id }}">
@@ -738,10 +724,16 @@
       "default": "View all"
     },
     {
-      "type": "color_scheme",
-      "id": "color_scheme",
-      "label": "Color scheme",
-      "default": "scheme-1"
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color (tabs, badges)",
+      "default": "#2f6fed"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#141414"
     },
     {
       "type": "select",
