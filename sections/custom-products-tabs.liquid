@@ -313,37 +313,42 @@
     }
   }
 
-  .trending__add {
+ .trending__add {
   position: relative;
 }
 
-/* Hide cart SVG while product is loading */
-.is-loading {
-  opacity: 0;
+/* When button is loading, hide its original content */
+.trending__add.is-loading {
+  color: transparent;
+  pointer-events: none;
 }
 
-/* Show spinner */
-.is-loading{
+/* Hide all button children while loading */
+.trending__add.is-loading > * {
+  visibility: hidden;
+}
+
+/* Create spinner */
+.trending__add.is-loading::after {
   content: "";
+
   position: absolute;
+  top: 50%;
+  left: 50%;
 
   width: 18px;
   height: 18px;
 
-  top: 50%;
-  left: 50%;
+  border: 2px solid rgba(0, 0, 0, 0.2);
+  border-top-color: #000000;
 
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  border-top-color: #ffffff;
   border-radius: 50%;
 
-  animation: header-cart-spin 0.7s linear infinite;
-
   transform: translate(-50%, -50%);
+  animation: product-card-spinner 0.7s linear infinite;
 }
 
-/* Spinner animation */
-@keyframes header-cart-spin {
+@keyframes product-card-spinner {
   from {
     transform: translate(-50%, -50%) rotate(0deg);
   }
