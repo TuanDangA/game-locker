@@ -312,6 +312,46 @@
       gap: 1.1rem;
     }
   }
+
+  .trending__add {
+  position: relative;
+}
+
+/* Hide cart SVG while product is loading */
+.is-loading {
+  opacity: 0;
+}
+
+/* Show spinner */
+.is-loading{
+  content: "";
+  position: absolute;
+
+  width: 18px;
+  height: 18px;
+
+  top: 50%;
+  left: 50%;
+
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #ffffff;
+  border-radius: 50%;
+
+  animation: header-cart-spin 0.7s linear infinite;
+
+  transform: translate(-50%, -50%);
+}
+
+/* Spinner animation */
+@keyframes header-cart-spin {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
 </style>
 
 <div
