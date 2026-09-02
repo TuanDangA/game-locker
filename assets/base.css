@@ -1893,33 +1893,45 @@ main > .shopify-section:first-child .section:not(.disable-section-top-offset) {
     pointer-events: none;
   }
 
-body:has(.trending__add-to-cart.is-loading)
-.header-cart::before {
-  content: "";
-  /* spinner styles */
-}
-
-body:has(.trending__add-to-cart.is-loading)
-.header-cart {
+/* Cart container */
+.action__cart {
   position: relative;
-  pointer-events: none;
 }
 
+/* Hide cart SVG while product is loading */
 body:has(.trending__add-to-cart.is-loading)
-.header-cart svg {
+.action__cart .svg-wrapper {
   opacity: 0;
 }
 
+/* Show spinner */
 body:has(.trending__add-to-cart.is-loading)
-.header-cart::after {
+.action__cart::after {
   content: "";
   position: absolute;
+
   width: 18px;
   height: 18px;
+
   top: 50%;
   left: 50%;
-  border: 2px solid rgba(255, 255, 255, 0.4);
-  border-top-color: #fff;
+
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #ffffff;
   border-radius: 50%;
-  animation: cart-loading-spin 0.7s linear infinite;
+
+  animation: header-cart-spin 0.7s linear infinite;
+
+  transform: translate(-50%, -50%);
+}
+
+/* Spinner animation */
+@keyframes header-cart-spin {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
 }
