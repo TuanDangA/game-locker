@@ -108,7 +108,7 @@
     </div>
   {% endif %}
 
-  {% if settings.cart_type == 'drawer' and template.name != 'cart' %}
+  
     <button
       class="header-actions__action button-unstyled"
       on:click="#cart-drawer/toggle"
@@ -121,7 +121,7 @@
     >
       {{ cart_icon }}
     </button>
-  {% else %}
+
     <a
       href="{{ routes.cart_url }}"
       class="header-actions__action action__cart"
@@ -130,7 +130,7 @@
     >
       {{ cart_icon }}
     </a>
-  {% endif %}
+
 
   <span
     ref="liveRegion"
