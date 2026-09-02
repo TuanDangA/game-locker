@@ -122,7 +122,7 @@
       ],
       "name": "Hero carousel",
       "settings": {
-        "background_color": "",
+        "background_color": "{{ settings.color_palette.background }}",
         "section_width": "page-width",
         "padding-block-start": 32,
         "padding-block-end": 32,
