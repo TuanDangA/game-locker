@@ -527,7 +527,7 @@
             <div class="tgc-mega" data-mega>
               <div class="tgc-mega__col tgc-mega__col--l2">
                 <ul>
-                  {% for link2 in link.links %}
+                  {% comment %} {% for link2 in link.links %}
                     <li
                       class="{% if forloop.first %}is-active{% endif %}"
                       data-l2-trigger
@@ -540,7 +540,72 @@
                         {%- endif %}
                       </a>
                     </li>
-                  {% endfor %}
+                  {% endfor %} {% endcomment %}
+                   {% for link2 in link.links %}
+  <li>
+    {% if link2.links != blank %}
+      <button class="tgc-mnav__link" type="button" data-open-sub>
+        <span>{{ link2.title }}</span>
+        <span class="chev">&rsaquo;</span>
+      </button>
+
+      <!-- LEVEL 2 -->
+      <ul class="tgc-mnav tgc-mnav--sub" data-level="2">
+        <li>
+          <button class="tgc-mnav__back" type="button" data-back>&larr; {{ link2.title }}</button>
+        </li>
+
+        {% for link3 in link2.links %}
+          <li>
+            <a href="{{ link3.url }}">{{ link3.title }}</a>
+          </li>
+        {% endfor %}
+
+        {% comment %} Images matched to THIS specific level-2 item, shown inside its own submenu {% endcomment %}
+        {% for block in section.blocks %}
+          {% if block.type == 'mega_image' and block.settings.parent_label == link2.title %}
+            {% if block.settings.image_1 or block.settings.image_2 %}
+              <li class="tgc-mnav__images">
+                {% if block.settings.image_1 %}
+                  <a href="{{ block.settings.link_1 | default: '#' }}" class="tgc-mnav__image">
+                    <img src="{{ block.settings.image_1 | image_url: width: 500 }}" alt="{{ block.settings.title_1 | escape }}" loading="lazy" width="500" height="500">
+                  </a>
+                {% endif %}
+                {% if block.settings.image_2 %}
+                  <a href="{{ block.settings.link_2 | default: '#' }}" class="tgc-mnav__image">
+                    <img src="{{ block.settings.image_2 | image_url: width: 500 }}" alt="{{ block.settings.title_2 | escape }}" loading="lazy" width="500" height="500">
+                  </a>
+                {% endif %}
+              </li>
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+      </ul>
+    {% else %}
+      <a href="{{ link2.url }}">{{ link2.title }}</a>
+
+      {% comment %} If a flat (no-children) level-2 item has matching images, show them right after it {% endcomment %}
+      {% for block in section.blocks %}
+        {% if block.type == 'mega_image' and block.settings.parent_label == link2.title %}
+          {% if block.settings.image_1 or block.settings.image_2 %}
+            <div class="tgc-mnav__images">
+              {% if block.settings.image_1 %}
+                <a href="{{ block.settings.link_1 | default: '#' }}" class="tgc-mnav__image">
+                  <img src="{{ block.settings.image_1 | image_url: width: 500 }}" alt="{{ block.settings.title_1 | escape }}" loading="lazy" width="500" height="500">
+                </a>
+              {% endif %}
+              {% if block.settings.image_2 %}
+                <a href="{{ block.settings.link_2 | default: '#' }}" class="tgc-mnav__image">
+                  <img src="{{ block.settings.image_2 | image_url: width: 500 }}" alt="{{ block.settings.title_2 | escape }}" loading="lazy" width="500" height="500">
+                </a>
+              {% endif %}
+            </div>
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+  </li>
+{% endfor %}
                 </ul>
               </div>
 
