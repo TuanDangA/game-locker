@@ -632,10 +632,19 @@
         if (!variant) return;
         addBtn.dataset.variantId = variant.id;
         if (priceEl) {
-          priceEl.textContent =
-            Shopify && Shopify.formatMoney
-              ? Shopify.formatMoney(variant.price, '{{ shop.money_format }}')
-              : '$' + (variant.price / 100).toFixed(2);
+          if (priceEl) {
+  if (
+    typeof Shopify !== 'undefined' &&
+    typeof Shopify.formatMoney === 'function'
+  ) {
+    priceEl.textContent = Shopify.formatMoney(
+      variant.price,
+      '{{ shop.money_format }}'
+    );
+  } else {
+    priceEl.textContent = '$' + (variant.price / 100).toFixed(2);
+  }
+}
         }
         addBtn.disabled = !variant.available;
       }
