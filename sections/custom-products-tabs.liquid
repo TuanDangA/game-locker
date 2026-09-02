@@ -674,41 +674,298 @@
       }
 
       /* Add to cart (AJAX) */
-      if (addBtn) {
-        addBtn.addEventListener('click', function () {
-          var variantId = addBtn.dataset.variantId;
-          var qty = qtyInput ? parseInt(qtyInput.value, 10) : 1;
+      /* --- Per-card functionality --- */
+root.querySelectorAll('.trending__card').forEach(function (card) {
 
-          addBtn.classList.add('is-loading');
-          document.dispatchEvent(new CustomEvent('cart:loading'));
+  var variantsJson = card.querySelector('[data-variants-json]');
 
-          fetch('/cart/add.js', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ id: variantId, quantity: qty }),
-          })
-            .then(function (res) {
-              return res.json();
-            })
-            .then(function () {
-              return fetch('/cart.js').then(function (res) {
-                return res.json();
-              });
-            })
-            .then(function (cart) {
-              document.dispatchEvent(
-                new CustomEvent('cart:updated', {
-                  detail: { itemCount: cart.item_count },
-                })
-              );
-            })
-            .catch(function (err) {
-              console.error('Add to cart failed:', err);
-            })
-            .finally(function () {
-              addBtn.classList.remove('is-loading');
+  if (!variantsJson) {
+    console.error('Variants JSON not found');
+    return;
+  }
+
+  var variants = [];
+
+  try {
+    variants = JSON.parse(variantsJson.textContent);
+  } catch (error) {
+    console.error('Unable to parse variants:', error);
+    return;
+  }
+
+
+  var optionSelects = card.querySelectorAll(
+    '.trending__select[data-option-position]'
+  );
+
+  var addBtn = card.querySelector('[data-add-to-cart]');
+  var priceEl = card.querySelector('.trending__price');
+  var qtyInput = card.querySelector('[data-qty-input]');
+
+
+  /* Find matching variant */
+  function findMatchingVariant() {
+
+    var chosenOptions = [];
+
+    optionSelects.forEach(function (select) {
+
+      var position =
+        parseInt(select.dataset.optionPosition, 10) - 1;
+
+      chosenOptions[position] = select.value;
+
+    });
+
+
+    return variants.find(function (variant) {
+
+      return chosenOptions.every(function (value, index) {
+
+        return variant.options[index] === value;
+
+      });
+
+    });
+
+  }
+
+
+  /* Update card when variant changes */
+  function updateForVariant(variant) {
+
+    if (!variant) {
+      console.error('No matching variant found');
+      return;
+    }
+
+
+    if (addBtn) {
+      addBtn.dataset.variantId = variant.id;
+      addBtn.disabled = !variant.available;
+    }
+
+
+    if (priceEl) {
+
+      if (
+        typeof Shopify !== 'undefined' &&
+        typeof Shopify.formatMoney === 'function'
+      ) {
+
+        priceEl.textContent = Shopify.formatMoney(
+          variant.price,
+          '{{ shop.money_format }}'
+        );
+
+      } else {
+
+        priceEl.textContent =
+          '$' + (variant.price / 100).toFixed(2);
+
+      }
+
+    }
+
+  }
+
+
+  /* Variant selection */
+  optionSelects.forEach(function (select) {
+
+    select.addEventListener('change', function () {
+
+      var variant = findMatchingVariant();
+
+      updateForVariant(variant);
+
+    });
+
+  });
+
+
+  /* Quantity buttons */
+  var minusBtn = card.querySelector('[data-qty-minus]');
+  var plusBtn = card.querySelector('[data-qty-plus]');
+
+
+  if (minusBtn && qtyInput) {
+
+    minusBtn.addEventListener('click', function () {
+
+      var currentValue =
+        parseInt(qtyInput.value, 10) || 1;
+
+      qtyInput.value =
+        Math.max(1, currentValue - 1);
+
+    });
+
+  }
+
+
+  if (plusBtn && qtyInput) {
+
+    plusBtn.addEventListener('click', function () {
+
+      var currentValue =
+        parseInt(qtyInput.value, 10) || 1;
+
+      qtyInput.value =
+        currentValue + 1;
+
+    });
+
+  }
+
+
+  /* Add to cart */
+  if (addBtn) {
+
+    addBtn.addEventListener('click', function (event) {
+
+      event.preventDefault();
+
+
+      var variantId = addBtn.dataset.variantId;
+
+      var quantity = qtyInput
+        ? parseInt(qtyInput.value, 10) || 1
+        : 1;
+
+
+      if (!variantId) {
+
+        console.error('Variant ID is missing');
+
+        return;
+
+      }
+
+
+      addBtn.classList.add('is-loading');
+
+      addBtn.disabled = true;
+
+
+      fetch('/cart/add.js', {
+
+        method: 'POST',
+
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+
+        body: JSON.stringify({
+          id: Number(variantId),
+          quantity: quantity
+        })
+
+      })
+
+      .then(function (response) {
+
+        if (!response.ok) {
+
+          return response.json()
+            .then(function (error) {
+
+              throw error;
+
             });
-        });
+
+        }
+
+        return response.json();
+
+      })
+
+
+      .then(function (item) {
+
+        console.log('Product added:', item);
+
+
+        /* Notify Shopify theme */
+        document.dispatchEvent(
+
+          new CustomEvent('cart:updated', {
+
+            bubbles: true,
+
+            detail: {
+              productId: item.product_id
+            }
+
+          })
+
+        );
+
+
+        return fetch('/cart.js');
+
+      })
+
+
+      .then(function (response) {
+
+        return response.json();
+
+      })
+
+
+      .then(function (cart) {
+
+        console.log('Cart updated:', cart);
+
+
+        /* Update cart count */
+        document.dispatchEvent(
+
+          new CustomEvent('cart:change', {
+
+            bubbles: true,
+
+            detail: {
+              cart: cart
+            }
+
+          })
+
+        );
+
+      })
+
+
+      .catch(function (error) {
+
+        console.error(
+          'Add to cart failed:',
+          error
+        );
+
+        alert(
+          error.description ||
+          'Unable to add this product to cart.'
+        );
+
+      })
+
+
+      .finally(function () {
+
+        addBtn.classList.remove('is-loading');
+
+        addBtn.disabled = false;
+
+      });
+
+    });
+
+  }
+
+});
       }
     });
   });
