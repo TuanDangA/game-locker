@@ -1888,10 +1888,6 @@ main > .shopify-section:first-child .section:not(.disable-section-top-offset) {
 }
 
 
-  .trending__add.is-loading {
-    opacity: 0.6;
-    pointer-events: none;
-  }
 
 /* Cart container */
 .action__cart {
@@ -1899,13 +1895,13 @@ main > .shopify-section:first-child .section:not(.disable-section-top-offset) {
 }
 
 /* Hide cart SVG while product is loading */
-body:has(.trending__add-to-cart.is-loading)
+body:has(.trending__add.is-loading)
 .action__cart .svg-wrapper {
   opacity: 0;
 }
 
 /* Show spinner */
-body:has(.trending__add-to-cart.is-loading)
+body:has(.trending__add.is-loading)
 .action__cart::after {
   content: "";
   position: absolute;
