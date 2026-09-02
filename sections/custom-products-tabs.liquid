@@ -371,11 +371,9 @@
               {% if block.settings.collection != blank %}
                 {% for product in block.settings.collection.products limit: block.settings.product_limit %}
                   {% assign variant = product.selected_or_first_available_variant %}
-                 
                   <div class="trending__card" data-product-id="{{ product.id }}">
-                     <a href="{{ product.url }}" >
                     <div class="trending__card-image">
-                     
+                      <a href="{{ product.url }}" class="trending__product-link">
                         {% if product.featured_image %}
                           <img
                             src="{{ product.featured_image | image_url: width: 400 }}"
@@ -383,7 +381,7 @@
                             loading="lazy"
                           >
                         {% endif %}
-                    
+                      </a>
                     </div>
 
                     <div class="trending__card-title-row">
@@ -539,7 +537,6 @@
                         {% endfor %}
                       ]
                     </script>
-                </a>
                   </div>
                 {% endfor %}
               {% endif %}
