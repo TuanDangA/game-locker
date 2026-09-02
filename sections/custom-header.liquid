@@ -917,15 +917,22 @@
       });
     }
 
-    var cartLink = root.querySelector('[data-cart-link]');
-    if (cartLink) {
-      document.addEventListener('cart:loading', function () {
-        cartLink.classList.add('is-loading');
-      });
-      document.addEventListener('cart:updated', function () {
-        cartLink.classList.remove('is-loading');
-      });
-    }
+    document.addEventListener('cart:loading', function () {
+  document.querySelectorAll('[data-cart-link]').forEach(function (el) {
+    el.classList.add('is-loading');
+  });
+});
+
+document.addEventListener('cart:updated', function (e) {
+  document.querySelectorAll('[data-cart-link]').forEach(function (el) {
+    el.classList.remove('is-loading');
+  });
+  if (e.detail && typeof e.detail.itemCount !== 'undefined') {
+    document.querySelectorAll('[data-cart-count]').forEach(function (el) {
+      el.textContent = e.detail.itemCount;
+    });
+  }
+});
 
     /* ---------- Predictive search ---------- */
     var input = root.querySelector('[data-predictive-search-input]');
