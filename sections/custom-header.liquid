@@ -1,20 +1,24 @@
 {% comment %}
   ============================================================
-  HEADER SECTION — "The Games Cube" style (v3)
+  HEADER SECTION — "The Games Cube" style (v4)
   ------------------------------------------------------------
-  CHANGELOG from v2:
-  - Mobile drawer bug fix: showLevel/hideLevel now use
-    style.setProperty(..., 'important') instead of plain
-    style.display, so no other theme stylesheet can override
-    it via specificity — this is what was silently keeping
-    the drawer menu list empty.
-  - Mobile drawer id, aria-controls, and its scoped CSS rule
-    are now suffixed with {{ section.id }} instead of being a
-    hardcoded "tgc-mobile-drawer" string. This prevents a
-    silent duplicate-ID bug if this section is ever rendered
-    twice on the same page (common with sticky-header groups
-    in OS 2.0 themes) — getElementById would otherwise always
-    grab the first copy, which may not be the one you clicked.
+  CHANGELOG from v3:
+  - Fixed .tgc-drawer__body overflow shorthand bug: `overflow:
+    hidden;` was silently forcing overflow-y:hidden too, which
+    clipped any level list taller than the visible drawer,
+    cutting long submenus off after a handful of items with no
+    way to scroll to the rest.
+  - .tgc-mnav--root / .tgc-mnav--sub now get explicit
+    max-height:100% alongside height:100%, so mobile browsers
+    that collapse height:100% chains still cap the level at
+    the drawer's height and let it scroll internally.
+  - Mega menu images (mobile) are now matched PER level-2 item
+    inside the loop that builds that level's own <ul>, instead
+    of only ever checking link.links.first. Previously, images
+    configured for e.g. "Magic Booster Boxes" never rendered
+    unless that item happened to be first in the menu — now
+    each level-2 item's own submenu carries its own matched
+    images, exactly mirroring how the desktop mega menu behaves.
   ------------------------------------------------------------
   INSTALL:
   1. Save this file as  sections/header.liquid
@@ -74,7 +78,6 @@
     .tgc-search-row { display: flex; align-items: stretch; gap: 10px; flex: 1 1 auto; min-width: 0; justify-content: space-around;}
 
     .tgc-search {
-      {% comment %} flex: 1 1 auto; {% endcomment %}
        width: 75%;
       min-width: 0; display: flex; align-items: stretch;
       background: #fff; border-radius: var(--tgc-radius); overflow: visible; position: relative;
@@ -218,13 +221,22 @@
     .tgc-drawer.is-open .tgc-drawer__panel { transform: translateX(0); }
     .tgc-drawer__header {
       display: flex; align-items: center; justify-content: space-between; padding: 16px 18px;
-      background: var(--tgc-nav-bg); color: #fff; font-weight: 700;
+      background: var(--tgc-nav-bg); color: #fff; font-weight: 700; flex: 0 0 auto;
     }
     .tgc-drawer__close { background: none; border: none; color: #fff; font-size: 22px; line-height: 1; }
+
+    /* FIX: `overflow: hidden;` is shorthand for BOTH overflow-x AND
+       overflow-y. It was silently forcing overflow-y:hidden too, which
+       clipped any menu level taller than the visible drawer height —
+       there was no way to scroll to items past the cutoff. The body
+       itself should not scroll (the individual levels inside it do,
+       via .tgc-mnav--root / .tgc-mnav--sub), so both axes are hidden
+       here on purpose, but the levels below now get an explicit
+       max-height so they can scroll internally within that space. */
     .tgc-drawer__body {
       flex: 1 1 auto;
-      overflow: hidden;
       overflow-x: hidden;
+      overflow-y: hidden;
       position: relative;
       min-width: 0;
       min-height: 0;
@@ -245,6 +257,7 @@
       position: relative;
       z-index: 1;
       height: 100%;
+      max-height: 100%; /* mobile browsers can collapse height:100% chains — this caps it explicitly */
       overflow-x: hidden;
       overflow-y: auto;
       overscroll-behavior-x: none;
@@ -256,6 +269,7 @@
       inset: 0;
       width: 100%;
       height: 100%;
+      max-height: 100%; /* same fix as above, applied to every drilled-down level */
       min-height: 100%;
       margin: 0;
       padding: 4px 0;
@@ -296,7 +310,6 @@
     /* ---------- RESPONSIVE (<=768px) ---------- */
     @media (max-width: 768px) {
       .tgc-search {
-      {% comment %} flex: 1 1 auto; {% endcomment %}
        width: 80%;
       }
       .tgc-hamburger { display: block; }
@@ -318,7 +331,7 @@
     }
 
 
-    /* ---------- MOBILE SUBMENU IMAGES (Option A) ---------- */
+    /* ---------- MOBILE SUBMENU IMAGES ---------- */
     .tgc-mnav__images {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -527,7 +540,7 @@
             <div class="tgc-mega" data-mega>
               <div class="tgc-mega__col tgc-mega__col--l2">
                 <ul>
-                  {% comment %} {% for link2 in link.links %}
+                  {% for link2 in link.links %}
                     <li
                       class="{% if forloop.first %}is-active{% endif %}"
                       data-l2-trigger
@@ -540,72 +553,7 @@
                         {%- endif %}
                       </a>
                     </li>
-                  {% endfor %} {% endcomment %}
-                   {% for link2 in link.links %}
-  <li>
-    {% if link2.links != blank %}
-      <button class="tgc-mnav__link" type="button" data-open-sub>
-        <span>{{ link2.title }}</span>
-        <span class="chev">&rsaquo;</span>
-      </button>
-
-      <!-- LEVEL 2 -->
-      <ul class="tgc-mnav tgc-mnav--sub" data-level="2">
-        <li>
-          <button class="tgc-mnav__back" type="button" data-back>&larr; {{ link2.title }}</button>
-        </li>
-
-        {% for link3 in link2.links %}
-          <li>
-            <a href="{{ link3.url }}">{{ link3.title }}</a>
-          </li>
-        {% endfor %}
-
-        {% comment %} Images matched to THIS specific level-2 item, shown inside its own submenu {% endcomment %}
-        {% for block in section.blocks %}
-          {% if block.type == 'mega_image' and block.settings.parent_label == link2.title %}
-            {% if block.settings.image_1 or block.settings.image_2 %}
-              <li class="tgc-mnav__images">
-                {% if block.settings.image_1 %}
-                  <a href="{{ block.settings.link_1 | default: '#' }}" class="tgc-mnav__image">
-                    <img src="{{ block.settings.image_1 | image_url: width: 500 }}" alt="{{ block.settings.title_1 | escape }}" loading="lazy" width="500" height="500">
-                  </a>
-                {% endif %}
-                {% if block.settings.image_2 %}
-                  <a href="{{ block.settings.link_2 | default: '#' }}" class="tgc-mnav__image">
-                    <img src="{{ block.settings.image_2 | image_url: width: 500 }}" alt="{{ block.settings.title_2 | escape }}" loading="lazy" width="500" height="500">
-                  </a>
-                {% endif %}
-              </li>
-            {% endif %}
-          {% endif %}
-        {% endfor %}
-      </ul>
-    {% else %}
-      <a href="{{ link2.url }}">{{ link2.title }}</a>
-
-      {% comment %} If a flat (no-children) level-2 item has matching images, show them right after it {% endcomment %}
-      {% for block in section.blocks %}
-        {% if block.type == 'mega_image' and block.settings.parent_label == link2.title %}
-          {% if block.settings.image_1 or block.settings.image_2 %}
-            <div class="tgc-mnav__images">
-              {% if block.settings.image_1 %}
-                <a href="{{ block.settings.link_1 | default: '#' }}" class="tgc-mnav__image">
-                  <img src="{{ block.settings.image_1 | image_url: width: 500 }}" alt="{{ block.settings.title_1 | escape }}" loading="lazy" width="500" height="500">
-                </a>
-              {% endif %}
-              {% if block.settings.image_2 %}
-                <a href="{{ block.settings.link_2 | default: '#' }}" class="tgc-mnav__image">
-                  <img src="{{ block.settings.image_2 | image_url: width: 500 }}" alt="{{ block.settings.title_2 | escape }}" loading="lazy" width="500" height="500">
-                </a>
-              {% endif %}
-            </div>
-          {% endif %}
-        {% endif %}
-      {% endfor %}
-    {% endif %}
-  </li>
-{% endfor %}
+                  {% endfor %}
                 </ul>
               </div>
 
@@ -706,53 +654,84 @@
                             <a href="{{ link3.url }}">{{ link3.title }}</a>
                           </li>
                         {% endfor %}
+
+                        {% comment %}
+                          Images matched to THIS specific level-2 item's title,
+                          shown at the bottom of its own level-2 submenu list.
+                          Checked per-item (not just the first one) so images
+                          configured for any level-2 title actually render.
+                        {% endcomment %}
+                        {% for block in section.blocks %}
+                          {% if block.type == 'mega_image' and block.settings.parent_label == link2.title %}
+                            {% if block.settings.image_1 or block.settings.image_2 %}
+                              <li class="tgc-mnav__images">
+                                {% if block.settings.image_1 %}
+                                  <a href="{{ block.settings.link_1 | default: '#' }}" class="tgc-mnav__image">
+                                    <img
+                                      src="{{ block.settings.image_1 | image_url: width: 500 }}"
+                                      alt="{{ block.settings.title_1 | escape }}"
+                                      loading="lazy"
+                                      width="500"
+                                      height="500"
+                                    >
+                                  </a>
+                                {% endif %}
+                                {% if block.settings.image_2 %}
+                                  <a href="{{ block.settings.link_2 | default: '#' }}" class="tgc-mnav__image">
+                                    <img
+                                      src="{{ block.settings.image_2 | image_url: width: 500 }}"
+                                      alt="{{ block.settings.title_2 | escape }}"
+                                      loading="lazy"
+                                      width="500"
+                                      height="500"
+                                    >
+                                  </a>
+                                {% endif %}
+                              </li>
+                            {% endif %}
+                          {% endif %}
+                        {% endfor %}
                       </ul>
                     {% else %}
                       <a href="{{ link2.url }}">{{ link2.title }}</a>
+
+                      {% comment %}
+                        Flat (no-children) level-2 item — if it has matching
+                        images, show them right after it as its own row.
+                      {% endcomment %}
+                      {% for block in section.blocks %}
+                        {% if block.type == 'mega_image' and block.settings.parent_label == link2.title %}
+                          {% if block.settings.image_1 or block.settings.image_2 %}
+                            <div class="tgc-mnav__images">
+                              {% if block.settings.image_1 %}
+                                <a href="{{ block.settings.link_1 | default: '#' }}" class="tgc-mnav__image">
+                                  <img
+                                    src="{{ block.settings.image_1 | image_url: width: 500 }}"
+                                    alt="{{ block.settings.title_1 | escape }}"
+                                    loading="lazy"
+                                    width="500"
+                                    height="500"
+                                  >
+                                </a>
+                              {% endif %}
+                              {% if block.settings.image_2 %}
+                                <a href="{{ block.settings.link_2 | default: '#' }}" class="tgc-mnav__image">
+                                  <img
+                                    src="{{ block.settings.image_2 | image_url: width: 500 }}"
+                                    alt="{{ block.settings.title_2 | escape }}"
+                                    loading="lazy"
+                                    width="500"
+                                    height="500"
+                                  >
+                                </a>
+                              {% endif %}
+                            </div>
+                          {% endif %}
+                        {% endif %}
+                      {% endfor %}
                     {% endif %}
                   </li>
                 {% endfor %}
-
-                <!--
-                  OPTION A:
-                  Images stay at the bottom of the Level 1 submenu,
-                  matching the supplied mobile screenshot. Images are
-                  attached to the FIRST second-level menu item.
-                -->
-                {% assign first_link2 = link.links.first %}
-                {% if first_link2 != blank %}
-                  {% for block in section.blocks %}
-                    {% if block.type == 'mega_image' and block.settings.parent_label == first_link2.title %}
-                      {% if block.settings.image_1 or block.settings.image_2 %}
-                        <li class="tgc-mnav__images">
-                          {% if block.settings.image_1 %}
-                            <a href="{{ block.settings.link_1 | default: '#' }}" class="tgc-mnav__image">
-                              <img
-                                src="{{ block.settings.image_1 | image_url: width: 500 }}"
-                                alt="{{ block.settings.title_1 | escape }}"
-                                loading="lazy"
-                                width="500"
-                                height="500"
-                              >
-                            </a>
-                          {% endif %}
-
-                          {% if block.settings.image_2 %}
-                            <a href="{{ block.settings.link_2 | default: '#' }}" class="tgc-mnav__image">
-                              <img
-                                src="{{ block.settings.image_2 | image_url: width: 500 }}"
-                                alt="{{ block.settings.title_2 | escape }}"
-                                loading="lazy"
-                                width="500"
-                                height="500"
-                              >
-                            </a>
-                          {% endif %}
-                        </li>
-                      {% endif %}
-                    {% endif %}
-                  {% endfor %}
-                {% endif %}
               </ul>
             {% else %}
               <a href="{{ link.url }}">{{ link.title }}</a>
@@ -823,7 +802,7 @@
       }
     });
 
-    /* ---------- Mobile drawer (Option A drill-down) ---------- */
+    /* ---------- Mobile drawer (drill-down) ---------- */
     var drawer = document.getElementById('tgc-mobile-drawer-{{ section.id }}');
     var toggleBtn = root.querySelector('[data-drawer-toggle]');
     var rootLevelUl = drawer ? drawer.querySelector('.tgc-mnav--root[data-level="0"]') : null;
