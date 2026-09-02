@@ -183,6 +183,7 @@
       ],
       "name": "Icon columns",
       "settings": {
+        "background_color": "{{ settings.color_palette.background }}",
         "section_width": "page-width",
         "padding-block-start": 0,
         "padding-block-end": 32
