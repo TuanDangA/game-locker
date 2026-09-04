@@ -1,362 +1,362 @@
 <style>
-  .trending {
-    text-align: center;
-  }
+    .trending {
+      text-align: center;
+    }
 
-  .trending__eyebrow {
-    margin: 0 0 0.4rem;
-    font-size: 12px;
-    font-weight: 600;
-    text-transform: uppercase;
-    color: {{ section.settings.accent_color | default: '#2f6fed' }};
-  }
+    .trending__eyebrow {
+      margin: 0 0 0.4rem;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: {{ section.settings.accent_color | default: '#2f6fed' }};
+    }
 
-  .trending__heading {
-    margin: 0 0 0.5rem;
-    font-size: 32px;
-    font-weight: 600;
-    color: {{ section.settings.heading_color | default: '#141414' }};
-  }
+    .trending__heading {
+      margin: 0 0 0.5rem;
+      font-size: 32px;
+      font-weight: 600;
+      color: {{ section.settings.heading_color | default: '#141414' }};
+    }
 
-  .trending__subheading {
-    margin: 0 0 1.5rem;
-    font-size: 14px;
-    color: #5C554C;
-  }
+    .trending__subheading {
+      margin: 0 0 1.5rem;
+      font-size: 14px;
+      color: #5C554C;
+    }
 
-  .trending__tabs {
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
-    border-bottom: 1px solid #e5e5e5;
-    margin-bottom: 2rem;
-    flex-wrap: wrap;
-  }
+    .trending__tabs {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      border-bottom: 1px solid #e5e5e5;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
 
-  .trending__tab {
-    background: none;
-    border: none;
-    border-bottom: 2px solid transparent;
-    padding: 0.6rem 0.1rem;
-    font-size: 14px;
-    font-weight: 400;
-    text-transform: uppercase;
-    color: #8C8377;
-    font-family: var(--font-h3--family) !important;
-    cursor: pointer;
-  }
+    .trending__tab {
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      padding: 0.6rem 0.1rem;
+      font-size: 14px;
+      font-weight: 400;
+      text-transform: uppercase;
+      color: #8C8377;
+      font-family: var(--font-h3--family) !important;
+      cursor: pointer;
+    }
 
-  .trending__tab.is-active {
-    color: #1D1A17;
-    border-bottom-color: {{ section.settings.accent_color | default: '#2f6fed' }};
-  }
+    .trending__tab.is-active {
+      color: #1D1A17;
+      border-bottom-color: {{ section.settings.accent_color | default: '#2f6fed' }};
+    }
 
-  .trending__panel {
-    display: none;
-    position: relative;
-    text-align: left;
-  }
+    .trending__panel {
+      display: none;
+      position: relative;
+      text-align: left;
+    }
 
-  .trending__panel.is-active {
-    display: block;
-  }
+    .trending__panel.is-active {
+      display: block;
+    }
 
-  .trending__track-wrap {
-    position: relative;
-  }
+    .trending__track-wrap {
+      position: relative;
+    }
 
-  /* ---------- TRACK: horizontal-scrolling grid of columns ----------
-     grid-auto-flow: column keeps the same left-to-right scrolling
-     carousel behavior as the old flex layout. grid-template-rows
-     defines 5 shared row tracks: image / title / price / selects /
-     cart-row. Every card below spans all 5 via subgrid, so each row
-     only grows to match its own tallest sibling across the row of
-     cards (title can grow taller for a long product name; price,
-     selects and cart-row stay locked to a consistent height). */
-  .trending__track {
-    display: grid;
-    grid-auto-flow: column;
-    grid-auto-columns: 220px;
-    grid-template-rows: auto auto auto auto auto; /* image / title / price / selects / cart-row */
-    gap: 1.25rem;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    padding-bottom: 0.5rem;
-  }
+    /* ---------- TRACK: horizontal-scrolling grid of columns ----------
+       grid-auto-flow: column keeps the same left-to-right scrolling
+       carousel behavior as the old flex layout. grid-template-rows
+       defines 5 shared row tracks: image / title / price / selects /
+       cart-row. Every card below spans all 5 via subgrid, so each row
+       only grows to match its own tallest sibling across the row of
+       cards (title can grow taller for a long product name; price,
+       selects and cart-row stay locked to a consistent height). */
+    .trending__track {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: auto;
+      grid-template-rows: auto auto auto auto auto; /* image / title / price / selects / cart-row */
+      gap: 1.25rem;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      padding-bottom: 0.5rem;
+    }
 
-  .trending__track::-webkit-scrollbar {
-    display: none;
-  }
+    .trending__track::-webkit-scrollbar {
+      display: none;
+    }
 
-  .trending__arrow {
-    position: absolute;
-    top: 40%;
-    transform: translateY(-50%);
-    width: 34px;
-    height: 34px;
-    border-radius: 50%;
-    border: 1px solid #e0e0e0;
-    background: #ffffff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    z-index: 2;
-  }
+    .trending__arrow {
+      position: absolute;
+      top: 40%;
+      transform: translateY(-50%);
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 1px solid #e0e0e0;
+      background: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 2;
+    }
 
-  .trending__arrow--prev { left: -8px; }
-  .trending__arrow--next { right: -8px; }
+    .trending__arrow--prev { left: -8px; }
+    .trending__arrow--next { right: -8px; }
 
-  /* Each card must have exactly 5 direct children matching the 5
-     grid-template-rows above: .trending__card-image,
-     .trending__card-title-row, .trending__price-row,
-     .trending__selects (wraps BOTH the option select and the
-     location select as one row), .trending__cart-row. */
-  .trending__card {
-    display: grid;
-    grid-row: span 5;
-    grid-template-rows: subgrid;
-    scroll-snap-align: start;
-    border: 1px solid #e5e5e5;
-    border-radius: 6px;
-    padding: 0.75rem;
-    background: #ffffff;
-    row-gap: 0;
-  }
+    /* Each card must have exactly 5 direct children matching the 5
+       grid-template-rows above: .trending__card-image,
+       .trending__card-title-row, .trending__price-row,
+       .trending__selects (wraps BOTH the option select and the
+       location select as one row), .trending__cart-row. */
+    .trending__card {
+      display: grid;
+      grid-row: span 5;
+      grid-template-rows: subgrid;
+      scroll-snap-align: start;
+      border: 1px solid #e5e5e5;
+      border-radius: 6px;
+      padding: 0.75rem;
+      background: #ffffff;
+      row-gap: 0;
+    }
 
-  .trending__card-image {
-    position: relative;
-    margin-bottom: 0.75rem;
-  }
+    .trending__card-image {
+      position: relative;
+      margin-bottom: 0.75rem;
+    }
 
-  .trending__card-image img {
-    display: block;
-    width: 100%;
-    height: auto;
-    border-radius: 4px;
-  }
+    .trending__card-image img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 4px;
+    }
 
-  .trending__card-title-row {
-    display: flex;
-    align-items: flex-start; /* keeps titles flush at the top of the row instead of centering when the row grows taller for a neighboring card */
-    justify-content: space-between;
-    gap: 0.5rem;
-    margin-bottom: 8px;
-  }
+    .trending__card-title-row {
+      display: flex;
+      align-items: flex-start; /* keeps titles flush at the top of the row instead of centering when the row grows taller for a neighboring card */
+      justify-content: space-between;
+      gap: 0.5rem;
+      margin-bottom: 8px;
+    }
 
-  .trending__card-title {
-    margin: 0;
-    font-size: 20px;
-    font-weight: 500;
-    color: #1D1A17;
-    font-family: var(--font-h3--family) !important;
-  }
+    .trending__card-title {
+      margin: 0;
+      font-size: 20px;
+      font-weight: 500;
+      color: #1D1A17;
+      font-family: var(--font-h3--family) !important;
+    }
 
-  .trending__badge {
-      flex-shrink: 0;
+    .trending__badge {
+        flex-shrink: 0;
+        font-size: 11px;
+        font-weight: 700;
+        padding: 4px 12px 4px 8px;
+        border-radius: 999px;
+        background: #e6edfb;
+        color: #6d8591;
+        background: linear-gradient(
+    90deg, #EAF4FC 50%, #C7E0F4 100%, #8FB8DC 100%);
+        border-radius: 1000px;
+        box-sizing: border-box;
+        border: 1px solid #D6EDFE;
+    }
+
+    .trending__price-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 4px;
+    }
+
+    .trending__price {
+      font-size: 15px;
+      font-weight: 700;
+      color: #3c8fcb;
+    }
+
+    .trending__stock {
       font-size: 11px;
       font-weight: 700;
-      padding: 4px 12px 4px 8px;
-      border-radius: 999px;
-      background: #e6edfb;
-      color: #6d8591;
-      background: linear-gradient(
-  90deg, #EAF4FC 50%, #C7E0F4 100%, #8FB8DC 100%);
-      border-radius: 1000px;
-      box-sizing: border-box;
-      border: 1px solid #D6EDFE;
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+    }
+
+    .trending__stock--low {
+      background: #FCE6D6;
+      color: #C25A1E;
+    }
+
+    .trending__stock--ok {
+      background: #E3F3E9;
+      color: #2E7D4F;
+    }
+
+    /* Wraps every <select> (product options + location select) as
+       ONE grid row, so the number of selects a product happens to
+       have never breaks the 5-row subgrid alignment. */
+    .trending__selects {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .trending__select {
+      width: 100%;
+      padding: 0.5rem 0.6rem;
+      border: 1px solid #C0DFF6;
+      border-radius: 4px;
+      font-size: 15px;
+      margin-bottom: 0.5rem;
+      background: #fff;
+      height: 48px;
+    }
+
+    .trending__select {
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6 7.4L0 1.4L1.4 0L6 4.6L10.6 0L12 1.4L6 7.4Z' fill='%235C554C'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      background-size: 12px 8px;
+      padding-right: 30px;
+    }
+
+    .trending__cart-row {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .trending__qty {
+      display: flex;
+      align-items: center;
+      border: 1px solid #C0DFF6;
+      border-radius: 4px;
+      width: -webkit-fill-available;
+      justify-content: space-evenly;
+      height: 48px;
+    }
+
+    .trending__qty button {
+      width: 30px;
+      height: 34px;
+      border: none;
+      background: none;
+      cursor: pointer;
+      font-size: 24px;
+    }
+
+    .trending__qty input {
+      width: 32px;
+      border: none;
+      text-align: center;
+      font-size: 15px;
+      font-weight: 400;
+    }
+
+    .trending__add {
+      height: 48px;
+      width: 60px;
+      border: none;
+      border-radius: 4px;
+      background: #1D1A17;
+      color: #fff;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .trending__add svg {
+      width: 24px;
+      height: 24px;
+    }
+
+
+
+    .trending__view-all {
+      display: none;
+      text-align: center;
+      margin-top: 2rem;
+    }
+
+    .trending__view-all.is-active {
+      display: block;
+    }
+
+    .trending__view-all a {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0.6rem 1.4rem;
+      border: 1px solid #1D1A17;
+      border-radius: 4px;
+      font-size: 14px;
+      font-weight: 600;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: #1D1A17;
+      font-family: var(--font-h3--family)  !important;
+    }
+
+    @media screen and (max-width: 749px) {
+      .trending__tabs {
+        gap: 1.1rem;
+      }
+    }
+
+   .trending__add {
+    position: relative;
   }
 
-  .trending__price-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 4px;
+  /* When button is loading, hide its original content */
+  .trending__add.is-loading {
+    color: transparent;
+    pointer-events: none;
   }
 
-  .trending__price {
-    font-size: 15px;
-    font-weight: 700;
-    color: #3c8fcb;
+  /* Hide all button children while loading */
+  .trending__add.is-loading > * {
+    visibility: hidden;
   }
 
-  .trending__stock {
-    font-size: 11px;
-    font-weight: 700;
-    padding: 0.15rem 0.5rem;
-    border-radius: 4px;
+  /* Create spinner */
+  .trending__add.is-loading::after {
+    content: "";
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    width: 18px;
+    height: 18px;
+
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    border-top-color: #ffffff;
+
+    border-radius: 50%;
+
+    transform: translate(-50%, -50%);
+    animation: product-card-spinner 0.7s linear infinite;
   }
 
-  .trending__stock--low {
-    background: #FCE6D6;
-    color: #C25A1E;
-  }
+  @keyframes product-card-spinner {
+    from {
+      transform: translate(-50%, -50%) rotate(0deg);
+    }
 
-  .trending__stock--ok {
-    background: #E3F3E9;
-    color: #2E7D4F;
-  }
-
-  /* Wraps every <select> (product options + location select) as
-     ONE grid row, so the number of selects a product happens to
-     have never breaks the 5-row subgrid alignment. */
-  .trending__selects {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .trending__select {
-    width: 100%;
-    padding: 0.5rem 0.6rem;
-    border: 1px solid #C0DFF6;
-    border-radius: 4px;
-    font-size: 15px;
-    margin-bottom: 0.5rem;
-    background: #fff;
-    height: 48px;
-  }
-
-  .trending__select {
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6 7.4L0 1.4L1.4 0L6 4.6L10.6 0L12 1.4L6 7.4Z' fill='%235C554C'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 12px center;
-    background-size: 12px 8px;
-    padding-right: 30px;
-  }
-
-  .trending__cart-row {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-
-  .trending__qty {
-    display: flex;
-    align-items: center;
-    border: 1px solid #C0DFF6;
-    border-radius: 4px;
-    width: -webkit-fill-available;
-    justify-content: space-evenly;
-    height: 48px;
-  }
-
-  .trending__qty button {
-    width: 30px;
-    height: 34px;
-    border: none;
-    background: none;
-    cursor: pointer;
-    font-size: 24px;
-  }
-
-  .trending__qty input {
-    width: 32px;
-    border: none;
-    text-align: center;
-    font-size: 15px;
-    font-weight: 400;
-  }
-
-  .trending__add {
-    height: 48px;
-    width: 60px;
-    border: none;
-    border-radius: 4px;
-    background: #1D1A17;
-    color: #fff;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .trending__add svg {
-    width: 24px;
-    height: 24px;
-  }
-
-
-
-  .trending__view-all {
-    display: none;
-    text-align: center;
-    margin-top: 2rem;
-  }
-
-  .trending__view-all.is-active {
-    display: block;
-  }
-
-  .trending__view-all a {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 0.6rem 1.4rem;
-    border: 1px solid #1D1A17;
-    border-radius: 4px;
-    font-size: 14px;
-    font-weight: 600;
-    text-transform: uppercase;
-    text-decoration: none;
-    color: #1D1A17;
-    font-family: var(--font-h3--family)  !important;
-  }
-
-  @media screen and (max-width: 749px) {
-    .trending__tabs {
-      gap: 1.1rem;
+    to {
+      transform: translate(-50%, -50%) rotate(360deg);
     }
   }
-
- .trending__add {
-  position: relative;
-}
-
-/* When button is loading, hide its original content */
-.trending__add.is-loading {
-  color: transparent;
-  pointer-events: none;
-}
-
-/* Hide all button children while loading */
-.trending__add.is-loading > * {
-  visibility: hidden;
-}
-
-/* Create spinner */
-.trending__add.is-loading::after {
-  content: "";
-
-  position: absolute;
-  top: 50%;
-  left: 50%;
-
-  width: 18px;
-  height: 18px;
-
-  border: 2px solid rgba(0, 0, 0, 0.2);
-  border-top-color: #ffffff;
-
-  border-radius: 50%;
-
-  transform: translate(-50%, -50%);
-  animation: product-card-spinner 0.7s linear infinite;
-}
-
-@keyframes product-card-spinner {
-  from {
-    transform: translate(-50%, -50%) rotate(0deg);
-  }
-
-  to {
-    transform: translate(-50%, -50%) rotate(360deg);
-  }
-}
 </style>
 
 <div
@@ -463,6 +463,8 @@
                                 {% assign display_value = 'Heavily Played' %}
                               {% when 'DMG' %}
                                 {% assign display_value = 'Damaged' %}
+                              {% when 'FS' %}
+                                {% assign display_value = 'For Sale' %}
                               {% else %}
                                 {% assign display_value = value %}
                             {% endcase %}
@@ -486,12 +488,11 @@
 
                         Product tag format:
                         Location: Melbourne
-                        Location: My Custom Location
-                        Location: Shop location
+                        Location: Formally no longer blank 2
                         ==========================================
                       {% endcomment %}
 
-                      {% assign all_locations = 'Melbourne||My Custom Location||Shop location' | split: '||' %}
+                      {% assign all_locations = 'Melbourne||Formally no longer blank 2' | split: '||' %}
 
                       {% comment %}
                         Get product location tags
@@ -621,21 +622,14 @@
         });
 
         panels.forEach(function (p) {
-          p.classList.toggle(
-            'is-active',
-            p.dataset.panelIndex === index
-          );
+          p.classList.toggle('is-active', p.dataset.panelIndex === index);
         });
 
         viewAlls.forEach(function (v) {
-          v.classList.toggle(
-            'is-active',
-            v.dataset.viewAllIndex === index
-          );
+          v.classList.toggle('is-active', v.dataset.viewAllIndex === index);
         });
       });
     });
-
 
     /* --- Arrow scroll --- */
     root.querySelectorAll('.trending__track-wrap').forEach(function (wrap) {
@@ -648,7 +642,7 @@
         prev.addEventListener('click', function () {
           track.scrollBy({
             left: -scrollAmount,
-            behavior: 'smooth'
+            behavior: 'smooth',
           });
         });
       }
@@ -657,412 +651,245 @@
         next.addEventListener('click', function () {
           track.scrollBy({
             left: scrollAmount,
-            behavior: 'smooth'
+            behavior: 'smooth',
           });
         });
       }
     });
-
 
     /* =========================================
        UPDATE SHOPIFY HEADER CART COUNT
     ========================================= */
 
     function updateCartBubble() {
-
       return fetch('/cart.js')
         .then(function (response) {
-
           if (!response.ok) {
             throw new Error('Unable to fetch cart');
           }
 
           return response.json();
-
         })
         .then(function (cart) {
-
           console.log('Updated cart:', cart);
 
           /* Update all cart count elements */
-          document.querySelectorAll(
-            '.cart-bubble__text-count'
-          ).forEach(function (bubble) {
-
+          document.querySelectorAll('.cart-bubble__text-count').forEach(function (bubble) {
             bubble.textContent = cart.item_count;
-
+            if (cart.item_count > 0) {
+              bubble.classList.remove('hidden');
+            } else {
+              bubble.classList.add('hidden');
+            }
           });
 
+          /* Update all cart bubble elements */
+          document.querySelectorAll('.cart-bubble').forEach(function (bubble) {
+            if (cart.item_count > 0) {
+              bubble.classList.remove('visually-hidden');
+            } else {
+              bubble.classList.add('visually-hidden');
+            }
+          });
 
           /* Update aria labels if needed */
-          document.querySelectorAll(
-            '.action__cart'
-          ).forEach(function (cartButton) {
-
-            cartButton.setAttribute(
-              'aria-label',
-              'Cart with ' + cart.item_count + ' items'
-            );
-
+          document.querySelectorAll('.action__cart').forEach(function (cartButton) {
+            cartButton.setAttribute('aria-label', 'Cart with ' + cart.item_count + ' items');
           });
-
 
           /* Notify theme */
           document.dispatchEvent(
             new CustomEvent('cart:updated', {
               bubbles: true,
               detail: {
-                cart: cart
-              }
+                cart: cart,
+              },
             })
           );
-
 
           document.dispatchEvent(
             new CustomEvent('cart:change', {
               bubbles: true,
               detail: {
-                cart: cart
-              }
+                cart: cart,
+              },
             })
           );
 
-
           return cart;
-
         })
         .catch(function (error) {
-
-          console.error(
-            'Cart bubble update failed:',
-            error
-          );
-
+          console.error('Cart bubble update failed:', error);
         });
-
     }
-
 
     /* =========================================
        PRODUCT CARDS
     ========================================= */
 
     root.querySelectorAll('.trending__card').forEach(function (card) {
-
-      var variantsJson =
-        card.querySelector('[data-variants-json]');
+      var variantsJson = card.querySelector('[data-variants-json]');
 
       var variants = [];
 
       /* Safely parse variants */
       if (variantsJson) {
         try {
-          variants =
-            JSON.parse(variantsJson.textContent);
+          variants = JSON.parse(variantsJson.textContent);
         } catch (error) {
-          console.error(
-            'Unable to parse variants:',
-            error
-          );
+          console.error('Unable to parse variants:', error);
         }
       }
 
+      var optionSelects = card.querySelectorAll('.trending__select[data-option-position]');
 
-      var optionSelects =
-        card.querySelectorAll(
-          '.trending__select[data-option-position]'
-        );
+      var addBtn = card.querySelector('[data-add-to-cart]');
 
-      var addBtn =
-        card.querySelector('[data-add-to-cart]');
+      var priceEl = card.querySelector('.trending__price');
 
-      var priceEl =
-        card.querySelector('.trending__price');
-
-      var qtyInput =
-        card.querySelector('[data-qty-input]');
-
+      var qtyInput = card.querySelector('[data-qty-input]');
 
       /* --- Find matching variant --- */
 
       function findMatchingVariant() {
-
         var chosenOptions = [];
 
         optionSelects.forEach(function (select) {
+          var position = parseInt(select.dataset.optionPosition, 10) - 1;
 
-          var position =
-            parseInt(
-              select.dataset.optionPosition,
-              10
-            ) - 1;
-
-          chosenOptions[position] =
-            select.value;
-
+          chosenOptions[position] = select.value;
         });
-
 
         return variants.find(function (variant) {
-
-          return chosenOptions.every(
-            function (value, index) {
-
-              return variant.options[index] === value;
-
-            }
-          );
-
+          return chosenOptions.every(function (value, index) {
+            return variant.options[index] === value;
+          });
         });
-
       }
-
 
       /* --- Update variant --- */
 
       function updateForVariant(variant) {
-
         if (!variant || !addBtn) return;
 
+        addBtn.dataset.variantId = variant.id;
 
-        addBtn.dataset.variantId =
-          variant.id;
-
-
-        addBtn.disabled =
-          !variant.available;
-
+        addBtn.disabled = !variant.available;
 
         if (priceEl) {
-
           /* Safe Shopify object check */
-          if (
-            typeof Shopify !== 'undefined' &&
-            typeof Shopify.formatMoney === 'function'
-          ) {
-
-            priceEl.textContent =
-              Shopify.formatMoney(
-                variant.price,
-                '{{ shop.money_format }}'
-              );
-
+          if (typeof Shopify !== 'undefined' && typeof Shopify.formatMoney === 'function') {
+            priceEl.textContent = Shopify.formatMoney(variant.price, '{{ shop.money_format }}');
           } else {
-
-            priceEl.textContent =
-              '$' +
-              (variant.price / 100).toFixed(2);
-
+            priceEl.textContent = '$' + (variant.price / 100).toFixed(2);
           }
-
         }
-
       }
-
 
       /* --- Variant change --- */
 
       optionSelects.forEach(function (select) {
+        select.addEventListener('change', function () {
+          var match = findMatchingVariant();
 
-        select.addEventListener(
-          'change',
-          function () {
-
-            var match =
-              findMatchingVariant();
-
-            updateForVariant(match);
-
-          }
-        );
-
+          updateForVariant(match);
+        });
       });
-
 
       /* --- Set initial variant --- */
 
       if (addBtn && !addBtn.dataset.variantId) {
-
-        var initialVariant =
-          findMatchingVariant();
+        var initialVariant = findMatchingVariant();
 
         if (initialVariant) {
           updateForVariant(initialVariant);
         }
-
       }
-
 
       /* =========================================
          QUANTITY STEPPER
       ========================================= */
 
-      var minusBtn =
-        card.querySelector('[data-qty-minus]');
+      var minusBtn = card.querySelector('[data-qty-minus]');
 
-      var plusBtn =
-        card.querySelector('[data-qty-plus]');
-
+      var plusBtn = card.querySelector('[data-qty-plus]');
 
       if (minusBtn && qtyInput) {
+        minusBtn.addEventListener('click', function (event) {
+          event.preventDefault();
 
-        minusBtn.addEventListener(
-          'click',
-          function (event) {
+          var value = parseInt(qtyInput.value, 10) || 1;
 
-            event.preventDefault();
-
-            var value =
-              parseInt(
-                qtyInput.value,
-                10
-              ) || 1;
-
-
-            qtyInput.value =
-              Math.max(
-                1,
-                value - 1
-              );
-
-          }
-        );
-
+          qtyInput.value = Math.max(1, value - 1);
+        });
       }
-
 
       if (plusBtn && qtyInput) {
+        plusBtn.addEventListener('click', function (event) {
+          event.preventDefault();
 
-        plusBtn.addEventListener(
-          'click',
-          function (event) {
+          var value = parseInt(qtyInput.value, 10) || 1;
 
-            event.preventDefault();
-
-            var value =
-              parseInt(
-                qtyInput.value,
-                10
-              ) || 1;
-
-
-            qtyInput.value =
-              value + 1;
-
-          }
-        );
-
+          qtyInput.value = value + 1;
+        });
       }
-
 
       /* =========================================
          ADD TO CART
       ========================================= */
 
       if (addBtn) {
+        addBtn.addEventListener('click', function (event) {
+          event.preventDefault();
 
-        addBtn.addEventListener(
-          'click',
-          function (event) {
+          /* Prevent double click */
+          if (addBtn.classList.contains('is-loading')) {
+            return;
+          }
 
-            event.preventDefault();
+          var variantId = addBtn.dataset.variantId;
 
+          var qty = qtyInput ? parseInt(qtyInput.value, 10) || 1 : 1;
 
-            /* Prevent double click */
-            if (
-              addBtn.classList.contains(
-                'is-loading'
-              )
-            ) {
-              return;
-            }
+          /* Check variant */
+          if (!variantId) {
+            console.error('Variant ID is missing');
 
+            return;
+          }
 
-            var variantId =
-              addBtn.dataset.variantId;
+          /* Start loading */
+          addBtn.classList.add('is-loading');
 
+          addBtn.disabled = true;
 
-            var qty =
-              qtyInput
-                ? (
-                    parseInt(
-                      qtyInput.value,
-                      10
-                    ) || 1
-                  )
-                : 1;
+          fetch('/cart/add.js', {
+            method: 'POST',
 
+            headers: {
+              'Content-Type': 'application/json',
 
-            /* Check variant */
-            if (!variantId) {
+              Accept: 'application/json',
+            },
 
-              console.error(
-                'Variant ID is missing'
-              );
+            body: JSON.stringify({
+              id: Number(variantId),
 
-              return;
-
-            }
-
-
-            /* Start loading */
-            addBtn.classList.add(
-              'is-loading'
-            );
-
-            addBtn.disabled = true;
-
-
-            fetch('/cart/add.js', {
-
-              method: 'POST',
-
-              headers: {
-                'Content-Type':
-                  'application/json',
-
-                'Accept':
-                  'application/json'
-              },
-
-
-              body: JSON.stringify({
-
-                id: Number(variantId),
-
-                quantity: qty
-
-              })
-
-            })
-
-
+              quantity: qty,
+            }),
+          })
             .then(function (response) {
-
               if (!response.ok) {
-
-                return response.json()
-                  .then(function (error) {
-
-                    throw error;
-
-                  });
-
+                return response.json().then(function (error) {
+                  throw error;
+                });
               }
 
-
               return response.json();
-
             })
 
-
             .then(function (item) {
-
-              console.log(
-                'Product added:',
-                item
-              );
-
+              console.log('Product added:', item);
 
               /*
                 Fetch latest cart and
@@ -1070,64 +897,34 @@
               */
 
               return updateCartBubble();
-
             })
 
-
             .then(function (cart) {
-
               /*
                 Optional:
                 Here you can open your
                 cart drawer if required.
               */
 
-              console.log(
-                'Cart count:',
-                cart
-                  ? cart.item_count
-                  : ''
-              );
-
+              console.log('Cart count:', cart ? cart.item_count : '');
             })
-
 
             .catch(function (error) {
+              console.error('Add to cart failed:', error);
 
-              console.error(
-                'Add to cart failed:',
-                error
-              );
-
-
-              alert(
-                error.description ||
-                error.message ||
-                'Unable to add this product to cart.'
-              );
-
+              alert(error.description || error.message || 'Unable to add this product to cart.');
             })
 
-
             .finally(function () {
-
               /* Stop loading */
 
-              addBtn.classList.remove(
-                'is-loading'
-              );
+              addBtn.classList.remove('is-loading');
 
               addBtn.disabled = false;
-
             });
-
-          }
-        );
-
+        });
       }
-
     });
-
   });
 </script>
 

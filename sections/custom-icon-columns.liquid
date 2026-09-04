@@ -19,8 +19,8 @@
   }
 
   .icon-columns__item {
-    flex: 1 0 200px;
-    max-width: 50%;
+    flex: 1 0 calc((100% - 4rem) / 5);
+    max-width: 100%;
     scroll-snap-align: center;
     border: 1px solid #E3F3FF;
     background: {{  section.settings.background_color_box }};
@@ -30,6 +30,12 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
+  }
+
+  @media (max-width: 768px) {
+    .icon-columns__item {
+      flex: 1 0 60cqw;
+    }
   }
 
   .icon-columns__icon {

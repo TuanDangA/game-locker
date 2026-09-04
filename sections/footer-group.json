@@ -17,8 +17,6 @@
         "brand_EtMVjr": {
           "type": "brand",
           "settings": {
-            "logo": "shopify://shop_images/Logo_1.png",
-            "badge_image": "shopify://shop_images/image_5.png",
             "badge_alt": "",
             "text": "Get tournament nights, new drops & buylist updates in your inbox.",
             "email_placeholder": "Email address"
@@ -28,21 +26,21 @@
           "type": "menu",
           "settings": {
             "heading": "My Accounts",
-            "menu": "customer-account-main-menu"
+            "menu": "footer-menu-1"
           }
         },
         "menu_7VnNXT": {
           "type": "menu",
           "settings": {
             "heading": "Shop & Services",
-            "menu": "footer"
+            "menu": "footer-menu-2"
           }
         },
         "menu_fyQGcW": {
           "type": "menu",
           "settings": {
             "heading": "Company",
-            "menu": "main-menu"
+            "menu": "footer-menu-3"
           }
         },
         "info_HE6AVn": {
