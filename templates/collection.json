@@ -13,10 +13,12 @@
       "type": "custom-breadcrumbs",
       "name": "Breadcrumbs",
       "settings": {
-        "link_color": "#1D1A17",
-        "current_color": "#5C554C",
-        "padding_top": 20,
-        "padding_bottom": 20
+        "link_color": "#1d1a17",
+        "current_color": "#5c554c",
+        "background_color": "",
+        "section_width": "page-width",
+        "padding-block-start": 20,
+        "padding-block-end": 20
       }
     },
     "main": {
@@ -27,13 +29,13 @@
           "static": true,
           "settings": {
             "enable_filtering": true,
-            "filter_style": "horizontal",
+            "filter_style": "vertical",
             "filter_width": "centered",
             "text_label_case": "default",
-            "show_swatch_label": false,
+            "show_swatch_label": true,
             "show_filter_label": false,
             "enable_sorting": true,
-            "enable_grid_density": true,
+            "enable_grid_density": false,
             "background_color": "",
             "text_color": "",
             "padding-block-start": 8,
