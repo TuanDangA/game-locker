@@ -1,35 +1,35 @@
 {% comment %} 
-  ============================================================ 
-  HEADER SECTION — "The Games Cube" style (v4) 
-  ------------------------------------------------------------ 
-  CHANGELOG from v3:
-  - Fixed .tgc-drawer__body overflow shorthand bug: `overflow:
-  hidden;` was silently forcing overflow-y:hidden too, which
-  clipped any level list taller than the visible drawer,
-  cutting long submenus off after a handful of items with no
-  way to scroll to the rest.
-  - .tgc-mnav--root / .tgc-mnav--sub now get explicit
-  max-height:100% alongside height:100%, so mobile browsers
-  that collapse height:100% chains still cap the level at
-  the drawer's height and let it scroll internally.
-  - Mega menu images (mobile) are now matched PER level-2 item
-  inside the loop that builds that level's own <ul>, instead
-  of only ever checking link.links.first. Previously, images
-  configured for e.g. "Magic Booster Boxes" never rendered
-  unless that item happened to be first in the menu — now
-  each level-2 item's own submenu carries its own matched
-  images, exactly mirroring how the desktop mega menu behaves. 
-  ------------------------------------------------------------ 
-  INSTALL:
-  1. Save this file as sections/header.liquid
-  2. Online Store > Navigation: build a menu up to 3 levels
-  (Parent > Child > Grandchild) and pick it under this
-  section's "Main menu" setting in the theme editor.
-  3. Add to your header group / theme.liquid.
-  4. Everything else (button text/links, colors, search scope
-  list, mega menu images, currency/language toggles) is
-  controlled from the theme customizer. 
-  ============================================================
+    ============================================================ 
+    HEADER SECTION — "The Games Cube" style (v4) 
+    ------------------------------------------------------------ 
+    CHANGELOG from v3:
+    - Fixed .tgc-drawer__body overflow shorthand bug: `overflow:
+    hidden;` was silently forcing overflow-y:hidden too, which
+    clipped any level list taller than the visible drawer,
+    cutting long submenus off after a handful of items with no
+    way to scroll to the rest.
+    - .tgc-mnav--root / .tgc-mnav--sub now get explicit
+    max-height:100% alongside height:100%, so mobile browsers
+    that collapse height:100% chains still cap the level at
+    the drawer's height and let it scroll internally.
+    - Mega menu images (mobile) are now matched PER level-2 item
+    inside the loop that builds that level's own <ul>, instead
+    of only ever checking link.links.first. Previously, images
+    configured for e.g. "Magic Booster Boxes" never rendered
+    unless that item happened to be first in the menu — now
+    each level-2 item's own submenu carries its own matched
+    images, exactly mirroring how the desktop mega menu behaves. 
+    ------------------------------------------------------------ 
+    INSTALL:
+    1. Save this file as sections/header.liquid
+    2. Online Store > Navigation: build a menu up to 3 levels
+    (Parent > Child > Grandchild) and pick it under this
+    section's "Main menu" setting in the theme editor.
+    3. Add to your header group / theme.liquid.
+    4. Everything else (button text/links, colors, search scope
+    list, mega menu images, currency/language toggles) is
+    controlled from the theme customizer. 
+    ============================================================
 {% endcomment %}
 
 <style>
@@ -155,7 +155,7 @@
     flex: 0 0 auto;
     border: none;
     background-color: #eef0f2;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12' fill='none'%3E%3Cpath d='M3 4.5L6 7.5L9 4.5' stroke='%23333333' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml, %3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12' fill='none'%3E%3Cpath d='M3 4.5L6 7.5L9 4.5' stroke='%23333333' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right 10px center;
     background-size: 12px;
@@ -205,7 +205,7 @@
     background: #fff;
     color: #222;
     border-radius: var(--tgc-radius);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, .18);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
     max-height: 420px;
     overflow-y: auto;
     z-index: 60;
@@ -257,7 +257,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 8px 24px;
+    padding: 8px 32px;
     background: #FFffff;
     color: #1D1A17 !important;
     border-radius: 8px;
@@ -282,7 +282,7 @@
   .tgc-select {
     background: transparent;
     color: var(--tgc-top-text);
-    border: 0 solid rgba(255, 255, 255, .4);
+    border: 0 solid rgba(255, 255, 255, 0.4);
     border-radius: var(--tgc-radius);
     height: 32px;
     font-size: 14px;
@@ -378,7 +378,7 @@
     top: 100%;
     background: #ffffff;
     color: #1D1A17;
-    box-shadow: 0 12px 24px rgba(0, 0, 0, .25);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.25);
     z-index: 90;
     padding: 0 60px;
   }
@@ -414,7 +414,7 @@
   }
   .tgc-mega__col--l2 li.is-active a,
   .tgc-mega__col--l2 li:hover a {
-    background: rgba(45, 125, 210, .15);
+    background: rgba(45, 125, 210, 0.15);
     color: var(--tgc-accent) !important;
   }
   .tgc-mega__col--l2 li.is-active a .tgc-mega__arrow,
@@ -473,7 +473,7 @@
   .tgc-drawer__overlay {
     position: absolute;
     inset: 0;
-    background: rgba(0, 0, 0, .5);
+    background: rgba(0, 0, 0, 0.5);
     opacity: 0;
     transition: opacity 0.25s ease;
   }
@@ -485,7 +485,7 @@
     top: 0;
     left: 0;
     bottom: 0;
-    width: 86%;
+    width: 100%;
     max-width: 360px;
     background: #fff;
     color: #111;
@@ -517,6 +517,7 @@
 
 
   /*
+
    FIX: `overflow: hidden;` is shorthand for BOTH overflow-x AND 
    overflow-y. It was silently forcing overflow-y:hidden too, which 
    clipped any menu level taller than the visible drawer height — 
@@ -524,7 +525,7 @@
    itself should not scroll (the individual levels inside it do, 
    via .tgc-mnav--root / .tgc-mnav--sub), so both axes are hidden 
    here on purpose, but the levels below now get an explicit 
-   max-height so they can scroll internally within that space.
+   max-height so they can scroll internally within that space. 
 */
   .tgc-drawer__body {
     flex: 1 1 auto;
@@ -537,10 +538,11 @@
 
 
   /*
+
    ---------- MOBILE DRILL-DOWN MENU ---------- 
    IMPORTANT: Submenus are nested inside their parent <li> elements. 
    Therefore we MUST NOT use display:none on the parent menu, otherwise 
-   its child submenu can never become visible. Submenus overlay the parent.
+   its child submenu can never become visible. Submenus overlay the parent. 
 */
   .tgc-mnav {
     display: block;
@@ -592,9 +594,9 @@
     pointer-events: auto;
   }
 
-  .tgc-mnav li {
+  /* .tgc-mnav li {
     border-bottom: 1px solid #eee;
-  }
+  } */
   .tgc-mnav a,
   .tgc-mnav__link {
     display: flex;
@@ -632,7 +634,7 @@
   }
 
   /* ---------- RESPONSIVE (<=768px) ---------- */
-  @media (max-width: 768px) {
+  @media (max-width: 749px) {
     .tgc-hamburger {
       display: block;
     }
@@ -693,8 +695,7 @@
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 10px;
-    padding: 14px;
-    border-top: 1px solid #eee;
+    padding: 12px 24px;
   }
   .tgc-mnav__images {
     border-bottom: none !important;
@@ -702,8 +703,9 @@
 
 
   /*
+
    MOBILE X-AXIS OVERFLOW SAFETY 
-   Hidden translated submenus must not increase the scroll width.
+   Hidden translated submenus must not increase the scroll width. 
 */
   .tgc-drawer__panel,
   .tgc-drawer__body,
@@ -713,12 +715,12 @@
     overflow-x: hidden;
   }
   .tgc-mnav__image {
-    display: block;
     overflow: hidden;
     border-radius: 6px;
-    border: 1px solid #ddd;
-    background: #f5f5f5;
+    border: 1px solid #DDD5C6 !important;
+    background: transparent !important;
     aspect-ratio: 1 / 1;
+    padding: 0 !important;
   }
   .tgc-mnav__image img {
     display: block;
@@ -727,22 +729,23 @@
     object-fit: cover;
   }
 
-  @media (max-width: 768px) {
-    .tgc-mnav li {
+  @media (max-width: 749px) {
+    /* .tgc-mnav li {
       border-bottom: 1px solid #eee;
-    }
+    } */
     .tgc-mnav a,
     .tgc-mnav__link {
       min-height: 52px;
-      padding: 14px 18px;
+      padding: 12px 24px;
       font-size: 13px;
       font-weight: 700;
       text-transform: uppercase;
     }
+
     .tgc-mnav__back {
       min-height: 50px;
       background: #fff;
-      border-bottom: 1px solid #eee;
+      /* border-bottom: 1px solid #eee; */
       color: #222;
       font-size: 13px;
       text-transform: none;
@@ -756,8 +759,9 @@
 
 
   /*
+
    Mobile submenu visibility is handled above with overlay positioning. 
-   Do not add display:none rules for .tgc-mnav here: submenus are nested.
+   Do not add display:none rules for .tgc-mnav here: submenus are nested. 
 */
 
   .tgc-cart-link {
@@ -953,32 +957,32 @@
         {% endif %}
 
         {% comment %} 
-          <a href="{{ routes.account_url }}" class="tgc-icon-link" aria-label="Account">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
-          </svg> 
-          </a>
-        {% endcomment %}
+                    <a href="{{ routes.account_url }}" class="tgc-icon-link" aria-label="Account">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+                    </svg> 
+                    </a>
+                {% endcomment %}
         {% render 'custom-header-action'
           , section: section %}
       {% comment %} 
-        <a href="{{ routes.cart_url }}" class="tgc-icon-link tgc-cart-link" aria-label="Cart" data-cart-link>
-        <svg
-        width="20"
-        height="20"
-        viewBox="0 0 20 20"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        >
-        <path
-        d="M4.5875 19.4125C4.19583 19.0208 4 18.55 4 18C4 17.45 4.19583 16.9792 4.5875 16.5875C4.97917 16.1958 5.45 16 6 16C6.55 16 7.02083 16.1958 7.4125 16.5875C7.80417 16.9792 8 17.45 8 18C8 18.55 7.80417 19.0208 7.4125 19.4125C7.02083 19.8042 6.55 20 6 20C5.45 20 4.97917 19.8042 4.5875 19.4125ZM14.5875 19.4125C14.1958 19.0208 14 18.55 14 18C14 17.45 14.1958 16.9792 14.5875 16.5875C14.9792 16.1958 15.45 16 16 16C16.55 16 17.0208 16.1958 17.4125 16.5875C17.8042 16.9792 18 17.45 18 18C18 18.55 17.8042 19.0208 17.4125 19.4125C17.0208 19.8042 16.55 20 16 20C15.45 20 14.9792 19.8042 14.5875 19.4125ZM5.15 4L7.55 9H14.55L17.3 4H5.15ZM4.2 2H18.95C19.3333 2 19.625 2.17083 19.825 2.5125C20.025 2.85417 20.0333 3.2 19.85 3.55L16.3 9.95C16.1167 10.2833 15.8708 10.5417 15.5625 10.725C15.2542 10.9083 14.9167 11 14.55 11H7.1L6 13H18V15H6C5.25 15 4.68333 14.6708 4.3 14.0125C3.91667 13.3542 3.9 12.7 4.25 12.05L5.6 9.6L2 2H0V0H3.25L4.2 2Z"
-        fill="white"
-        />
-        </svg>
-        <span class="tgc-cart-count" data-cart-count>{{ cart.item_count }}</span>
-        <span class="tgc-cart-spinner" data-cart-spinner></span> 
-        </a>
-      {% endcomment %}
+                <a href="{{ routes.cart_url }}" class="tgc-icon-link tgc-cart-link" aria-label="Cart" data-cart-link>
+                <svg
+                width="20"
+                height="20"
+                viewBox="0 0 20 20"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                >
+                <path
+                d="M4.5875 19.4125C4.19583 19.0208 4 18.55 4 18C4 17.45 4.19583 16.9792 4.5875 16.5875C4.97917 16.1958 5.45 16 6 16C6.55 16 7.02083 16.1958 7.4125 16.5875C7.80417 16.9792 8 17.45 8 18C8 18.55 7.80417 19.0208 7.4125 19.4125C7.02083 19.8042 6.55 20 6 20C5.45 20 4.97917 19.8042 4.5875 19.4125ZM14.5875 19.4125C14.1958 19.0208 14 18.55 14 18C14 17.45 14.1958 16.9792 14.5875 16.5875C14.9792 16.1958 15.45 16 16 16C16.55 16 17.0208 16.1958 17.4125 16.5875C17.8042 16.9792 18 17.45 18 18C18 18.55 17.8042 19.0208 17.4125 19.4125C17.0208 19.8042 16.55 20 16 20C15.45 20 14.9792 19.8042 14.5875 19.4125ZM5.15 4L7.55 9H14.55L17.3 4H5.15ZM4.2 2H18.95C19.3333 2 19.625 2.17083 19.825 2.5125C20.025 2.85417 20.0333 3.2 19.85 3.55L16.3 9.95C16.1167 10.2833 15.8708 10.5417 15.5625 10.725C15.2542 10.9083 14.9167 11 14.55 11H7.1L6 13H18V15H6C5.25 15 4.68333 14.6708 4.3 14.0125C3.91667 13.3542 3.9 12.7 4.25 12.05L5.6 9.6L2 2H0V0H3.25L4.2 2Z"
+                fill="white"
+                />
+                </svg>
+                <span class="tgc-cart-count" data-cart-count>{{ cart.item_count }}</span>
+                <span class="tgc-cart-spinner" data-cart-spinner></span> 
+                </a>
+            {% endcomment %}
       </div>
     </div>
   </div>
@@ -1122,11 +1126,11 @@
                         {% endfor %}
 
                         {% comment %} 
-                          Images matched to THIS specific level-2 item's title, 
-                          shown at the bottom of its own level-2 submenu list. 
-                          Checked per-item (not just the first one) so images 
-                          configured for any level-2 title actually render.
-                        {% endcomment %}
+                                                    Images matched to THIS specific level-2 item's title, 
+                                                    shown at the bottom of its own level-2 submenu list. 
+                                                    Checked per-item (not just the first one) so images 
+                                                    configured for any level-2 title actually render.
+                                                {% endcomment %}
                         {% for block in section.blocks %}
                           {% if block.type == 'mega_image' and block.settings.parent_label == link2.title %}
                             {% if block.settings.image_1 or block.settings.image_2 %}
@@ -1160,9 +1164,9 @@
                       <a href="{{ link2.url }}">{{ link2.title }}</a>
 
                       {% comment %} 
-                        Flat (no-children) level-2 item — if it has matching 
-                        images, show them right after it as its own row.
-                      {% endcomment %}
+                                                Flat (no-children) level-2 item — if it has matching 
+                                                images, show them right after it as its own row.
+                                            {% endcomment %}
                       {% for block in section.blocks %}
                         {% if block.type == 'mega_image' and block.settings.parent_label == link2.title %}
                           {% if block.settings.image_1 or block.settings.image_2 %}
