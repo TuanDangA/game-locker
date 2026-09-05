@@ -1953,4 +1953,5 @@ body:has(.trending__add.is-loading)
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between !important;
+    gap: 2px !important;
 }
