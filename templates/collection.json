@@ -377,7 +377,9 @@
           ]
         }
       },
-      "custom_css": [],
+      "custom_css": [
+        "#BuyButtons-ProductSubmitButton-AcDBONXp4cy8vdHowZ__add-to-cart {font-size: 0;}"
+      ],
       "settings": {
         "layout_type": "grid",
         "product_card_size": "small",
