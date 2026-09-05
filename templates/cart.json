@@ -66,7 +66,7 @@
           "static": true,
           "settings": {
             "extend_summary": true,
-            "background_color": "{{ settings.color_palette.color2 }}",
+            "background_color": "#B91C1C",
             "text_color": "",
             "border": "none",
             "border_width": 1,
