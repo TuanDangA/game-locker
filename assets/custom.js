@@ -1,34 +1,44 @@
 document.addEventListener('DOMContentLoaded', function () {
   var MAX_CHARS = 11;
-  var BREAKPOINT = 749; // px — matches your existing mobile breakpoint
+  var BREAKPOINT = 749; // px
 
-  // Adjust this selector to match your actual product card heading class
   var headings = document.querySelectorAll('.product-card__content h3, .trending__card-title');
+  console.log('[truncate] headings found:', headings.length, headings);
 
   function truncateHeadings() {
     var isSmallScreen = window.innerWidth <= BREAKPOINT;
+    console.log('[truncate] window.innerWidth:', window.innerWidth, '| isSmallScreen:', isSmallScreen);
 
-    headings.forEach(function (heading) {
-      // Save the original full text once, so we can restore it later
+    headings.forEach(function (heading, index) {
+      console.log('[truncate] --- heading #' + index + ' ---');
+      console.log('[truncate] element:', heading);
+      console.log('[truncate] current textContent:', JSON.stringify(heading.textContent));
+      console.log('[truncate] existing data-full-text:', heading.dataset.fullText);
+
       if (!heading.dataset.fullText) {
         heading.dataset.fullText = heading.textContent.trim();
+        console.log('[truncate] saved new fullText:', heading.dataset.fullText);
       }
 
       var fullText = heading.dataset.fullText;
+      console.log('[truncate] fullText:', fullText, '| length:', fullText.length);
 
       if (isSmallScreen && fullText.length > MAX_CHARS) {
-        heading.textContent = fullText.slice(0, MAX_CHARS) + '...';
+        var sliced = fullText.slice(0, MAX_CHARS) + '...';
+        heading.textContent = sliced;
+        console.log('[truncate] TRUNCATED to:', sliced);
       } else {
         heading.textContent = fullText;
+        console.log('[truncate] RESTORED full text (not small screen or short enough)');
       }
     });
   }
 
   truncateHeadings();
 
-  // Re-run on resize (debounced) in case the window crosses the breakpoint
   var resizeTimer;
   window.addEventListener('resize', function () {
+    console.log('[truncate] resize event fired');
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(truncateHeadings, 150);
   });
