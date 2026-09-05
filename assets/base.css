@@ -255,7 +255,6 @@ p:empty {
   flex: 1;
   display: flex;
   flex-direction: column;
-  background-color: #ECF7FF99;
 }
 
 .content-for-layout > .shopify-section:last-child {
