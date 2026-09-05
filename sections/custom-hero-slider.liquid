@@ -71,7 +71,7 @@
     font-size: 14px;
     color: #f7f1e4;
     font-weight: 400;
-    line-height: 1.8;
+    line-height: 24px;
     margin: 0 0 2rem;
     text-align: left;
   }
@@ -95,7 +95,7 @@
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    padding: 0.7rem 1.5rem;
+    padding: 16px 32px;
     font-weight: 600;
     text-transform: uppercase;
     font-size: 14px;
@@ -128,14 +128,14 @@
     transform: translateX(3px);
   }
 
-  /* --- Pill-style progress dots --- */
+  /* --- Individual progress bars --- */
   .hero-carousel__dots {
     position: absolute;
     bottom: 60px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
-    gap: 12px;
+    gap: 8px;
     z-index: 2;
   }
 
@@ -147,12 +147,40 @@
     border: none;
     cursor: pointer;
     padding: 0;
-    transition: background 0.3s ease
-    , width 0.3s ease;
+    overflow: hidden;
+    position: relative;
   }
 
-  .hero-carousel__dot.is-active {
+  .hero-carousel__dot-fill {
+    display: block;
+    height: 100%;
+    width: 100%;
     background: #ffffff;
+    border-radius: inherit;
+    transform: scaleX(0);
+    transform-origin: left center;
+  }
+
+  /* Active slide without autoplay: show filled */
+  .hero-carousel__dot.is-active:not(.is-progressing) .hero-carousel__dot-fill {
+    transform: scaleX(1);
+  }
+
+  .hero-carousel__dot.is-progressing .hero-carousel__dot-fill {
+    animation: hero-dot-progress var(--hero-progress-ms, 5000ms) linear forwards;
+  }
+
+  .hero-carousel__dot.is-paused .hero-carousel__dot-fill {
+    animation-play-state: paused;
+  }
+
+  @keyframes hero-dot-progress {
+    from {
+      transform: scaleX(0);
+    }
+    to {
+      transform: scaleX(1);
+    }
   }
 
   /* Tablet */
@@ -175,8 +203,12 @@
     .hero-carousel__track {
       transition: none;
     }
-    .hero-carousel__dot {
-      transition: none;
+    .hero-carousel__dot-fill {
+      animation: none !important;
+    }
+
+    .hero-carousel__dot.is-active .hero-carousel__dot-fill {
+      transform: scaleX(1);
     }
   }
 
@@ -218,7 +250,7 @@
   /* show the separate buttons block below the image instead */
   .hero-carousel__buttons-mobile {
     display: block;
-    padding: 1.25rem;
+    padding: 12px 0 0;
   }
 
   .mble-btn {
@@ -256,6 +288,7 @@
     id="hero-carousel-{{ section.id }}"
     data-autoplay="{{ section.settings.autoplay }}"
     data-speed="{{ section.settings.autoplay_speed | times: 1000 }}"
+    style="--hero-progress-ms: {{ section.settings.autoplay_speed | times: 1000 }}ms;"
   >
     <div class="hero-carousel__track">
       {% for block in section.blocks %}
@@ -329,7 +362,9 @@
             class="hero-carousel__dot{% if forloop.first %} is-active{% endif %}"
             data-index="{{ forloop.index0 }}"
             aria-label="Go to slide {{ forloop.index }}"
-          ></button>
+          >
+            <span class="hero-carousel__dot-fill" aria-hidden="true"></span>
+          </button>
         {% endfor %}
       </div>
     {% endif %}
@@ -389,15 +424,42 @@
     var autoplay = root.dataset.autoplay === 'true';
     var speed = parseInt(root.dataset.speed, 10) || 5000;
     var timer = null;
+    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     if (!total) return;
+
+    function resetProgress(dot) {
+      dot.classList.remove('is-progressing', 'is-paused');
+      var fill = dot.querySelector('.hero-carousel__dot-fill');
+      if (!fill) return;
+      fill.style.animation = 'none';
+      void fill.offsetWidth;
+      fill.style.animation = '';
+    }
+
+    function startProgress(dot) {
+      if (!autoplay || reduceMotion || total < 2) return;
+      resetProgress(dot);
+      dot.classList.add('is-progressing');
+    }
+
+    function pauseProgress() {
+      dots.forEach(function (dot) {
+        if (dot.classList.contains('is-progressing')) {
+          dot.classList.add('is-paused');
+        }
+      });
+    }
 
     function goTo(index) {
       current = (index + total) % total;
       track.style.transform = 'translateX(-' + current * 100 + '%)';
 
       dots.forEach(function (dot) {
-        dot.classList.toggle('is-active', parseInt(dot.dataset.index, 10) === current);
+        var isActive = parseInt(dot.dataset.index, 10) === current;
+        resetProgress(dot);
+        dot.classList.toggle('is-active', isActive);
+        if (isActive) startProgress(dot);
       });
 
       mobileButtonSlides.forEach(function (slide) {
@@ -407,7 +469,12 @@
 
     function startAutoplay() {
       if (!autoplay || total < 2) return;
-      stopAutoplay();
+      if (timer) {
+        clearInterval(timer);
+        timer = null;
+      }
+      var activeDot = root.querySelector('.hero-carousel__dot.is-active');
+      if (activeDot) startProgress(activeDot);
       timer = setInterval(function () {
         goTo(current + 1);
       }, speed);
@@ -418,6 +485,7 @@
         clearInterval(timer);
         timer = null;
       }
+      pauseProgress();
     }
 
     dots.forEach(function (dot) {
