@@ -1,3 +1,142 @@
+<style>
+  /* =========================================
+   SORT — BEST MATCH STYLE
+   ========================================= */
+
+.facets__panel {
+  position: relative;
+}
+
+/* Main "Best Match" button */
+.facets__panel .facets__summary {
+  width: 140px;
+  height: 40px;
+  box-sizing: border-box;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 12px;
+
+  background: #fff;
+  border: 1px solid #222;
+  border-radius: 0;
+
+  cursor: pointer;
+}
+
+/* Best Match text */
+.facets__panel .facets__label {
+  display: flex;
+  align-items: center;
+
+  margin: 0;
+
+  color: #222;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+/* Hide "Most relevant" text */
+.facets__panel .facets__status {
+  display: none;
+}
+
+/* Dropdown arrow */
+.facets__panel .icon-caret {
+  width: 14px;
+  height: 14px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-left: auto;
+}
+
+/* Arrow SVG */
+.facets__panel .icon-caret svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* Dropdown panel */
+.facets__panel .sorting-filter__options {
+  width: 140px;
+  min-width: 140px;
+
+  background: #fff;
+  border: 1px solid #222;
+  border-radius: 0;
+
+  box-sizing: border-box;
+}
+
+/* Dropdown inner */
+.facets__panel .sorting-filter__options-inner {
+  padding: 4px 0;
+}
+
+/* Each option */
+.facets__panel .sorting-filter__option {
+  min-height: 38px;
+
+  display: flex;
+  align-items: center;
+
+  padding: 8px 12px;
+
+  box-sizing: border-box;
+
+  color: #222;
+  font-size: 14px;
+  line-height: 1.2;
+
+  cursor: pointer;
+}
+
+/* Hover */
+.facets__panel .sorting-filter__option:hover {
+  background: #f5f5f5;
+}
+
+/* Option text */
+.facets__panel .sorting-filter__label {
+  color: #222;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+/* Checkmark */
+.facets__panel .sorting-filter__checkmark {
+  width: 18px;
+  height: 18px;
+  margin-right: 8px;
+}
+
+/* Hide radio input */
+.facets__panel .sorting-filter__input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.facets__panel .facets__label::before {
+  content: "☰";
+
+  display: inline-block;
+
+  margin-right: 8px;
+
+  font-size: 13px;
+  line-height: 1;
+  transform: scaleX(0.8);
+}
+</style>
+
 {%- doc -%}
   Renders the sorting component.
 
@@ -96,9 +235,9 @@
         >
           {{- status -}}
         </span>
-        <span class="svg-wrapper icon-caret icon-animated">
+        {% comment %} <span class="svg-wrapper icon-caret icon-animated">
           {{- 'icon-caret.svg' | inline_asset_content -}}
-        </span>
+        </span> {% endcomment %}
       </summary>
       <floating-panel-component
         id="sorting-options-{{ section_id }}-{{ suffix }}"
