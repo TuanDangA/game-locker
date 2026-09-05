@@ -275,7 +275,10 @@
   }
 </style>
 
-<div class="section section--{{ section.settings.section_width }} spacing-style" style="{% render 'spacing-padding', settings: section.settings %}">
+<div
+  class="section section--{{ section.settings.section_width }} spacing-style"
+  style="{% render 'spacing-padding', settings: section.settings %}"
+>
   {% form 'cart', cart, class: 'cart-page' %}
     <h1 class="cart-page__heading">Your Cart ({{ cart.item_count }})</h1>
 
@@ -284,9 +287,8 @@
         <div class="cart-item" data-cart-item data-key="{{ item.key }}">
           <button type="button" class="cart-item__remove" data-remove-item aria-label="Remove {{ item.product.title }}">
             <svg width="15" height="17" viewBox="0 0 15 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M9.09961 0.5V1.7002H13.9004V2.5H12.7002V14.9893C12.7002 15.3662 12.5749 15.666 12.3193 15.9199C12.0602 16.1772 11.7627 16.2997 11.4004 16.2998H3C2.63866 16.2998 2.34151 16.1774 2.08203 15.918C1.82255 15.6585 1.7002 15.3613 1.7002 15V2.5H0.5V1.7002H5.2998V0.5H9.09961ZM2.5 15.5H11.9004V2.5H2.5V15.5ZM9.09961 5.2998V12.7002H8.2998V5.2998H9.09961ZM6.09961 5.2998V12.7002H5.2998V5.2998H6.09961Z" fill="#5C554C" stroke="black"/>
-</svg>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m3 0-1 14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2L4 6"/></svg>
+              <path d="M9.09961 0.5V1.7002H13.9004V2.5H12.7002V14.9893C12.7002 15.3662 12.5749 15.666 12.3193 15.9199C12.0602 16.1772 11.7627 16.2997 11.4004 16.2998H3C2.63866 16.2998 2.34151 16.1774 2.08203 15.918C1.82255 15.6585 1.7002 15.3613 1.7002 15V2.5H0.5V1.7002H5.2998V0.5H9.09961ZM2.5 15.5H11.9004V2.5H2.5V15.5ZM9.09961 5.2998V12.7002H8.2998V5.2998H9.09961ZM6.09961 5.2998V12.7002H5.2998V5.2998H6.09961Z" fill="#5C554C" stroke="black"/>
+            </svg>
           </button>
 
           <a href="{{ item.url }}" class="cart-item__image">
@@ -299,7 +301,9 @@
             <div class="cart-item__title-row">
               <a href="{{ item.url }}" class="cart-item__title">{{ item.product.title }}</a>
               {% if item.product.metafields.custom.variant != blank %}
-                <span class="cart-item__badge cart-item__badge--foil">{{ item.product.metafields.custom.variant }}</span>
+                <span class="cart-item__badge cart-item__badge--foil">
+                  {{- item.product.metafields.custom.variant -}}
+                </span>
               {% endif %}
               {% if item.product.tags contains 'Pre-order' %}
                 <span class="cart-item__badge cart-item__badge--preorder">Pre-order</span>
@@ -342,7 +346,9 @@
       <div class="cart-shipping" data-shipping-widget>
         <button type="button" class="cart-shipping__toggle" data-shipping-toggle>
           <span>Estimate shipping</span>
-          <svg viewBox="0 0 12 8" fill="none"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="2"/></svg>
+          <svg viewBox="0 0 12 8" fill="none">
+            <path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="2"/>
+          </svg>
         </button>
 
         <div class="cart-shipping__body">
@@ -373,171 +379,178 @@
 </div>
 
 <script>
-document.addEventListener('DOMContentLoaded', function () {
-  var root = document.querySelector('.cart-page');
-  if (!root) return;
+  document.addEventListener('DOMContentLoaded', function () {
+    var root = document.querySelector('.cart-page');
+    if (!root) return;
 
-  /* --- Quantity stepper + remove (real /cart/change.js AJAX) --- */
-  function updateLineItem(key, quantity) {
-    return fetch('/cart/change.js', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ id: key, quantity: quantity })
-    }).then(function (res) { return res.json(); });
-  }
-
-  function refreshSubtotal(cart) {
-    var subtotalEl = document.querySelector('[data-cart-subtotal]');
-    if (subtotalEl && Shopify && Shopify.formatMoney) {
-      subtotalEl.textContent = Shopify.formatMoney(cart.total_price, '{{ shop.money_format }}');
-    }
-  }
-
-  root.querySelectorAll('[data-cart-item]').forEach(function (row) {
-    var key = row.dataset.key;
-    var qtyInput = row.querySelector('[data-qty-input]');
-    var minusBtn = row.querySelector('[data-qty-minus]');
-    var plusBtn = row.querySelector('[data-qty-plus]');
-    var removeBtn = row.querySelector('[data-remove-item]');
-    var linePriceEl = row.querySelector('[data-line-price]');
-
-    function applyQuantity(newQty) {
-      if (newQty < 1) newQty = 1;
-      qtyInput.value = newQty;
-      updateLineItem(key, newQty).then(function (cart) {
-        refreshSubtotal(cart);
-        var updatedItem = cart.items.find(function (i) { return i.key === key; });
-        if (updatedItem && linePriceEl && Shopify && Shopify.formatMoney) {
-          linePriceEl.textContent = Shopify.formatMoney(updatedItem.original_line_price, '{{ shop.money_format }}');
-        }
-        document.dispatchEvent(new CustomEvent('cart:updated', { detail: { itemCount: cart.item_count } }));
+    /* --- Quantity stepper + remove (real /cart/change.js AJAX) --- */
+    function updateLineItem(key, quantity) {
+      return fetch('/cart/change.js', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: key, quantity: quantity }),
+      }).then(function (res) {
+        return res.json();
       });
     }
 
-    if (minusBtn) {
-      minusBtn.addEventListener('click', function () {
-        applyQuantity(parseInt(qtyInput.value, 10) - 1);
-      });
+    function refreshSubtotal(cart) {
+      var subtotalEl = document.querySelector('[data-cart-subtotal]');
+      if (subtotalEl && Shopify && Shopify.formatMoney) {
+        subtotalEl.textContent = Shopify.formatMoney(cart.total_price, '{{ shop.money_format }}');
+      }
     }
-    if (plusBtn) {
-      plusBtn.addEventListener('click', function () {
-        applyQuantity(parseInt(qtyInput.value, 10) + 1);
-      });
-    }
-    if (qtyInput) {
-      qtyInput.addEventListener('change', function () {
-        applyQuantity(parseInt(qtyInput.value, 10));
-      });
-    }
-    if (removeBtn) {
-      removeBtn.addEventListener('click', function () {
-        updateLineItem(key, 0).then(function (cart) {
-          row.remove();
+
+    root.querySelectorAll('[data-cart-item]').forEach(function (row) {
+      var key = row.dataset.key;
+      var qtyInput = row.querySelector('[data-qty-input]');
+      var minusBtn = row.querySelector('[data-qty-minus]');
+      var plusBtn = row.querySelector('[data-qty-plus]');
+      var removeBtn = row.querySelector('[data-remove-item]');
+      var linePriceEl = row.querySelector('[data-line-price]');
+
+      function applyQuantity(newQty) {
+        if (newQty < 1) newQty = 1;
+        qtyInput.value = newQty;
+        updateLineItem(key, newQty).then(function (cart) {
           refreshSubtotal(cart);
-          document.dispatchEvent(new CustomEvent('cart:updated', { detail: { itemCount: cart.item_count } }));
-          if (cart.item_count === 0) {
-            window.location.reload();
+          var updatedItem = cart.items.find(function (i) {
+            return i.key === key;
+          });
+          if (updatedItem && linePriceEl && Shopify && Shopify.formatMoney) {
+            linePriceEl.textContent = Shopify.formatMoney(updatedItem.original_line_price, '{{ shop.money_format }}');
           }
+          document.dispatchEvent(new CustomEvent('cart:updated', { detail: { itemCount: cart.item_count } }));
         });
+      }
+
+      if (minusBtn) {
+        minusBtn.addEventListener('click', function () {
+          applyQuantity(parseInt(qtyInput.value, 10) - 1);
+        });
+      }
+      if (plusBtn) {
+        plusBtn.addEventListener('click', function () {
+          applyQuantity(parseInt(qtyInput.value, 10) + 1);
+        });
+      }
+      if (qtyInput) {
+        qtyInput.addEventListener('change', function () {
+          applyQuantity(parseInt(qtyInput.value, 10));
+        });
+      }
+      if (removeBtn) {
+        removeBtn.addEventListener('click', function () {
+          updateLineItem(key, 0).then(function (cart) {
+            row.remove();
+            refreshSubtotal(cart);
+            document.dispatchEvent(new CustomEvent('cart:updated', { detail: { itemCount: cart.item_count } }));
+            if (cart.item_count === 0) {
+              window.location.reload();
+            }
+          });
+        });
+      }
+    });
+
+    /* --- Shipping estimator (real /cart/shipping_rates.json) --- */
+    var widget = document.querySelector('[data-shipping-widget]');
+    if (!widget) return;
+
+    var toggleBtn = widget.querySelector('[data-shipping-toggle]');
+    var countrySelect = widget.querySelector('[data-shipping-country]');
+    var provinceSelect = widget.querySelector('[data-shipping-province]');
+    var zipInput = widget.querySelector('[data-shipping-zip]');
+    var estimateBtn = widget.querySelector('[data-estimate-shipping]');
+    var resultsBox = widget.querySelector('[data-shipping-results]');
+
+    if (toggleBtn) {
+      toggleBtn.addEventListener('click', function () {
+        widget.classList.toggle('is-open');
+      });
+    }
+
+    function populateProvinces() {
+      if (!countrySelect || !provinceSelect) return;
+      var selectedOption = countrySelect.options[countrySelect.selectedIndex];
+      var provincesData = selectedOption.getAttribute('data-provinces');
+      provinceSelect.innerHTML = '';
+
+      if (!provincesData) return;
+
+      try {
+        var provinces = JSON.parse(provincesData);
+        if (!provinces.length) {
+          provinceSelect.innerHTML = '<option value="">N/A</option>';
+          return;
+        }
+        provinces.forEach(function (p) {
+          var opt = document.createElement('option');
+          opt.value = p[0];
+          opt.textContent = p[1];
+          provinceSelect.appendChild(opt);
+        });
+      } catch (e) {
+        console.error('Could not parse provinces:', e);
+      }
+    }
+
+    if (countrySelect) {
+      countrySelect.addEventListener('change', populateProvinces);
+      populateProvinces();
+    }
+
+    if (estimateBtn) {
+      estimateBtn.addEventListener('click', function () {
+        var country = countrySelect ? countrySelect.value : '';
+        var province = provinceSelect ? provinceSelect.value : '';
+        var zip = zipInput ? zipInput.value.trim() : '';
+
+        if (!zip) {
+          resultsBox.innerHTML = '<strong>Please enter a zip/postal code.</strong>';
+          resultsBox.classList.add('is-visible');
+          return;
+        }
+
+        estimateBtn.classList.add('is-loading');
+        resultsBox.classList.remove('is-visible');
+
+        var params = new URLSearchParams({
+          'shipping_address[zip]': zip,
+          'shipping_address[country]': country,
+          'shipping_address[province]': province,
+        });
+
+        fetch('/cart/shipping_rates.json?' + params.toString())
+          .then(function (res) {
+            return res.json();
+          })
+          .then(function (data) {
+            var rates = data.shipping_rates || [];
+            if (!rates.length) {
+              resultsBox.innerHTML = '<strong>No shipping rates available for this address.</strong>';
+            } else {
+              var html = '<strong>There are multiple shipping rates for your address:</strong><ul>';
+              rates.forEach(function (rate) {
+                html +=
+                  '<li>' + rate.name + ': <strong>' + rate.presentment_currency + ' ' + rate.price + '</strong></li>';
+              });
+              html += '</ul>';
+              resultsBox.innerHTML = html;
+            }
+            resultsBox.classList.add('is-visible');
+          })
+          .catch(function (err) {
+            console.error('Shipping estimate failed:', err);
+            resultsBox.innerHTML = '<strong>Could not estimate shipping. Please try again.</strong>';
+            resultsBox.classList.add('is-visible');
+          })
+          .finally(function () {
+            estimateBtn.classList.remove('is-loading');
+          });
       });
     }
   });
-
-  /* --- Shipping estimator (real /cart/shipping_rates.json) --- */
-  var widget = document.querySelector('[data-shipping-widget]');
-  if (!widget) return;
-
-  var toggleBtn = widget.querySelector('[data-shipping-toggle]');
-  var countrySelect = widget.querySelector('[data-shipping-country]');
-  var provinceSelect = widget.querySelector('[data-shipping-province]');
-  var zipInput = widget.querySelector('[data-shipping-zip]');
-  var estimateBtn = widget.querySelector('[data-estimate-shipping]');
-  var resultsBox = widget.querySelector('[data-shipping-results]');
-
-  if (toggleBtn) {
-    toggleBtn.addEventListener('click', function () {
-      widget.classList.toggle('is-open');
-    });
-  }
-
-  function populateProvinces() {
-    if (!countrySelect || !provinceSelect) return;
-    var selectedOption = countrySelect.options[countrySelect.selectedIndex];
-    var provincesData = selectedOption.getAttribute('data-provinces');
-    provinceSelect.innerHTML = '';
-
-    if (!provincesData) return;
-
-    try {
-      var provinces = JSON.parse(provincesData);
-      if (!provinces.length) {
-        provinceSelect.innerHTML = '<option value="">N/A</option>';
-        return;
-      }
-      provinces.forEach(function (p) {
-        var opt = document.createElement('option');
-        opt.value = p[0];
-        opt.textContent = p[1];
-        provinceSelect.appendChild(opt);
-      });
-    } catch (e) {
-      console.error('Could not parse provinces:', e);
-    }
-  }
-
-  if (countrySelect) {
-    countrySelect.addEventListener('change', populateProvinces);
-    populateProvinces();
-  }
-
-  if (estimateBtn) {
-    estimateBtn.addEventListener('click', function () {
-      var country = countrySelect ? countrySelect.value : '';
-      var province = provinceSelect ? provinceSelect.value : '';
-      var zip = zipInput ? zipInput.value.trim() : '';
-
-      if (!zip) {
-        resultsBox.innerHTML = '<strong>Please enter a zip/postal code.</strong>';
-        resultsBox.classList.add('is-visible');
-        return;
-      }
-
-      estimateBtn.classList.add('is-loading');
-      resultsBox.classList.remove('is-visible');
-
-      var params = new URLSearchParams({
-        'shipping_address[zip]': zip,
-        'shipping_address[country]': country,
-        'shipping_address[province]': province
-      });
-
-      fetch('/cart/shipping_rates.json?' + params.toString())
-        .then(function (res) { return res.json(); })
-        .then(function (data) {
-          var rates = data.shipping_rates || [];
-          if (!rates.length) {
-            resultsBox.innerHTML = '<strong>No shipping rates available for this address.</strong>';
-          } else {
-            var html = '<strong>There are multiple shipping rates for your address:</strong><ul>';
-            rates.forEach(function (rate) {
-              html += '<li>' + rate.name + ': <strong>' + rate.presentment_currency + ' ' + rate.price + '</strong></li>';
-            });
-            html += '</ul>';
-            resultsBox.innerHTML = html;
-          }
-          resultsBox.classList.add('is-visible');
-        })
-        .catch(function (err) {
-          console.error('Shipping estimate failed:', err);
-          resultsBox.innerHTML = '<strong>Could not estimate shipping. Please try again.</strong>';
-          resultsBox.classList.add('is-visible');
-        })
-        .finally(function () {
-          estimateBtn.classList.remove('is-loading');
-        });
-    });
-  }
-});
 </script>
 
 {% schema %}
