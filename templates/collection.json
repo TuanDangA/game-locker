@@ -326,7 +326,7 @@
       },
       "custom_css": [
         ".product-form-buttons button {width: fit-content; padding-block: var(--padding-lg);}",
-        ".product-form-buttons--stacked>*:not(.quantity-selector-wrapper,.quantity-rules,.quantity-label,.volume-pricing,.product-form-text__error) {flex-basis: auto;}"
+        ".product-form-buttons--stacked > *:not( .quantity-selector-wrapper, .quantity-rules, .quantity-label, .volume-pricing, .product-form-text__error ) {flex-basis: auto; flex: 0 0 0;}"
       ],
       "settings": {
         "layout_type": "grid",
