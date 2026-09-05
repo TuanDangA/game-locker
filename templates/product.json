@@ -9,6 +9,18 @@
  */
 {
   "sections": {
+    "custom_breadcrumbs_N6VniU": {
+      "type": "custom-breadcrumbs",
+      "name": "Breadcrumbs",
+      "settings": {
+        "link_color": "#5C554C",
+        "current_color": "#1D1A17",
+        "background_color": "",
+        "section_width": "page-width",
+        "padding-block-start": 24,
+        "padding-block-end": 12
+      }
+    },
     "main": {
       "type": "product-information",
       "blocks": {
@@ -323,8 +335,8 @@
         "gap": 32,
         "enable_sticky_add_to_cart": true,
         "background_color": "{{ settings.color_palette.background }}",
-        "padding-block-start": 0,
-        "padding-block-end": 0
+        "padding-block-start": 24,
+        "padding-block-end": 24
       }
     },
     "product_recommendations_qggXJq": {
@@ -471,6 +483,7 @@
     }
   },
   "order": [
+    "custom_breadcrumbs_N6VniU",
     "main",
     "product_recommendations_qggXJq"
   ]
