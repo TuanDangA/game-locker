@@ -275,7 +275,7 @@
                 "input_border_color": "{{ settings.color_palette.foreground }}",
                 "border_width": 1,
                 "border_radius": 0,
-                "padding-block-start": 0,
+                "padding-block-start": 8,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
                 "padding-inline-end": 0
@@ -324,10 +324,7 @@
           ]
         }
       },
-      "custom_css": [
-        ".product-form-buttons button {width: fit-content; padding-block: var(--padding-lg);}",
-        ".product-form-buttons--stacked > *:not( .quantity-selector-wrapper, .quantity-rules, .quantity-label, .volume-pricing, .product-form-text__error ) {flex-basis: auto; flex: 0 0 0;}"
-      ],
+      "custom_css": [],
       "settings": {
         "layout_type": "grid",
         "product_card_size": "medium",
