@@ -378,7 +378,7 @@
         }
       },
       "custom_css": [
-        "#BuyButtons-ProductSubmitButton-AcDBONXp4cy8vdHowZ__add-to-cart {font-size: 0;}"
+        ".button[id^=BuyButtons-ProductSubmitButton-] {font-size: 0; width: auto;}"
       ],
       "settings": {
         "layout_type": "grid",
