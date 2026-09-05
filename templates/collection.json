@@ -177,59 +177,87 @@
                 "text_dEMtiW"
               ]
             },
-            "product_title_4nY4eT": {
-              "type": "product-title",
-              "name": "t:names.product_title",
+            "product_card_group_LDbbRp": {
+              "type": "_product-card-group",
+              "name": "t:names.group",
               "settings": {
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "rte",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "text_color": "",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 4,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "price_EzJzMm": {
-              "type": "price",
-              "settings": {
-                "show_sale_price_first": true,
-                "show_installments": false,
-                "show_tax_info": false,
-                "type_preset": "h6",
-                "width": "100%",
-                "alignment": "left",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "text_color": "",
+                "content_direction": "row",
+                "vertical_on_mobile": false,
+                "horizontal_alignment": "flex-start",
+                "vertical_alignment": "center",
+                "align_baseline": false,
+                "horizontal_alignment_flex_direction_column": "flex-start",
+                "vertical_alignment_flex_direction_column": "center",
+                "gap": 12,
+                "width": "fill",
+                "custom_width": 100,
+                "width_mobile": "fill",
+                "custom_width_mobile": 100,
+                "height": "fit",
+                "custom_height": 100,
+                "background_media": "none",
+                "background_color": "",
+                "video_position": "cover",
+                "background_image_position": "cover",
+                "toggle_overlay": false,
+                "overlay_color": "#00000026",
+                "overlay_style": "solid",
+                "gradient_direction": "to top",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_color": "",
+                "border_radius": 0,
+                "link": "",
+                "open_in_new_tab": false,
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
                 "padding-inline-end": 0
               },
-              "blocks": {}
+              "blocks": {
+                "price_E6JG9N": {
+                  "type": "price",
+                  "name": "t:names.product_price",
+                  "settings": {
+                    "show_sale_price_first": true,
+                    "show_installments": false,
+                    "show_tax_info": false,
+                    "type_preset": "custom",
+                    "width": "100%",
+                    "alignment": "left",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "text_color": "#207FC4",
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                },
+                "custom_liquid_jhqzgE": {
+                  "type": "custom-liquid",
+                  "name": "t:names.custom_liquid",
+                  "settings": {
+                    "custom_liquid": "{% assign variant = product.selected_or_first_available_variant %}\n\n<div class=\"product-inventory\">\n  {% if product == blank %}\n    <span style=\"color:red;\">DEBUG: no product object available in this context</span>\n  {% elsif variant.inventory_management != 'shopify' %}\n    <span style=\"color:red;\">DEBUG: inventory_management = \"{{ variant.inventory_management }}\" (not tracked by Shopify)</span>\n  {% else %}\n    {% if variant.inventory_quantity > 0 and variant.inventory_quantity <= 10 %}\n      <span class=\"product-inventory__badge product-inventory__badge--low\">\n        {{ variant.inventory_quantity }} left\n      </span>\n    {% elsif variant.inventory_quantity > 10 %}\n      <span class=\"product-inventory__badge product-inventory__badge--ok\">\n        {{ variant.inventory_quantity }} left\n      </span>\n    {% else %}\n      {% if variant.inventory_policy == 'continue' %}\n        <span class=\"product-inventory__badge product-inventory__badge--backorder\">Backorder</span>\n      {% else %}\n        <span class=\"product-inventory__badge product-inventory__badge--out\">Out of stock</span>\n      {% endif %}\n    {% endif %}\n  {% endif %}\n</div>\n\n<style>\n  .product-inventory__badge {\n    display: inline-block;\n    font-size: 12px;\n    font-weight: 700;\n    padding: 0.3rem 0.7rem;\n    border-radius: 999px;\n  }\n  .product-inventory__badge--low { background: #FCE6D6; color: #C25A1E; }\n  .product-inventory__badge--ok { background: #E3F3E9; color: #2E7D4F; }\n  .product-inventory__badge--out { background: #FBE4E4; color: #B0231C; }\n  .product-inventory__badge--backorder { background: #EAF2FB; color: #2F6FED; }\n</style>"
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "price_E6JG9N",
+                "custom_liquid_jhqzgE"
+              ]
             }
           },
           "block_order": [
             "card-gallery",
             "product_card_group_DRXCbP",
-            "product_title_4nY4eT",
-            "price_EzJzMm"
+            "product_card_group_LDbbRp"
           ]
         }
       },
