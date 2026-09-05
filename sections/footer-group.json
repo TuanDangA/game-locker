@@ -17,6 +17,7 @@
         "brand_EtMVjr": {
           "type": "brand",
           "settings": {
+            "logo": "shopify://shop_images/Logo_1.png",
             "badge_alt": "",
             "text": "Get tournament nights, new drops & buylist updates in your inbox.",
             "email_placeholder": "Email address"
