@@ -183,7 +183,7 @@
               "settings": {
                 "content_direction": "row",
                 "vertical_on_mobile": false,
-                "horizontal_alignment": "flex-start",
+                "horizontal_alignment": "space-between",
                 "vertical_alignment": "center",
                 "align_baseline": false,
                 "horizontal_alignment_flex_direction_column": "flex-start",
@@ -210,7 +210,7 @@
                 "border_radius": 0,
                 "link": "",
                 "open_in_new_tab": false,
-                "padding-block-start": 0,
+                "padding-block-start": 8,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
                 "padding-inline-end": 0
@@ -224,7 +224,7 @@
                     "show_installments": false,
                     "show_tax_info": false,
                     "type_preset": "custom",
-                    "width": "100%",
+                    "width": "fit-content",
                     "alignment": "left",
                     "font": "var(--font-body--family)",
                     "font_size": "1rem",
