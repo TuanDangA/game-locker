@@ -1,35 +1,35 @@
-
 document.addEventListener('DOMContentLoaded', function () {
+  var MAX_CHARS = 11;
+  var BREAKPOINT = 749; // px — matches your existing mobile breakpoint
 
-  function truncateProductTitles() {
-    const titles = document.querySelectorAll(
-      '.product-grid-view-zoom-out--details h3'
-    );
+  // Adjust this selector to match your actual product card heading class
+  var headings = document.querySelectorAll('.product-card__content h3, .trending__card-title');
 
-    titles.forEach(function (title) {
-      // Store original title only once
-      if (!title.dataset.originalText) {
-        title.dataset.originalText = title.textContent.trim();
+  function truncateHeadings() {
+    var isSmallScreen = window.innerWidth <= BREAKPOINT;
+
+    headings.forEach(function (heading) {
+      // Save the original full text once, so we can restore it later
+      if (!heading.dataset.fullText) {
+        heading.dataset.fullText = heading.textContent.trim();
       }
 
-      const originalText = title.dataset.originalText;
+      var fullText = heading.dataset.fullText;
 
-      // Mobile only
-      if (window.innerWidth <= 749) {
-        if (originalText.length > 11) {
-          title.textContent = originalText.slice(0, 11) + '...';
-        } else {
-          title.textContent = originalText;
-        }
+      if (isSmallScreen && fullText.length > MAX_CHARS) {
+        heading.textContent = fullText.slice(0, MAX_CHARS) + '...';
       } else {
-        // Restore full title on desktop
-        title.textContent = originalText;
+        heading.textContent = fullText;
       }
     });
   }
 
-  truncateProductTitles();
+  truncateHeadings();
 
-  window.addEventListener('resize', truncateProductTitles);
-
+  // Re-run on resize (debounced) in case the window crosses the breakpoint
+  var resizeTimer;
+  window.addEventListener('resize', function () {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(truncateHeadings, 150);
+  });
 });
