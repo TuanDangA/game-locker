@@ -1931,3 +1931,27 @@ body:has(.trending__add.is-loading)
     transform: translate(-50%, -50%) rotate(360deg);
   }
 }
+
+/* Collection page product cards custom css */
+
+.product-form-buttons button {
+  width: fit-content;
+  padding-block: var(--padding-lg);
+}
+.product-form-buttons--stacked
+  > *:not(
+    .quantity-selector-wrapper,
+    .quantity-rules,
+    .quantity-label,
+    .volume-pricing,
+    .product-form-text__error
+  ) {
+  flex-basis: auto;
+  flex: 0 0 0;
+}
+
+.product-form-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
