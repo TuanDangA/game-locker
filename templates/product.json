@@ -103,10 +103,10 @@
               "type": "group",
               "name": "t:names.header",
               "settings": {
-                "content_direction": "column",
-                "vertical_on_mobile": true,
-                "horizontal_alignment": "flex-start",
-                "vertical_alignment": "center",
+                "content_direction": "row",
+                "vertical_on_mobile": false,
+                "horizontal_alignment": "space-between",
+                "vertical_alignment": "flex-start",
                 "align_baseline": false,
                 "horizontal_alignment_flex_direction_column": "flex-start",
                 "vertical_alignment_flex_direction_column": "center",
@@ -165,32 +165,36 @@
                   },
                   "blocks": {}
                 },
-                "price_tVjtKg": {
-                  "type": "price",
+                "text_My7Qpj": {
+                  "type": "text",
+                  "name": "t:names.text",
                   "settings": {
-                    "show_sale_price_first": true,
-                    "show_installments": false,
-                    "show_tax_info": false,
-                    "type_preset": "paragraph",
-                    "width": "100%",
+                    "text": "<p>{{ closest.product.metafields.custom.variant.value }}</p>",
+                    "width": "fit-content",
+                    "max_width": "none",
                     "alignment": "left",
+                    "type_preset": "custom",
                     "font": "var(--font-body--family)",
-                    "font_size": "1rem",
-                    "line_height": "normal",
-                    "letter_spacing": "normal",
+                    "font_size": "0.75rem",
+                    "line_height": "tight",
+                    "letter_spacing": "tight",
                     "case": "none",
-                    "text_color": "",
+                    "wrap": "pretty",
+                    "text_color": "#46626F",
+                    "background": true,
+                    "background_color": "{{ settings.color_palette.background }}",
+                    "corner_radius": 50,
                     "padding-block-start": 4,
-                    "padding-block-end": 0,
-                    "padding-inline-start": 0,
-                    "padding-inline-end": 0
+                    "padding-block-end": 4,
+                    "padding-inline-start": 8,
+                    "padding-inline-end": 12
                   },
                   "blocks": {}
                 }
               },
               "block_order": [
                 "text_xrnftG",
-                "price_tVjtKg"
+                "text_My7Qpj"
               ]
             },
             "divider_VJhene": {
