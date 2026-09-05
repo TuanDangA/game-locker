@@ -382,7 +382,7 @@
         ".quantity-selector-wrapper {width: 71%;}",
         ".text-block--background {padding-block-start: 4px; padding-block-end: 4px; padding-inline-start: 12px; padding-inline-end: 12px;}",
         ".text-block--background p {font-weight: 700 !important;}",
-        "@media screen and (max-width: 749px) {.product-grid__card .group-block > * {flex-direction: row; }}",
+        "@media screen and (max-width: 749px) {.product-grid__card .group-block > * {flex-direction: row; } }",
         "@media screen and (max-width: 420px) {.quantity-selector-wrapper {width: 60%; }}"
       ],
       "settings": {
