@@ -379,7 +379,7 @@
       },
       "custom_css": [
         ".button[id^=\"BuyButtons-ProductSubmitButton-\"] {font-size: 0; width: auto; padding: 12px;}",
-        ".quantity-selector-wrapper {width: 70%;}"
+        ".quantity-selector-wrapper {width: 72%;}"
       ],
       "settings": {
         "layout_type": "grid",
