@@ -353,7 +353,7 @@
                     "style_class": "button-custom",
                     "custom_button_background": "{{ settings.color_palette.foreground }}",
                     "custom_button_text": "{{ settings.color_palette.background }}",
-                    "custom_button_border": "#00000000"
+                    "custom_button_border": "rgba(0,0,0,0)"
                   },
                   "blocks": {}
                 },
@@ -379,7 +379,7 @@
       },
       "custom_css": [
         ".button[id^=\"BuyButtons-ProductSubmitButton-\"] {font-size: 0; width: auto; padding: 12px;}",
-        ".quantity-selector-wrapper {width: 72%;}"
+        ".quantity-selector-wrapper {width: 71%;}"
       ],
       "settings": {
         "layout_type": "grid",
