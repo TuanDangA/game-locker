@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-  var MAX_CHARS = 11;
+  var MAX_CHARS = 9;
   var BREAKPOINT = 749; // px
 
   var headings = document.querySelectorAll('.product-card__content h3, .trending__card-title');
