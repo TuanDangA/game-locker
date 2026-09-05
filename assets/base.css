@@ -1955,3 +1955,9 @@ body:has(.trending__add.is-loading)
     justify-content: space-between !important;
     gap: 2px !important;
 }
+
+@media screen and (max-width: 749px) {
+    .layout-panel-flex--row:not(.mobile-column)>.text-block {
+        flex: 1 1 1;
+    }
+}
