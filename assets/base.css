@@ -1934,7 +1934,7 @@ body:has(.trending__add.is-loading)
 /* Collection page product cards custom css */
 
 .product-form-buttons button {
-  width: fit-content;
+  width: fit-content !important;
   padding-block: var(--padding-lg);
 }
 .product-form-buttons--stacked
@@ -1945,12 +1945,12 @@ body:has(.trending__add.is-loading)
     .volume-pricing,
     .product-form-text__error
   ) {
-  flex-basis: auto;
-  flex: 0 0 0;
+  flex-basis: auto !important;
+  flex: 0 0 0 !important;
 }
 
 .product-form-buttons {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: space-between !important;
 }
