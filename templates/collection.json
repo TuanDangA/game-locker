@@ -123,7 +123,7 @@
                   "type": "text",
                   "name": "t:names.heading",
                   "settings": {
-                    "text": "<p>{{ closest.product.title }}</p>",
+                    "text": "<h3>{{ closest.product.title }}</h3>",
                     "width": "fit-content",
                     "max_width": "normal",
                     "alignment": "left",
@@ -382,7 +382,7 @@
         ".quantity-selector-wrapper {width: 71%;}",
         ".text-block--background {padding-block-start: 4px; padding-block-end: 4px; padding-inline-start: 12px; padding-inline-end: 12px;}",
         ".text-block--background p {font-weight: 700 !important;}",
-        "@media screen and (max-width: 749px) {.product-grid__card .group-block > * {flex-direction: row; }.quantity-selector-wrapper {width: 60%;}}"
+        "@media screen and (max-width: 749px) {.product-grid__card .group-block > * {flex-direction: row; } .quantity-selector-wrapper {width: 60%; }}"
       ],
       "settings": {
         "layout_type": "grid",
