@@ -751,11 +751,15 @@
       document.documentElement.style.overflow = '';
     }
 
-    document.querySelectorAll('[data-cart-drawer-toggle]').forEach(function (el) {
-      el.addEventListener('click', function (e) {
+    /* Event delegation, not a direct listener on the button itself —
+       this way it still works even if the header/button gets re-rendered
+       or hydrated by the theme's JS after this script first runs. */
+    document.addEventListener('click', function (e) {
+      var toggle = e.target.closest('[data-cart-drawer-toggle]');
+      if (toggle) {
         e.preventDefault();
         openDrawer();
-      });
+      }
     });
     drawer.querySelectorAll('[data-gl-drawer-close]').forEach(function (btn) {
       btn.addEventListener('click', closeDrawer);
