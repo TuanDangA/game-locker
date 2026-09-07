@@ -648,9 +648,7 @@
                       <a href="{{ biw_product.url }}" class="gl-biw-card__title">{{ biw_product.title }}</a>
                       <div class="gl-biw-card__price-row">
                         <span class="gl-biw-card__price">{{ biw_variant.price | money }}</span>
-                        {%- if biw_variant.inventory_management != blank and biw_variant.inventory_quantity <= gl_low_stock_threshold and biw_variant.inventory_quantity > 0 -%}
                           <span class="gl-biw-card__stock">{{ biw_variant.inventory_quantity }} left</span>
-                        {%- endif -%}
                       </div>
 
                       {%- if biw_product.metafields.custom.location_options != blank -%}
