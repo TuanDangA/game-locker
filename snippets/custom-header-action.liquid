@@ -54,13 +54,7 @@
       aria-describedby="cart-bubble-text"
       data-testid="cart-drawer-trigger"
     >
-      {{ cart_icon }}
-    </button>
-  <a
-    href="{{ routes.cart_url }}"
-    class="header-actions__action action__cart"
-    aria-label="Cart"
-  >
+
     <cart-icon
       class="header-actions__cart-icon"
       data-testid="cart-icon"
@@ -83,7 +77,7 @@
 
      {% render 'cart-bubble', limit: 100, color: '#ffffff' %}
     </cart-icon>
-  </a>
+  </button>
 
 
   <!-- Live region -->
