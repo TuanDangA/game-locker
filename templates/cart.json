@@ -23,10 +23,12 @@
     },
     "custom_main_cart_P6YQBG": {
       "type": "custom-main-cart",
+      "disabled": true,
       "name": "Custom cart",
       "settings": {
         "subtotal_bg_color": "#ad0807",
-        "price_color": "#207FC4",
+        "price_color": "#207fc4",
+        "continue_shopping_url": "",
         "section_width": "page-width",
         "padding-block-start": 40,
         "padding-block-end": 40
@@ -88,7 +90,6 @@
           "blocks": {}
         }
       },
-      "disabled": true,
       "settings": {
         "section_width": "page-width",
         "background_color": "{{ settings.color_palette.background }}",
