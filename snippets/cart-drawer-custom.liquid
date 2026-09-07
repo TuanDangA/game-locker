@@ -402,6 +402,18 @@
       align-items: center;
       justify-content: center;
     }
+
+      .gl-biw-card__qty input[type="number"]::-webkit-inner-spin-button,
+  .gl-biw-card__qty input[type="number"]::-webkit-outer-spin-button,
+  .gl-cart-item__qty input[type="number"]::-webkit-inner-spin-button,
+  .gl-cart-item__qty input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  .gl-biw-card__qty input[type="number"],
+  .gl-cart-item__qty input[type="number"] {
+    -moz-appearance: textfield;
+  }
     .gl-biw-card__add svg { width: 15px; height: 15px; }
     .gl-biw-card__add:hover { background: #000; }
     .gl-biw-card__add.gl-preorder-btn {
