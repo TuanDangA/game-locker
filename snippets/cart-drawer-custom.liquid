@@ -621,14 +621,13 @@
             {%- endfor -%}
           </div>
 
-          {%- if gl_biw_handles.size > 0 -%}
+                    {%- assign gl_biw_collection = collections[gl_biw_collection_handle] -%}
+          {%- if gl_biw_collection != blank and gl_biw_collection.products.size > 0 -%}
             <div class="gl-buy-it-with">
               <h3 class="gl-buy-it-with__heading">Buy it with</h3>
               <div class="gl-buy-it-with__grid">
-                {%- for handle in gl_biw_handles -%}
-                  {%- assign biw_product = all_products[handle] -%}
-                  {%- if biw_product != blank and biw_product.id != blank -%}
-                    {%- assign biw_variant = biw_product.selected_or_first_available_variant -%}
+                {%- for biw_product in gl_biw_collection.products limit: gl_biw_limit -%}
+                  {%- assign biw_variant = biw_product.selected_or_first_available_variant -%}
                     <div class="gl-biw-card">
                       <a href="{{ biw_product.url }}" class="gl-biw-card__image">
                         {%- if biw_product.featured_image -%}
@@ -682,7 +681,6 @@
                         </div>
                       {%- endif -%}
                     </div>
-                  {%- endif -%}
                 {%- endfor -%}
               </div>
             </div>
