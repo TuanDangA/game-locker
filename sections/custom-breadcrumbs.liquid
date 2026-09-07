@@ -57,7 +57,7 @@
   class="section section--{{ section.settings.section_width }} spacing-style{% if section.settings.background_color != blank %} color-custom-{{ section.id }}{% endif %}"
   style="{% render 'spacing-padding', settings: section.settings %}"
 >
-  {%- unless template == 'index' or template == 'cart' or template == 'list-collections' or template == '404' -%}
+  {%- unless template == 'index' or template == 'list-collections' or template == '404' -%}
     {%- assign t = template | split: '.' | first -%}
 
     <nav class="breadcrumbs" role="navigation" aria-label="breadcrumbs">
