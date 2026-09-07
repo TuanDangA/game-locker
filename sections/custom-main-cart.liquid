@@ -153,6 +153,8 @@
     background: #ffffff;
     border-radius: 4px;
     height: 40px;
+    width: 180px;
+    justify-content: space-evenly;
   }
   .cart-item__qty button {
     width: 32px;
@@ -349,6 +351,13 @@
       justify-self: end;
       min-width: 0;
       padding: 0;
+    }
+  }
+
+   @media screen and (max-width: 420px) {
+    
+    .cart-item__qty {
+      width: 80px;
     }
   }
 </style>
