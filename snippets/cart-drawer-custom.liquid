@@ -25,11 +25,12 @@
   - Badges + subtitle: same metafields as your cart page
     (product.metafields.custom.variant / subtitle / release_date)
 
-  "BUY IT WITH" PRODUCTS:
-  - No blocks/picker here since there's no schema. Just list the product
-    handles below and it pulls each one's real price/inventory/image.
-    Add or remove handles freely (up to ~4 recommended so the drawer
-    doesn't get too tall).
+    # Products to show under "Buy it with" now come from a collection
+  # instead of a hardcoded handle list. Set this to any collection handle
+  # in your store (Admin → Products → Collections — the handle is the
+  # part of the collection's URL after /collections/).
+  assign gl_biw_collection_handle = 'cart-cross-sell'
+  assign gl_biw_limit = 4
 
   CONFIG — edit these directly instead of theme-editor settings:
 {%- endcomment -%}
@@ -41,7 +42,8 @@
   assign gl_low_stock_threshold = 5
 
   # Handles of the products to show under "Buy it with". Edit this list.
-  assign gl_biw_handles = 'booster-box-storage-case,reality-fracture-playmat' | split: ','
+  assign gl_biw_collection_handle = 'all-products'
+  assign gl_biw_limit = 4
 -%}
 
 <style>
