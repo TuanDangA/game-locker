@@ -46,13 +46,13 @@
   <!-- Cart -->
   <button
       class="header-actions__action button-unstyled{% if display_style == 'text' %} header-actions__text-style{% endif %}"
+      on:click="#cart-drawer/toggle"
       aria-haspopup="dialog"
       aria-expanded="false"
       aria-controls="cart-drawer"
       aria-label="{{ 'accessibility.cart' | t }}"
       aria-describedby="cart-bubble-text"
       data-testid="cart-drawer-trigger"
-      data-cart-drawer-toggle
     >
 
     <cart-icon
@@ -89,14 +89,6 @@
 
 </header-actions>
 
-<script>
-  document.querySelectorAll('[data-cart-drawer-toggle]').forEach(function (el) {
-  el.addEventListener('click', function (e) {
-    e.preventDefault();
-    openDrawer();
-  });
-});
-</script>
 
 <script
   type="module"
