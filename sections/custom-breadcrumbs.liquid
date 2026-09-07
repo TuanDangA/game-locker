@@ -1,47 +1,48 @@
 <style>
-  .breadcrumbs {
-    margin: 0;
+    .breadcrumbs {
+      margin: 0;
+    }
+
+    .breadcrumbs__list {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .breadcrumbs__item {
+      display: inline-block;
+      margin-right: 6px;
   }
 
-  .breadcrumbs__list {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-  }
+    .breadcrumbs__item:not(:last-child):after {
+      border-style: solid;
+      border-width: .10em .10em 0 0;
+      content: '';
+      display: inline-block;
+      height: .20em;
+      margin: 0 .20em;
+      position: relative;
+      transform: rotate(45deg);
+      vertical-align: middle;
+      width: .20em;
+      border-color: {{ section.settings.link_color }};
+    }
 
-  .breadcrumbs__item {
-    display: inline-block;
-  }
+    .breadcrumbs__link {
+      text-decoration: underline;
+      color: {{ section.settings.link_color }};
+    }
 
-  .breadcrumbs__item:not(:last-child):after {
-    border-style: solid;
-    border-width: .10em .10em 0 0;
-    content: '';
-    display: inline-block;
-    height: .20em;
-    margin: 0 .20em;
-    position: relative;
-    transform: rotate(45deg);
-    vertical-align: middle;
-    width: .20em;
-    border-color: {{ section.settings.link_color }};
-  }
+    .breadcrumbs__link[aria-current="page"] {
+      color: {{ section.settings.current_color }};
+      font-weight: normal;
+      text-decoration: none;
+    }
 
-  .breadcrumbs__link {
-    text-decoration: underline;
-    color: {{ section.settings.link_color }};
-  }
-
-  .breadcrumbs__link[aria-current="page"] {
-    color: {{ section.settings.current_color }};
-    font-weight: normal;
-    text-decoration: none;
-  }
-
-  .breadcrumbs__link[aria-current="page"]:hover,
-  .breadcrumbs__link[aria-current="page"]:focus {
-    text-decoration: underline;
-  }
+    .breadcrumbs__link[aria-current="page"]:hover,
+    .breadcrumbs__link[aria-current="page"]:focus {
+      text-decoration: underline;
+    }
 </style>
 
 {% liquid
