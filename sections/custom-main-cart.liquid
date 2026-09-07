@@ -308,17 +308,45 @@
   .cart-shipping__results li { margin-bottom: 0.3rem; }
   .cart-shipping__results strong { color: {{ section.settings.price_color | default: '#2F6FED' }}; }
 
-  @media screen and (max-width: 900px) {
+  @media screen and (max-width: 768px) {
     .cart-page {
       grid-template-columns: 1fr;
     }
+
     .cart-item {
-      grid-template-columns: 24px 70px 1fr;
-      row-gap: 0.75rem;
+      grid-template-columns: 90px auto auto 1fr;
+      grid-template-areas:
+        "image  details details details"
+        "image  qty     remove  price";
+      row-gap: 0.6rem;
+      column-gap: 0.6rem;
+      align-items: center;
     }
-    .cart-item__qty,
+
+    /* remove icon is no longer top-left, it's alongside qty/price */
+    .cart-item__remove {
+      grid-area: remove;
+      justify-self: center;
+    }
+
+    .cart-item__image {
+      grid-area: image;
+      align-self: start;
+    }
+
+    .cart-item__details {
+      grid-area: details;
+    }
+
+    .cart-item__qty {
+      grid-area: qty;
+    }
+
     .cart-item__price {
-      grid-column: 2 / -1;
+      grid-area: price;
+      justify-self: end;
+      min-width: 0;
+      padding: 0;
     }
   }
 </style>
