@@ -402,7 +402,7 @@
   /* --- Summary / footer --- */
   .gl-drawer-summary {
     flex-shrink: 0;
-    padding: 1.1rem 1.25rem 1.25rem;
+    {% comment %} padding: 1.1rem 1.25rem 1.25rem; {% endcomment %}
   }
 
   .gl-summary-box {
@@ -436,11 +436,8 @@
   .gl-drawer-actions {
     display: flex;
     gap: 0.6rem;
-    border: 1px solid #C0DFF6;
-    border-top: none;
-    border-radius: 0 0 6px 6px;
     padding: 0.9rem;
-    background: #fff;
+    background: #a10a0a;
   }
   .gl-drawer-actions a,
   .gl-drawer-actions button {
