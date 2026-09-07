@@ -89,6 +89,14 @@
 
 </header-actions>
 
+<script>
+  document.querySelectorAll('[data-cart-drawer-toggle]').forEach(function (el) {
+  el.addEventListener('click', function (e) {
+    e.preventDefault();
+    openDrawer();
+  });
+});
+</script>
 
 <script
   type="module"
