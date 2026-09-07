@@ -285,6 +285,7 @@
   }
 
   /* --- Buy it with --- */
+
   .gl-buy-it-with {
     padding: 1.1rem 0;
     border-bottom: 1px solid #C0DFF6;
@@ -300,6 +301,14 @@
     grid-template-columns: 1fr 1fr;
     gap: 0.75rem;
   }
+
+  .gl-biw-card {
+    background: white;
+    padding: 8px;
+    border: 1px solid #c0dff6;
+    border-radius: 8px;
+}
+  
   .gl-biw-card__image {
     display: block;
     position: relative;
@@ -307,7 +316,7 @@
   }
   .gl-biw-card__image img {
     width: 100%;
-    aspect-ratio: 1 / 1;
+    {% comment %} aspect-ratio: 1 / 1; {% endcomment %}
     object-fit: cover;
     border-radius: 4px;
     border: 1px solid #eee;
