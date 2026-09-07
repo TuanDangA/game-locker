@@ -38,6 +38,49 @@
     flex-direction: column;
   }
 
+  /* --- Empty cart state --- */
+  .cart-empty {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 3rem 1rem;
+  }
+
+  .cart-empty__icon {
+    width: 56px;
+    height: 56px;
+    margin: 0 auto 1.25rem;
+    color: #c9c9c9;
+  }
+
+  .cart-empty__heading {
+    font-size: 22px;
+    font-weight: 800;
+    margin: 0 0 0.5rem;
+    color: #1D1A17;
+  }
+
+  .cart-empty__text {
+    font-size: 14px;
+    color: #6b6b6b;
+    margin: 0 0 1.5rem;
+  }
+
+  .cart-empty__continue {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #111111;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 0.85rem 1.75rem;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    border-radius: 4px;
+  }
+  .cart-empty__continue:hover { background: #000; }
+
   .cart-item {
     display: grid;
     grid-template-columns: 24px 90px 1fr auto auto;
@@ -288,99 +331,111 @@
   {% form 'cart', cart, class: 'cart-page' %}
     <h1 class="cart-page__heading">Your Cart ({{ cart.item_count }})</h1>
 
-    <div class="cart-page__items">
-      {% for item in cart.items %}
-        <div class="cart-item" data-cart-item data-key="{{ item.key }}">
-          <button type="button" class="cart-item__remove" data-remove-item aria-label="Remove {{ item.product.title }}">
-            <svg width="15" height="17" viewBox="0 0 15 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M9.09961 0.5V1.7002H13.9004V2.5H12.7002V14.9893C12.7002 15.3662 12.5749 15.666 12.3193 15.9199C12.0602 16.1772 11.7627 16.2997 11.4004 16.2998H3C2.63866 16.2998 2.34151 16.1774 2.08203 15.918C1.82255 15.6585 1.7002 15.3613 1.7002 15V2.5H0.5V1.7002H5.2998V0.5H9.09961ZM2.5 15.5H11.9004V2.5H2.5V15.5ZM9.09961 5.2998V12.7002H8.2998V5.2998H9.09961ZM6.09961 5.2998V12.7002H5.2998V5.2998H6.09961Z" fill="#5C554C" stroke="black"/>
+    {% if cart.item_count == 0 %}
+      <div class="cart-empty">
+        <svg class="cart-empty__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+        </svg>
+        <p class="cart-empty__heading">Your cart is empty</p>
+        <p class="cart-empty__text">Looks like you haven't added anything yet.</p>
+        <a href="{{ section.settings.continue_shopping_url | default: routes.all_products_collection_url }}" class="cart-empty__continue">
+          Continue shopping
+        </a>
+      </div>
+    {% else %}
+      <div class="cart-page__items">
+        {% for item in cart.items %}
+          <div class="cart-item" data-cart-item data-key="{{ item.key }}">
+            <button type="button" class="cart-item__remove" data-remove-item aria-label="Remove {{ item.product.title }}">
+              <svg width="15" height="17" viewBox="0 0 15 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9.09961 0.5V1.7002H13.9004V2.5H12.7002V14.9893C12.7002 15.3662 12.5749 15.666 12.3193 15.9199C12.0602 16.1772 11.7627 16.2997 11.4004 16.2998H3C2.63866 16.2998 2.34151 16.1774 2.08203 15.918C1.82255 15.6585 1.7002 15.3613 1.7002 15V2.5H0.5V1.7002H5.2998V0.5H9.09961ZM2.5 15.5H11.9004V2.5H2.5V15.5ZM9.09961 5.2998V12.7002H8.2998V5.2998H9.09961ZM6.09961 5.2998V12.7002H5.2998V5.2998H6.09961Z" fill="currentColor"/>
+              </svg>
+            </button>
+
+            <a href="{{ item.url }}" class="cart-item__image">
+              {% if item.image %}
+                <img src="{{ item.image | image_url: width: 200 }}" alt="{{ item.product.title | escape }}">
+              {% endif %}
+            </a>
+
+            <div class="cart-item__details">
+              <div class="cart-item__title-row">
+                <a href="{{ item.url }}" class="cart-item__title">{{ item.product.title }}</a>
+                {% if item.product.metafields.custom.variant != blank %}
+                  <span class="cart-item__badge cart-item__badge--foil">
+                    {{- item.product.metafields.custom.variant -}}
+                  </span>
+                {% endif %}
+                {% if item.product.tags contains 'Pre-order' %}
+                  <span class="cart-item__badge cart-item__badge--preorder">Pre-order</span>
+                {% endif %}
+              </div>
+
+              {% if item.product.metafields.custom.subtitle != blank %}
+                <p class="cart-item__subtitle">{{ item.product.metafields.custom.subtitle }}</p>
+              {% endif %}
+
+              {% if item.product.tags contains 'Pre-order' and item.product.metafields.custom.release_date != blank %}
+                <p class="cart-item__subtitle">Release Date: {{ item.product.metafields.custom.release_date }}</p>
+              {% endif %}
+
+              <p class="cart-item__unit-price">{{ item.original_price | money }}</p>
+            </div>
+
+            <div class="cart-item__qty">
+              <button type="button" data-qty-minus>&minus;</button>
+              <input type="number" value="{{ item.quantity }}" min="1" data-qty-input>
+              <button type="button" data-qty-plus>+</button>
+            </div>
+
+            <div class="cart-item__price" data-line-price>{{ item.original_line_price | money }}</div>
+          </div>
+        {% endfor %}
+      </div>
+
+      <div class="cart-sidebar">
+        <div class="cart-summary">
+          <div class="cart-summary__row">
+            <span>Subtotal</span>
+            <span data-cart-subtotal>{{ cart.total_price | money }}</span>
+          </div>
+          <button type="submit" name="checkout" class="cart-summary__checkout">Checkout</button>
+        </div>
+
+        <div class="cart-shipping" data-shipping-widget>
+          <button type="button" class="cart-shipping__toggle" data-shipping-toggle>
+            <span>Estimate shipping</span>
+            <svg viewBox="0 0 12 8" fill="none">
+              <path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="2"/>
             </svg>
           </button>
 
-          <a href="{{ item.url }}" class="cart-item__image">
-            {% if item.image %}
-              <img src="{{ item.image | image_url: width: 200 }}" alt="{{ item.product.title | escape }}">
-            {% endif %}
-          </a>
-
-          <div class="cart-item__details">
-            <div class="cart-item__title-row">
-              <a href="{{ item.url }}" class="cart-item__title">{{ item.product.title }}</a>
-              {% if item.product.metafields.custom.variant != blank %}
-                <span class="cart-item__badge cart-item__badge--foil">
-                  {{- item.product.metafields.custom.variant -}}
-                </span>
-              {% endif %}
-              {% if item.product.tags contains 'Pre-order' %}
-                <span class="cart-item__badge cart-item__badge--preorder">Pre-order</span>
-              {% endif %}
+          <div class="cart-shipping__body">
+            <div class="cart-shipping__field">
+              <label for="shipping-country-{{ section.id }}">Country</label>
+              <select id="shipping-country-{{ section.id }}" data-shipping-country>
+                {{ all_country_option_tags }}
+              </select>
             </div>
 
-            {% if item.product.metafields.custom.subtitle != blank %}
-              <p class="cart-item__subtitle">{{ item.product.metafields.custom.subtitle }}</p>
-            {% endif %}
+            <div class="cart-shipping__field">
+              <label for="shipping-province-{{ section.id }}">State</label>
+              <select id="shipping-province-{{ section.id }}" data-shipping-province></select>
+            </div>
 
-            {% if item.product.tags contains 'Pre-order' and item.product.metafields.custom.release_date != blank %}
-              <p class="cart-item__subtitle">Release Date: {{ item.product.metafields.custom.release_date }}</p>
-            {% endif %}
+            <div class="cart-shipping__field">
+              <label for="shipping-zip-{{ section.id }}">Zip code</label>
+              <input type="text" id="shipping-zip-{{ section.id }}" data-shipping-zip placeholder="e.g. 2000">
+            </div>
 
-            <p class="cart-item__unit-price">{{ item.original_price | money }}</p>
+            <button type="button" class="cart-shipping__estimate-btn" data-estimate-shipping>Estimate shipping</button>
+
+            <div class="cart-shipping__results" data-shipping-results></div>
           </div>
-
-          <div class="cart-item__qty">
-            <button type="button" data-qty-minus>&minus;</button>
-            <input type="number" value="{{ item.quantity }}" min="1" data-qty-input>
-            <button type="button" data-qty-plus>+</button>
-          </div>
-
-          <div class="cart-item__price" data-line-price>{{ item.original_line_price | money }}</div>
-        </div>
-      {% else %}
-        <p>Your cart is empty.</p>
-      {% endfor %}
-    </div>
-
-    <div class="cart-sidebar">
-      <div class="cart-summary">
-        <div class="cart-summary__row">
-          <span>Subtotal</span>
-          <span data-cart-subtotal>{{ cart.total_price | money }}</span>
-        </div>
-        <button type="submit" name="checkout" class="cart-summary__checkout">Checkout</button>
-      </div>
-
-      <div class="cart-shipping" data-shipping-widget>
-        <button type="button" class="cart-shipping__toggle" data-shipping-toggle>
-          <span>Estimate shipping</span>
-          <svg viewBox="0 0 12 8" fill="none">
-            <path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="2"/>
-          </svg>
-        </button>
-
-        <div class="cart-shipping__body">
-          <div class="cart-shipping__field">
-            <label for="shipping-country-{{ section.id }}">Country</label>
-            <select id="shipping-country-{{ section.id }}" data-shipping-country>
-              {{ all_country_option_tags }}
-            </select>
-          </div>
-
-          <div class="cart-shipping__field">
-            <label for="shipping-province-{{ section.id }}">State</label>
-            <select id="shipping-province-{{ section.id }}" data-shipping-province></select>
-          </div>
-
-          <div class="cart-shipping__field">
-            <label for="shipping-zip-{{ section.id }}">Zip code</label>
-            <input type="text" id="shipping-zip-{{ section.id }}" data-shipping-zip placeholder="e.g. 2000">
-          </div>
-
-          <button type="button" class="cart-shipping__estimate-btn" data-estimate-shipping>Estimate shipping</button>
-
-          <div class="cart-shipping__results" data-shipping-results></div>
         </div>
       </div>
-    </div>
+    {% endif %}
   {% endform %}
 </div>
 
@@ -448,12 +503,8 @@
       if (removeBtn) {
         removeBtn.addEventListener('click', function () {
           updateLineItem(key, 0).then(function (cart) {
-            row.remove();
-            refreshSubtotal(cart);
             document.dispatchEvent(new CustomEvent('cart:updated', { detail: { itemCount: cart.item_count } }));
-            if (cart.item_count === 0) {
-              window.location.reload();
-            }
+            window.location.reload();
           });
         });
       }
@@ -576,6 +627,12 @@
       "id": "price_color",
       "label": "Price / accent color",
       "default": "#2F6FED"
+    },
+    {
+      "type": "url",
+      "id": "continue_shopping_url",
+      "label": "\"Continue shopping\" link",
+      "info": "Leave blank to default to your main products/collection page"
     },
     {
       "type": "select",
