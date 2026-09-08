@@ -607,7 +607,9 @@
         ".quantity-selector-wrapper {width: 40%;}",
         ".quantity-selector {justify-content: space-around;}",
         "#BuyButtons-ProductSubmitButton-ARStzK012Q3R4cUZvT__add-to-cart,button.shopify-payment-button__button--unbranded {width: 100% !important;}",
-        ".add-to-cart-icon {display: none;}"
+        ".add-to-cart-icon {display: none;}",
+        ".compare-at-price {text-decoration-color: inherit; color: #5c554c; font-size: 20px; font-weight: 800;}",
+        ".price{font-weight: 800;}"
       ],
       "settings": {
         "content_width": "content-center-aligned",
