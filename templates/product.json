@@ -473,14 +473,14 @@
                     "letter_spacing": "tight",
                     "case": "none",
                     "wrap": "pretty",
-                    "text_color": "{{ settings.color_palette.background }}",
+                    "text_color": "#46626F",
                     "background": true,
-                    "background_color": "#00000026",
+                    "background_color": "{{ settings.color_palette.background }}",
                     "corner_radius": 50,
                     "padding-block-start": 4,
                     "padding-block-end": 4,
                     "padding-inline-start": 8,
-                    "padding-inline-end": 0
+                    "padding-inline-end": 12
                   },
                   "blocks": {}
                 }
