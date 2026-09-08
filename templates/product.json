@@ -552,66 +552,25 @@
                   },
                   "blocks": {}
                 },
-                "text_pJLGFA": {
-                  "type": "text",
-                  "name": "t:names.text",
+                "custom_liquid_9nFMxJ": {
+                  "type": "custom-liquid",
+                  "name": "t:names.custom_liquid",
                   "settings": {
-                    "text": "<p>{{ closest.product.metafields.custom.variant.value }}</p>",
-                    "width": "fit-content",
-                    "max_width": "normal",
-                    "alignment": "left",
-                    "type_preset": "custom",
-                    "font": "var(--font-body--family)",
-                    "font_size": "0.75rem",
-                    "line_height": "tight",
-                    "letter_spacing": "tight",
-                    "case": "none",
-                    "wrap": "pretty",
-                    "text_color": "#46626F",
-                    "background": true,
-                    "background_color": "{{ settings.color_palette.background }}",
-                    "corner_radius": 50,
-                    "padding-block-start": 4,
-                    "padding-block-end": 4,
-                    "padding-inline-start": 8,
-                    "padding-inline-end": 12
+                    "custom_liquid": "{% assign variant = closest.product.selected_or_first_available_variant %}\n\n<div class=\"product-inventory\">\n  {% if closest.product == blank %}\n    <span style=\"color:red;\">DEBUG: closest.product also blank</span>\n  {% elsif variant.inventory_management != 'shopify' %}\n    <span style=\"color:red;\">DEBUG: inventory_management = \"{{ variant.inventory_management }}\"</span>\n  {% else %}\n    {% if variant.inventory_quantity > 0 and variant.inventory_quantity <= 10 %}\n      <span class=\"product-inventory__badge product-inventory__badge--low\">{{ variant.inventory_quantity }} left</span>\n    {% elsif variant.inventory_quantity > 10 %}\n      <span class=\"product-inventory__badge product-inventory__badge--ok\">{{ variant.inventory_quantity }} left</span>\n    {% else %}\n      {% if variant.inventory_policy == 'continue' %}\n        <span class=\"product-inventory__badge product-inventory__badge--backorder\">Backorder</span>\n      {% else %}\n        <span class=\"product-inventory__badge product-inventory__badge--out\">Out of stock</span>\n      {% endif %}\n    {% endif %}\n  {% endif %}\n</div>\n\n<style>\n  .product-inventory__badge { display:inline-block; font-size:12px; font-weight:700; padding:0.3rem 0.7rem; border-radius:4px; }\n  .product-inventory__badge--low { background:#FCE6D6; color:#C25A1E; }\n  .product-inventory__badge--ok { background:#E3F3E9; color:#2E7D4F; }\n  .product-inventory__badge--out { background:#FBE4E4; color:#B0231C; }\n  .product-inventory__badge--backorder { background:#EAF2FB; color:#2F6FED; }\n</style>"
                   },
                   "blocks": {}
                 }
               },
               "block_order": [
                 "price_fCmYEA",
-                "text_pJLGFA"
+                "custom_liquid_9nFMxJ"
               ]
-            },
-            "price_gLWgA6": {
-              "type": "price",
-              "settings": {
-                "show_sale_price_first": true,
-                "show_installments": false,
-                "show_tax_info": false,
-                "type_preset": "h6",
-                "width": "100%",
-                "alignment": "left",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "text_color": "",
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
             }
           },
           "block_order": [
             "product_card_gallery_DNizbJ",
             "product_card_group_bL4aHh",
-            "product_card_group_taDnJd",
-            "price_gLWgA6"
+            "product_card_group_taDnJd"
           ]
         }
       },
