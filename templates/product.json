@@ -203,7 +203,7 @@
               "settings": {
                 "content_direction": "row",
                 "vertical_on_mobile": false,
-                "horizontal_alignment": "center",
+                "horizontal_alignment": "flex-start",
                 "vertical_alignment": "center",
                 "align_baseline": false,
                 "horizontal_alignment_flex_direction_column": "flex-start",
@@ -245,7 +245,7 @@
                     "show_installments": false,
                     "show_tax_info": false,
                     "type_preset": "custom",
-                    "width": "100%",
+                    "width": "fit-content",
                     "alignment": "left",
                     "font": "var(--font-body--family)",
                     "font_size": "2rem",
@@ -259,10 +259,19 @@
                     "padding-inline-end": 0
                   },
                   "blocks": {}
+                },
+                "custom_liquid_hfa8bG": {
+                  "type": "custom-liquid",
+                  "name": "t:names.custom_liquid",
+                  "settings": {
+                    "custom_liquid": "{% assign variant = closest.product.selected_or_first_available_variant %}\n\n<div class=\"product-inventory\">\n  {% if closest.product == blank %}\n    <span style=\"color:red;\">DEBUG: closest.product also blank</span>\n  {% elsif variant.inventory_management != 'shopify' %}\n    <span style=\"color:red;\">DEBUG: inventory_management = \"{{ variant.inventory_management }}\"</span>\n  {% else %}\n    {% if variant.inventory_quantity > 0 and variant.inventory_quantity <= 10 %}\n      <span class=\"product-inventory__badge product-inventory__badge--low\">{{ variant.inventory_quantity }} left</span>\n    {% elsif variant.inventory_quantity > 10 %}\n      <span class=\"product-inventory__badge product-inventory__badge--ok\">{{ variant.inventory_quantity }} left</span>\n    {% else %}\n      {% if variant.inventory_policy == 'continue' %}\n        <span class=\"product-inventory__badge product-inventory__badge--backorder\">Backorder</span>\n      {% else %}\n        <span class=\"product-inventory__badge product-inventory__badge--out\">Out of stock</span>\n      {% endif %}\n    {% endif %}\n  {% endif %}\n</div>\n\n<style>\n  .product-inventory__badge { display:inline-block; font-size:12px; font-weight:700; padding:0.3rem 0.7rem; border-radius:4px; }\n  .product-inventory__badge--low { background:#FCE6D6; color:#C25A1E; }\n  .product-inventory__badge--ok { background:#E3F3E9; color:#2E7D4F; }\n  .product-inventory__badge--out { background:#FBE4E4; color:#B0231C; }\n  .product-inventory__badge--backorder { background:#EAF2FB; color:#2F6FED; }\n</style>"
+                  },
+                  "blocks": {}
                 }
               },
               "block_order": [
-                "price_zbnC9z"
+                "price_zbnC9z",
+                "custom_liquid_hfa8bG"
               ]
             },
             "variant_picker_R3rGDr": {
@@ -609,7 +618,7 @@
         "#BuyButtons-ProductSubmitButton-ARStzK012Q3R4cUZvT__add-to-cart,button.shopify-payment-button__button--unbranded {width: 100% !important;}",
         ".add-to-cart-icon {display: none;}",
         ".compare-at-price {text-decoration-color: inherit; color: #5c554c; font-size: 20px; font-weight: 800;}",
-        ".price{font-weight: 800;}"
+        ".price {font-weight: 800;}"
       ],
       "settings": {
         "content_width": "content-center-aligned",
