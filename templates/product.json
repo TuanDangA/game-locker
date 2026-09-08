@@ -718,8 +718,8 @@
         "section_width": "page-width",
         "gap": 28,
         "background_color": "{{ settings.color_palette.background }}",
-        "padding-block-start": 48,
-        "padding-block-end": 48
+        "padding-block-start": 24,
+        "padding-block-end": 32
       }
     },
     "product_recommendations_BXDBiW": {
@@ -1111,8 +1111,8 @@
         "section_width": "page-width",
         "gap": 28,
         "background_color": "{{ settings.color_palette.background }}",
-        "padding-block-start": 48,
-        "padding-block-end": 48
+        "padding-block-start": 24,
+        "padding-block-end": 32
       }
     }
   },
