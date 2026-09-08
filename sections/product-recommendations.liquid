@@ -21,6 +21,7 @@
     echo '--resource-list-columns-mobile: repeat(' | append: section.settings.mobile_columns | append: ', 1fr);'
     echo '--resource-list-column-gap-desktop: ' | append: section.settings.columns_gap | append: 'px;'
     echo '--column-count: ' | append: section.settings.columns | append: ';'
+    echo '--column-count-tablet: ' | append: section.settings.tablet_columns | append: ';'
     echo '--column-count-mobile: ' | append: section.settings.mobile_columns | append: ';'
   endcapture
 %}
@@ -301,6 +302,26 @@
     },
     {
       "type": "select",
+      "id": "tablet_columns",
+      "label": "t:settings.mobile_columns",
+      "options": [
+        {
+          "value": "1",
+          "label": "t:options.one_number"
+        },
+        {
+          "value": "2",
+          "label": "t:options.two_number"
+        },
+        {
+          "value": "3",
+          "label": "3"
+        }
+      ],
+      "default": "3",
+    },
+    {
+      "type": "select",
       "id": "mobile_columns",
       "label": "t:settings.mobile_columns",
       "options": [
@@ -465,6 +486,7 @@
         "carousel_on_mobile": false,
         "max_products": 4,
         "columns": 4,
+        "tablet_columns": "3",
         "mobile_columns": "2",
         "columns_gap": 12,
         "rows_gap": 24,
