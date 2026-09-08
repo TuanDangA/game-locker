@@ -285,7 +285,7 @@
               "settings": {
                 "icon": "caret",
                 "dividers": false,
-                "divider_color": "#207FC4",
+                "divider_color": "#207fc4",
                 "type_preset": "",
                 "background_color": "{{ settings.color_palette.color3 }}",
                 "text_color": "",
@@ -323,7 +323,7 @@
                         "letter_spacing": "normal",
                         "case": "none",
                         "wrap": "pretty",
-                        "text_color": "#1D1A17",
+                        "text_color": "#1d1a17",
                         "background": true,
                         "background_color": "{{ settings.color_palette.background }}",
                         "corner_radius": 0,
@@ -362,9 +362,9 @@
                         "letter_spacing": "normal",
                         "case": "none",
                         "wrap": "pretty",
-                        "text_color": "#1D1A17",
+                        "text_color": "#1d1a17",
                         "background": true,
-                        "background_color": "#E3F3FF",
+                        "background_color": "#e3f3ff",
                         "corner_radius": 0,
                         "padding-block-start": 0,
                         "padding-block-end": 0,
@@ -395,6 +395,10 @@
       },
       "block_order": [
         "disclosures_g9mWze"
+      ],
+      "custom_css": [
+        "details.details[open] .details__header {background-color: #e3f3ff;}",
+        ".details__header {color: #207fc4; font-family: 'Oswald'; font-weight: 700; font-size: 13px;}"
       ],
       "settings": {
         "content_width": "content-center-aligned",
