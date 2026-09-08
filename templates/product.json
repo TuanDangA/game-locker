@@ -537,8 +537,8 @@
       "custom_css": [
         "details.details[open] .details__header {background-color: #ecf7ff;}",
         ".details__header {color: #207fc4; font-family: \"Oswald\"; font-weight: 700; font-size: 13px; padding: 12px 20px;}",
-        ".quantity-selector-wrapper {width: 40% !important;}",
-        "#BuyButtons-ProductForm-template--31499736088862__main .product-form-buttons button {width: 100%;}"
+        ".quantity-selector-wrapper {width: 40%;}",
+        "#BuyButtons-ProductSubmitButton-ARStzK012Q3R4cUZvT__add-to-cart, button.shopify-payment-button__button--unbranded {width: 100% !important;}"
       ],
       "settings": {
         "content_width": "content-center-aligned",
