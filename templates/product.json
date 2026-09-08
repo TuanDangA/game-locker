@@ -537,7 +537,8 @@
       "custom_css": [
         "details.details[open] .details__header {background-color: #ecf7ff;}",
         ".details__header {color: #207fc4; font-family: \"Oswald\"; font-weight: 700; font-size: 13px; padding: 12px 20px;}",
-        ".quantity-selector-wrapper {width: 40%;}"
+        ".quantity-selector-wrapper {width: 40%;}",
+        ".product-form-buttons button {width: 100% !important;}"
       ],
       "settings": {
         "content_width": "content-center-aligned",
