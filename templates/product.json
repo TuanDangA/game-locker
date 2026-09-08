@@ -699,7 +699,7 @@
         ".text-block--background {padding-block-start: 4px; padding-block-end: 4px; padding-inline-start: 12px; padding-inline-end: 12px; flex: none;}",
         ".text-block--background p {font-weight: 700 !important;}",
         "@media screen and (max-width: 749px) {.product-grid__card .group-block > * {flex-direction: row; }}",
-        "@media screen and (max-width: 1120px) {.quantity-selector-wrapper {width: 60%; }}"
+        "@media screen and (max-width: 1220px) {.quantity-selector-wrapper {width: 60%; }}"
       ],
       "name": "t:names.product_recommendations",
       "settings": {
