@@ -222,7 +222,7 @@
             "buy_buttons_eYQEYi": {
               "type": "buy-buttons",
               "settings": {
-                "stacking": true,
+                "stacking": false,
                 "text_color": "",
                 "show_pickup_availability": false,
                 "gift_card_form": true,
@@ -250,10 +250,10 @@
                   "type": "quantity",
                   "static": true,
                   "settings": {
-                    "input_style": "default",
+                    "input_style": "custom",
                     "input_background_color": "{{ settings.color_palette.background }}",
-                    "input_text_color": "{{ settings.color_palette.foreground }}",
-                    "input_border_color": "{{ settings.color_palette.foreground }}",
+                    "input_text_color": "#1D1A17",
+                    "input_border_color": "#C0DFF6",
                     "border_width": 1,
                     "border_radius": 0
                   },
