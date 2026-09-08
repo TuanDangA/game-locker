@@ -329,8 +329,8 @@
                         "corner_radius": 0,
                         "padding-block-start": 0,
                         "padding-block-end": 0,
-                        "padding-inline-start": 0,
-                        "padding-inline-end": 0
+                        "padding-inline-start": 20,
+                        "padding-inline-end": 20
                       },
                       "blocks": {}
                     }
@@ -368,8 +368,8 @@
                         "corner_radius": 0,
                         "padding-block-start": 0,
                         "padding-block-end": 0,
-                        "padding-inline-start": 0,
-                        "padding-inline-end": 0
+                        "padding-inline-start": 20,
+                        "padding-inline-end": 20
                       },
                       "blocks": {}
                     }
@@ -398,7 +398,7 @@
       ],
       "custom_css": [
         "details.details[open] .details__header {background-color: #ecf7ff;}",
-        ".details__header {color: #207fc4; font-family: \"Oswald\"; font-weight: 700; font-size: 13px;}"
+        ".details__header {color: #207fc4; font-family: \"Oswald\"; font-weight: 700; font-size: 13px; padding: 12px 20px;}"
       ],
       "settings": {
         "content_width": "content-center-aligned",
