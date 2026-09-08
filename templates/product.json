@@ -617,18 +617,89 @@
               "block_order": [
                 "custom_liquid_kyNVfV"
               ]
+            },
+            "buy_buttons_FLjTUg": {
+              "type": "buy-buttons",
+              "name": "t:names.product_buy_buttons",
+              "settings": {
+                "stacking": false,
+                "text_color": "",
+                "show_pickup_availability": true,
+                "gift_card_form": true,
+                "recipient_button_style": "default",
+                "recipient_button_background": "{{ settings.color_palette.background }}",
+                "recipient_button_text": "{{ settings.color_palette.foreground }}",
+                "recipient_button_border": "{{ settings.color_palette.foreground }}",
+                "selected_recipient_button_style": "default",
+                "selected_recipient_button_background": "{{ settings.color_palette.foreground }}",
+                "selected_recipient_button_text": "{{ settings.color_palette.background }}",
+                "selected_recipient_button_border": "{{ settings.color_palette.foreground }}",
+                "input_style": "default",
+                "input_background_color": "{{ settings.color_palette.background }}",
+                "input_text_color": "{{ settings.color_palette.foreground }}",
+                "input_border_color": "{{ settings.color_palette.foreground }}",
+                "border_width": 1,
+                "border_radius": 0,
+                "padding-block-start": 8,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {
+                "quantity": {
+                  "type": "quantity",
+                  "static": true,
+                  "settings": {
+                    "input_style": "custom",
+                    "input_background_color": "{{ settings.color_palette.background }}",
+                    "input_text_color": "{{ settings.color_palette.foreground }}",
+                    "input_border_color": "#C0DFF6",
+                    "border_width": 1,
+                    "border_radius": 8
+                  },
+                  "blocks": {}
+                },
+                "add-to-cart": {
+                  "type": "add-to-cart",
+                  "static": true,
+                  "settings": {
+                    "style_class": "button-custom",
+                    "custom_button_background": "{{ settings.color_palette.foreground }}",
+                    "custom_button_text": "{{ settings.color_palette.background }}",
+                    "custom_button_border": "rgba(0,0,0,0)"
+                  },
+                  "blocks": {}
+                },
+                "accelerated-checkout": {
+                  "type": "accelerated-checkout",
+                  "disabled": true,
+                  "static": true,
+                  "settings": {},
+                  "blocks": {}
+                }
+              },
+              "block_order": []
             }
           },
           "block_order": [
             "product_card_gallery_DNizbJ",
             "product_card_group_bL4aHh",
             "product_card_group_taDnJd",
-            "product_card_group_n4cFYe"
+            "product_card_group_n4cFYe",
+            "buy_buttons_FLjTUg"
           ]
         }
       },
       "block_order": [
         "text_cbcgyb"
+      ],
+      "custom_css": [
+        ".button[id^=\"BuyButtons-ProductSubmitButton-\"] {font-size: 0; width: auto; padding: 12px;}",
+        ".quantity-selector-wrapper {width: 71%;}",
+        ".text-block--background {padding-block-start: 4px; padding-block-end: 4px; padding-inline-start: 12px; padding-inline-end: 12px; flex: none;}",
+        ".text-block--background p {font-weight: 700 !important;}",
+        "@media screen and (max-width: 749px) {.product-grid__card .group-block > * {flex-direction: row; }}",
+        "@media screen and (max-width: 420px) {.quantity-selector-wrapper {width: 60%; }}"
       ],
       "name": "t:names.product_recommendations",
       "settings": {
