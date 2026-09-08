@@ -709,7 +709,7 @@
         "carousel_on_mobile": false,
         "max_products": 5,
         "columns": 5,
-        "tablet_columns": "3",
+        "tablet_columns": "2",
         "mobile_columns": "2",
         "columns_gap": 12,
         "rows_gap": 24,
