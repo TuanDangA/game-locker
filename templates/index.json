@@ -95,7 +95,6 @@
         "item_XQcigM": {
           "type": "item",
           "settings": {
-            "icon": "shopify://shop_images/message_icon_bdfae177-b103-44b6-8299-8c71564279e9.png",
             "heading": "Have a question",
             "text": "Email or call (02) 8677 1966"
           }
@@ -103,7 +102,6 @@
         "item_YgXcxF": {
           "type": "item",
           "settings": {
-            "icon": "shopify://shop_images/delivery_icon_0ed23049-4d69-493e-a267-6e47385395fa.png",
             "heading": "STORE PICKUP AVAILABLE",
             "text": "Card singles from Frankston only"
           }
@@ -111,7 +109,6 @@
         "item_Jbterg": {
           "type": "item",
           "settings": {
-            "icon": "shopify://shop_images/storefront_icon_4de8c74d-2ef8-4f0b-a784-cfae47adb669.png",
             "heading": "STORE PICKUP AVAILABLE",
             "text": "Seven Hills"
           }
@@ -127,7 +124,6 @@
         "item_NR8yPE": {
           "type": "item",
           "settings": {
-            "icon": "shopify://shop_images/magic_icon_3e258cf3-3472-48c0-8ff6-739cba9011fc.png",
             "heading": "DECK BUILDER",
             "text": "Got a list, paste it in here"
           }
@@ -749,7 +745,6 @@
         "item_Jp3tWX": {
           "type": "item",
           "settings": {
-            "icon": "shopify://shop_images/package_icon_62e1bd52-34ff-41d6-83be-44862d7eb8c6.png",
             "heading": "Australia's Premier",
             "subheading": "Magic Singles Site",
             "link": ""
@@ -758,7 +753,6 @@
         "item_UnzWNd": {
           "type": "item",
           "settings": {
-            "icon": "shopify://shop_images/playing_cards_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24_1.png",
             "heading": "Card Condition Guide",
             "subheading": "Card Condition Guide",
             "link": ""
@@ -767,7 +761,6 @@
         "item_fNzCAX": {
           "type": "item",
           "settings": {
-            "icon": "shopify://shop_images/assignment_return_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24_1.png",
             "heading": "Returns & Exchanges",
             "subheading": "All you need to know",
             "link": ""
@@ -776,7 +769,6 @@
         "item_qk9nmC": {
           "type": "item",
           "settings": {
-            "icon": "shopify://shop_images/article_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24_1.png",
             "heading": "Terms & Conditions",
             "subheading": "Magic Singles Site",
             "link": ""
@@ -789,6 +781,7 @@
         "item_fNzCAX",
         "item_qk9nmC"
       ],
+      "disabled": true,
       "name": "Feature bar",
       "settings": {
         "background_color": "#a10a0a",

@@ -11,6 +11,58 @@
   "type": "footer",
   "name": "t:names.footer",
   "sections": {
+    "custom_feature_bar_QgTwLH": {
+      "type": "custom-feature-bar",
+      "blocks": {
+        "item_LKyNMt": {
+          "type": "item",
+          "settings": {
+            "heading": "Australia's Premier",
+            "subheading": "Magic Singles Site",
+            "link": ""
+          }
+        },
+        "item_H3JVNM": {
+          "type": "item",
+          "settings": {
+            "heading": "Card Condition Guide",
+            "subheading": "Card Condition Guide",
+            "link": ""
+          }
+        },
+        "item_pRC9wV": {
+          "type": "item",
+          "settings": {
+            "heading": "Returns & Exchanges",
+            "subheading": "All you need to know",
+            "link": ""
+          }
+        },
+        "item_dAxGDn": {
+          "type": "item",
+          "settings": {
+            "heading": "Terms & Conditions",
+            "subheading": "Magic Singles Site",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "item_LKyNMt",
+        "item_H3JVNM",
+        "item_pRC9wV",
+        "item_dAxGDn"
+      ],
+      "name": "Feature bar",
+      "settings": {
+        "background_color": "#a10a0a",
+        "heading_color": "#F7F1E4",
+        "subheading_color": "#f1c9c9",
+        "section_width": "page-width",
+        "padding-block-start": 0,
+        "padding-block-end": 0
+      }
+    },
     "custom_footer_nmk7Lw": {
       "type": "custom-footer",
       "blocks": {
@@ -27,21 +79,21 @@
           "type": "menu",
           "settings": {
             "heading": "My Accounts",
-            "menu": "footer-menu-1"
+            "menu": ""
           }
         },
         "menu_7VnNXT": {
           "type": "menu",
           "settings": {
             "heading": "Shop & Services",
-            "menu": "footer-menu-2"
+            "menu": ""
           }
         },
         "menu_fyQGcW": {
           "type": "menu",
           "settings": {
             "heading": "Company",
-            "menu": "footer-menu-3"
+            "menu": ""
           }
         },
         "info_HE6AVn": {
@@ -86,6 +138,7 @@
     }
   },
   "order": [
+    "custom_feature_bar_QgTwLH",
     "custom_footer_nmk7Lw"
   ]
 }
