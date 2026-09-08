@@ -363,17 +363,17 @@
           "name": "t:names.product_card",
           "static": true,
           "settings": {
-            "product_card_gap": 8,
-            "background_color": "",
-            "border": "none",
+            "product_card_gap": 0,
+            "background_color": "{{ settings.color_palette.color3 }}",
+            "border": "solid",
             "border_width": 1,
             "border_opacity": 100,
-            "border_color": "",
-            "border_radius": 0,
-            "padding-block-start": 0,
+            "border_color": "#E3F3FF",
+            "border_radius": 8,
+            "padding-block-start": 8,
             "padding-block-end": 8,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
+            "padding-inline-start": 12,
+            "padding-inline-end": 12
           },
           "blocks": {
             "product_card_gallery_DNizbJ": {
