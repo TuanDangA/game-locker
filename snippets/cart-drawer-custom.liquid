@@ -926,7 +926,13 @@
       function applyQuantity(newQty) {
         if (newQty < 1) newQty = 1;
         qtyInput.value = newQty;
+
+        var thisRequest = ++requestToken;
+
         updateLineItem(key, newQty).then(function (cart) {
+          // A newer request has already started — this response is stale, discard it.
+          if (thisRequest !== requestToken) return;
+
           refreshSubtotal(cart);
           var updated = cart.items.find(function (i) {
             return i.key === key;
