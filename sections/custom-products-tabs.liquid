@@ -457,7 +457,11 @@
                     </div>
 
                     <div class="trending__card-title-row">
-                      <p class="trending__card-title">{{ product.title }}</p>
+                      <p class="trending__card-title">
+                        <a href="{{ product.url }}"
+                      >
+                        {{ product.title }}
+                      </p>
                       {% if product.metafields.custom.variant != blank %}
                         <span class="trending__badge">{{ product.metafields.custom.variant }}</span>
                       {% endif %}
