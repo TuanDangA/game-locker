@@ -565,8 +565,8 @@ p:empty {
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  width: var(--icon-size-sm);
-  height: var(--icon-size-sm);
+  width: var(--icon-size-lg);
+  height: var(--icon-size-lg);
   pointer-events: none;
 }
 
