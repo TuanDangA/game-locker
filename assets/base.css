@@ -1939,8 +1939,8 @@ body:has(.trending__add.is-loading)
 }
 }
 @media screen and (max-width: 749px){
-#shopify-section-template--31614036640030__main .quantity-selector-wrapper {
-    width: 100% !important;
+#shopify-section-template--31499736088862__main .quantity-selector-wrapper {
+    width: 100%;
 }
 }
 
