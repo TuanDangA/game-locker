@@ -899,14 +899,25 @@
 
     /* ---------- cart line items: qty / remove (real /cart/change.js) ---------- */
     function updateLineItem(key, quantity) {
-      return fetch('/cart/change.js', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id: key, quantity: quantity }),
-      }).then(function (res) {
-        return res.json();
-      });
+  return fetch('{{ routes.cart_change_url }}', {
+    method: 'POST',
+    credentials: 'same-origin',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    },
+    body: JSON.stringify({
+      id: key,
+      quantity: quantity
+    })
+  }).then(function (res) {
+    if (!res.ok) {
+      throw new Error('Cart update failed: ' + res.status);
     }
+
+    return res.json();
+  });
+}
 
     function refreshSubtotal(cart) {
       var el = drawer.querySelector('[data-gl-subtotal]');
