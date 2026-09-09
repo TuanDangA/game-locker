@@ -915,52 +915,68 @@
       }
     }
 
-    function bindCartItemRow(row) {
+        // Tracks the latest in-flight request per cart item, so a slow
+    // response can't overwrite a newer one (rapid-click protection).
+    var qtyRequestTokens = {};
+
+    function applyQuantity(row, newQty) {
       var key = row.dataset.key;
       var qtyInput = row.querySelector('[data-qty-input]');
-      var minusBtn = row.querySelector('[data-qty-minus]');
-      var plusBtn = row.querySelector('[data-qty-plus]');
-      var removeBtn = row.querySelector('[data-remove-item]');
       var linePriceEl = row.querySelector('[data-line-price]');
 
-      function applyQuantity(newQty) {
-        if (newQty < 1) newQty = 1;
-        qtyInput.value = newQty;
-        updateLineItem(key, newQty).then(function (cart) {
-          refreshSubtotal(cart);
-          var updated = cart.items.find(function (i) {
-            return i.key === key;
-          });
-          if (updated && linePriceEl && window.Shopify && Shopify.formatMoney) {
-            linePriceEl.textContent = Shopify.formatMoney(updated.original_line_price, '{{ shop.money_format }}');
-          }
-          document.dispatchEvent(new CustomEvent('cart:updated', { detail: { itemCount: cart.item_count } }));
-        });
-      }
+      if (newQty < 1) newQty = 1;
+      qtyInput.value = newQty;
 
-      if (minusBtn)
-        minusBtn.addEventListener('click', function () {
-          applyQuantity(parseInt(qtyInput.value, 10) - 1);
+      qtyRequestTokens[key] = (qtyRequestTokens[key] || 0) + 1;
+      var thisRequest = qtyRequestTokens[key];
+
+      updateLineItem(key, newQty).then(function (cart) {
+        if (thisRequest !== qtyRequestTokens[key]) return; // stale response, discard
+
+        refreshSubtotal(cart);
+        var updated = cart.items.find(function (i) {
+          return i.key === key;
         });
-      if (plusBtn)
-        plusBtn.addEventListener('click', function () {
-          applyQuantity(parseInt(qtyInput.value, 10) + 1);
-        });
-      if (qtyInput)
-        qtyInput.addEventListener('change', function () {
-          applyQuantity(parseInt(qtyInput.value, 10));
-        });
-      if (removeBtn) {
-        removeBtn.addEventListener('click', function () {
-          updateLineItem(key, 0).then(function (cart) {
-            document.dispatchEvent(new CustomEvent('cart:updated', { detail: { itemCount: cart.item_count } }));
-            window.location.reload();
-          });
-        });
-      }
+        if (updated && linePriceEl && window.Shopify && Shopify.formatMoney) {
+          linePriceEl.textContent = Shopify.formatMoney(updated.original_line_price, '{{ shop.money_format }}');
+        } else if (!updated && linePriceEl) {
+          // quantity dropped to 0 via manual input — treat like a removal
+          row.remove();
+        }
+        document.dispatchEvent(new CustomEvent('cart:updated', { detail: { itemCount: cart.item_count } }));
+      });
     }
 
-    drawer.querySelectorAll('[data-gl-cart-item]').forEach(bindCartItemRow);
+    // Delegated listeners on `drawer` itself (not on each row) — these
+    // keep working even if row nodes get replaced/re-rendered later,
+    // since the listener lives on a stable parent, not the row.
+    drawer.addEventListener('click', function (e) {
+      var row = e.target.closest('[data-gl-cart-item]');
+      if (!row) return;
+      var qtyInput = row.querySelector('[data-qty-input]');
+
+      if (e.target.closest('[data-qty-minus]')) {
+        applyQuantity(row, parseInt(qtyInput.value, 10) - 1);
+      } else if (e.target.closest('[data-qty-plus]')) {
+        applyQuantity(row, parseInt(qtyInput.value, 10) + 1);
+      } else if (e.target.closest('[data-remove-item]')) {
+        var key = row.dataset.key;
+        updateLineItem(key, 0).then(function (cart) {
+          document.dispatchEvent(new CustomEvent('cart:updated', { detail: { itemCount: cart.item_count } }));
+          row.remove();
+          refreshSubtotal(cart);
+          if (cart.item_count === 0) window.location.reload(); // fall back to empty-cart state
+        });
+      }
+    });
+
+    drawer.addEventListener('change', function (e) {
+      var row = e.target.closest('[data-gl-cart-item]');
+      if (!row) return;
+      if (e.target.matches('[data-qty-input]')) {
+        applyQuantity(row, parseInt(e.target.value, 10));
+      }
+    });
 
     /* ---------- Buy it with: qty + real /cart/add.js ---------- */
     drawer.querySelectorAll('.gl-biw-card').forEach(function (card) {
