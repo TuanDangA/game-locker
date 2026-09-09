@@ -1935,8 +1935,7 @@ body:has(.trending__add.is-loading)
 
 @media screen and (min-width: 749px){
 .product-form-buttons button {
-  width: fit-content !important;
-  padding-block: var(--padding-lg);
+  width: fit-content;
 }
 }
 @media screen and (max-width: 749px){
