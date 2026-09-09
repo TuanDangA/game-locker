@@ -381,13 +381,13 @@
         ".button[id^=\"BuyButtons-ProductSubmitButton-\"] {font-size: 0; width: auto; padding: 12px;}",
         ".quantity-selector-wrapper {width: 71%;}",
         ".text-block--background {padding-block-start: 4px; padding-block-end: 4px; padding-inline-start: 12px; padding-inline-end: 12px; flex: none;}",
-        ".text-block--background p, .price {font-weight: 700;}",
+        ".text-block--background p,.price {font-weight: 700;}",
         "@media screen and (max-width: 749px) {.product-grid__card .group-block > * {flex-direction: row; }}",
         "@media screen and (max-width: 420px) {.quantity-selector-wrapper {width: 60%; }}"
       ],
       "settings": {
         "layout_type": "grid",
-        "product_card_size": "small",
+        "product_card_size": "medium",
         "mobile_product_card_size": "small",
         "enable_infinite_scroll": true,
         "products_per_page": 24,
