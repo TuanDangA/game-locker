@@ -1220,7 +1220,7 @@ summary:hover {
     }
 
     > .text-block {
-      flex: 1 1 var(--max-width--display-tight);
+      /* flex: 1 1 var(--max-width--display-tight); */
     }
 
     > .image-block {
@@ -1933,10 +1933,18 @@ body:has(.trending__add.is-loading)
 
 /* Collection page product cards custom css */
 
+@media screen and (min-width: 749px){
 .product-form-buttons button {
   width: fit-content !important;
   padding-block: var(--padding-lg);
 }
+}
+@media screen and (max-width: 749px){
+#shopify-section-template--31614036640030__main .quantity-selector-wrapper {
+    width: 100% !important;
+}
+}
+
 .product-form-buttons--stacked
   > *:not(
     .quantity-selector-wrapper,
