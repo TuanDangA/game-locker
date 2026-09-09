@@ -20,7 +20,7 @@
   fetchpriority="low"
 ></script>
 
-<script>
+{% comment %} <script>
   /* Runs synchronously during HTML parsing — opens the correct drawer on first
      paint if navigation state was saved, so it renders with the rest of the page. */
   (function () {
@@ -126,4 +126,4 @@
 
   document.addEventListener('theme-drawer:open', persistDrawerState);
   document.addEventListener('theme-drawer:close', persistDrawerState);
-</script>
+</script> {% endcomment %}
