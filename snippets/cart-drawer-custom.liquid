@@ -926,13 +926,7 @@
       function applyQuantity(newQty) {
         if (newQty < 1) newQty = 1;
         qtyInput.value = newQty;
-
-        var thisRequest = ++requestToken;
-
         updateLineItem(key, newQty).then(function (cart) {
-          // A newer request has already started — this response is stale, discard it.
-          if (thisRequest !== requestToken) return;
-
           refreshSubtotal(cart);
           var updated = cart.items.find(function (i) {
             return i.key === key;
@@ -1027,6 +1021,7 @@
     var zipInput = drawer.querySelector('[data-gl-shipping-zip]');
     var estimateBtn = drawer.querySelector('[data-gl-estimate-shipping]');
     var resultsBox = drawer.querySelector('[data-gl-shipping-results]');
+    const shopCurrency = '{{ shop.currency }}';
 
     function populateProvinces() {
       if (!countrySelect || !provinceSelect) return;
@@ -1089,8 +1084,9 @@
               var html = '<strong>There are multiple shipping rates for your address:</strong><ul>';
               rates.forEach(function (rate) {
                 html +=
-                  '<li>' + rate.name + ': <strong>' + rate.presentment_currency + ' ' + rate.price + '</strong></li>';
-              });
+                  '<li>' + rate.name + ': <strong>' + shopCurrency + ' ' + rate.price + '</strong></li>';
+                  });
+              
               html += '</ul>';
               resultsBox.innerHTML = html;
             }
