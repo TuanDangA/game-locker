@@ -107,11 +107,12 @@
     "variant_button_width": "default-width-buttons",
     "content_for_index": [],
     "color_palette": {
-      "background": "#ECF7FF",
+      "background": "#ecf7ff",
       "foreground": "#000000",
       "color1": "#333333",
       "color2": "#dfdfdf",
-      "color3": "#ffffff"
+      "color3": "#ffffff",
+      "color4": "#F4F7FF"
     }
   },
   "presets": {
