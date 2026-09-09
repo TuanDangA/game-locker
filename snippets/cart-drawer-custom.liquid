@@ -842,6 +842,29 @@
       document.documentElement.style.overflow = '';
     }
 
+        /* ---------- open the drawer after ANY successful /cart/add ---------- */
+    (function () {
+      var nativeFetch = window.fetch;
+      window.fetch = function (input, init) {
+        var url = typeof input === 'string' ? input : (input && input.url) || '';
+        var isAddToCart = url.indexOf('/cart/add') !== -1;
+
+        return nativeFetch.apply(this, arguments).then(function (response) {
+          if (isAddToCart && response.ok) {
+            sessionStorage.setItem('glOpenCartDrawer', '1');
+            window.location.reload();
+          }
+          return response;
+        });
+      };
+    })();
+
+    // On page load: if the flag is set, open the drawer automatically
+    if (sessionStorage.getItem('glOpenCartDrawer') === '1') {
+      sessionStorage.removeItem('glOpenCartDrawer');
+      openDrawer();
+    }
+
     /* Event delegation, not a direct listener on the button itself —
        this way it still works even if the header/button gets re-rendered
        or hydrated by the theme's JS after this script first runs. */
