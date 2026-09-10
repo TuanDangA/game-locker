@@ -77,7 +77,7 @@
           "type": "_cart-summary",
           "static": true,
           "settings": {
-            "extend_summary": true,
+            "extend_summary": false,
             "background_color": "#b91c1c",
             "text_color": "",
             "border": "none",
