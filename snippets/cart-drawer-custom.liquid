@@ -855,13 +855,25 @@
         var url = typeof input === 'string' ? input : (input && input.url) || '';
         var isAddToCart = url.indexOf('/cart/add') !== -1;
 
-        return nativeFetch.apply(this, arguments).then(function (response) {
+        {% comment %} return nativeFetch.apply(this, arguments).then(function (response) {
           if (isAddToCart && response.ok) {
             sessionStorage.setItem('glOpenCartDrawer', '1');
             window.location.reload();
           }
           return response;
+        }); {% endcomment %}
+
+                return nativeFetch.apply(this, arguments).then(function (response) {
+          if (isAddToCart && response.ok) {
+            refreshDrawerContent().then(openDrawer).catch(function (err) {
+              console.error('Drawer refresh failed, falling back to reload:', err);
+              sessionStorage.setItem('glOpenCartDrawer', '1');
+              window.location.reload();
+            });
+          }
+          return response;
         });
+
       };
     })();
 
@@ -926,6 +938,44 @@
         }
         return res.json();
       });
+    }
+
+        function refreshDrawerContent() {
+      return fetch(window.location.href, { credentials: 'same-origin' })
+        .then(function (res) {
+          if (!res.ok) throw new Error('Page refresh failed: ' + res.status);
+          return res.text();
+        })
+        .then(function (html) {
+          var parser = new DOMParser();
+          var newDoc = parser.parseFromString(html, 'text/html');
+
+          var newScroll = newDoc.querySelector('.gl-drawer-scroll');
+          var newSummary = newDoc.querySelector('.gl-drawer-summary');
+          var newHeading = newDoc.getElementById('gl-cart-drawer-heading');
+
+          var currentScroll = drawer.querySelector('.gl-drawer-scroll');
+          var currentSummary = drawer.querySelector('.gl-drawer-summary');
+          var currentPanelCart = drawer.querySelector('.gl-panel-cart');
+          var currentHeading = document.getElementById('gl-cart-drawer-heading');
+
+          if (newScroll && currentScroll) currentScroll.innerHTML = newScroll.innerHTML;
+          if (newHeading && currentHeading) currentHeading.textContent = newHeading.textContent;
+
+          if (newSummary) {
+            if (currentSummary) {
+              currentSummary.innerHTML = newSummary.innerHTML;
+            } else if (currentPanelCart) {
+              currentPanelCart.appendChild(newSummary.cloneNode(true));
+            }
+          } else if (currentSummary) {
+            currentSummary.remove();
+          }
+
+          return fetch('/cart.js', { credentials: 'same-origin' });
+        })
+        .then(function (res) { return res.json(); })
+        .then(function (cart) { refreshCartCount(cart); });
     }
 
     function refreshSubtotal(cart) {
@@ -1089,9 +1139,9 @@
               setTimeout(function () { addBtn.classList.remove('is-added'); }, 1200);
               return fetch('/cart.js').then(function (r) { return r.json(); });
             })
-            .then(function (cart) {
-              document.dispatchEvent(new CustomEvent('cart:updated', { detail: { itemCount: cart.item_count } }));
-              window.location.reload();
+                        .then(function () {
+              document.dispatchEvent(new CustomEvent('cart:updated', {}));
+              return refreshDrawerContent();
             })
             .catch(function (err) { console.error('Add to cart failed:', err); });
         });
