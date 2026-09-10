@@ -143,9 +143,9 @@
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
-                "type_preset": "h4",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
+                "type_preset": "custom",
+                "font": "var(--font-heading--family)",
+                "font_size": "2rem",
                 "line_height": "normal",
                 "letter_spacing": "normal",
                 "case": "none",
@@ -203,7 +203,7 @@
             "padding-inline-end": 0
           },
           "blocks": {
-            "product_card_gallery_PEPpfq": {
+            "product_card_gallery_Rg3VcV": {
               "type": "_product-card-gallery",
               "name": "t:names.product_card_media",
               "settings": {
@@ -220,148 +220,7 @@
               },
               "blocks": {}
             },
-            "product_title_WNMpHe": {
-              "type": "product-title",
-              "name": "t:names.product_title",
-              "settings": {
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "rte",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "text_color": "",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 4,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "price_yXfkPX": {
-              "type": "price",
-              "name": "t:names.product_price",
-              "settings": {
-                "show_sale_price_first": true,
-                "show_installments": false,
-                "show_tax_info": false,
-                "type_preset": "h6",
-                "width": "100%",
-                "alignment": "left",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "text_color": "",
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "product_card_gallery_PEPpfq",
-            "product_title_WNMpHe",
-            "price_yXfkPX"
-          ]
-        }
-      },
-      "name": "t:names.product_list",
-      "settings": {
-        "collection": "all",
-        "layout_type": "grid",
-        "carousel_on_mobile": false,
-        "max_products": 4,
-        "columns": 4,
-        "mobile_columns": "2",
-        "mobile_card_size": "60cqw",
-        "columns_gap": 8,
-        "rows_gap": 24,
-        "icons_style": "arrow",
-        "icons_shape": "none",
-        "section_width": "page-width",
-        "horizontal_alignment": "flex-start",
-        "gap": 28,
-        "background_color": "{{ settings.color_palette.background }}",
-        "padding-block-start": 48,
-        "padding-block-end": 48
-      }
-    },
-    "product_recommendations_BXDBiW": {
-      "type": "product-recommendations",
-      "blocks": {
-        "text_HN9i7c": {
-          "type": "text",
-          "name": "t:names.header",
-          "settings": {
-            "text": "<h3>You may also like </h3>",
-            "width": "fit-content",
-            "max_width": "normal",
-            "alignment": "left",
-            "type_preset": "custom",
-            "font": "var(--font-heading--family)",
-            "font_size": "2rem",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "none",
-            "wrap": "pretty",
-            "text_color": "",
-            "background": false,
-            "background_color": "#00000026",
-            "corner_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
-        },
-        "static-product-card": {
-          "type": "_product-card",
-          "name": "t:names.product_card",
-          "static": true,
-          "settings": {
-            "product_card_gap": 0,
-            "background_color": "{{ settings.color_palette.color3 }}",
-            "border": "solid",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_color": "#e3f3ff",
-            "border_radius": 8,
-            "padding-block-start": 8,
-            "padding-block-end": 8,
-            "padding-inline-start": 12,
-            "padding-inline-end": 12
-          },
-          "blocks": {
-            "product_card_gallery_zgiTtb": {
-              "type": "_product-card-gallery",
-              "name": "t:names.product_card_media",
-              "settings": {
-                "image_ratio": "adapt",
-                "border": "none",
-                "border_width": 1,
-                "border_opacity": 100,
-                "border_color": "",
-                "border_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "product_card_group_ewgn9n": {
+            "product_card_group_EczFAP": {
               "type": "_product-card-group",
               "name": "t:names.group",
               "settings": {
@@ -458,7 +317,7 @@
                 "text_hEpe33"
               ]
             },
-            "product_card_group_MyVCEJ": {
+            "product_card_group_KtkDmW": {
               "type": "_product-card-group",
               "name": "t:names.group",
               "settings": {
@@ -534,7 +393,7 @@
                 "custom_liquid_fF7A8j"
               ]
             },
-            "product_card_group_AdREFb": {
+            "product_card_group_GJDE7M": {
               "type": "_product-card-group",
               "name": "t:names.group",
               "settings": {
@@ -586,7 +445,7 @@
                 "custom_liquid_Pd7YQw"
               ]
             },
-            "buy_buttons_tGTprf": {
+            "buy_buttons_pC849c": {
               "type": "buy-buttons",
               "name": "t:names.product_buy_buttons",
               "settings": {
@@ -650,43 +509,33 @@
             }
           },
           "block_order": [
-            "product_card_gallery_zgiTtb",
-            "product_card_group_ewgn9n",
-            "product_card_group_MyVCEJ",
-            "product_card_group_AdREFb",
-            "buy_buttons_tGTprf"
+            "product_card_gallery_Rg3VcV",
+            "product_card_group_EczFAP",
+            "product_card_group_KtkDmW",
+            "product_card_group_GJDE7M",
+            "buy_buttons_pC849c"
           ]
         }
       },
-      "block_order": [
-        "text_HN9i7c"
-      ],
-      "custom_css": [
-        ".button[id^=\"BuyButtons-ProductSubmitButton-\"] {font-size: 0; width: auto; padding: 12px;}",
-        ".quantity-selector-wrapper {flex: 1 1 auto;}",
-        ".text-block--background {padding-block-start: 4px; padding-block-end: 4px; padding-inline-start: 12px; padding-inline-end: 12px; flex: none;}",
-        ".text-block--background p {font-weight: 700 !important;}",
-        "@media screen and (max-width: 749px) {.product-grid__card .group-block > * {flex-direction: row; }}"
-      ],
-      "name": "t:names.product_recommendations",
+      "name": "t:names.product_list",
       "settings": {
-        "product": "{{ closest.product }}",
-        "recommendation_type": "related",
-        "layout_type": "carousel",
+        "collection": "all",
+        "layout_type": "grid",
         "carousel_on_mobile": false,
-        "max_products": 5,
-        "columns": 5,
-        "tablet_columns": "3",
+        "max_products": 4,
+        "columns": 4,
         "mobile_columns": "2",
-        "columns_gap": 12,
+        "mobile_card_size": "60cqw",
+        "columns_gap": 8,
         "rows_gap": 24,
         "icons_style": "arrow",
-        "icons_shape": "circle",
+        "icons_shape": "none",
         "section_width": "page-width",
+        "horizontal_alignment": "flex-start",
         "gap": 28,
-        "background_color": "{{ settings.color_palette.color4 }}",
-        "padding-block-start": 24,
-        "padding-block-end": 32
+        "background_color": "{{ settings.color_palette.background }}",
+        "padding-block-start": 48,
+        "padding-block-end": 48
       }
     }
   },
@@ -694,7 +543,6 @@
     "custom_breadcrumbs_xR9fTJ",
     "custom_main_cart_P6YQBG",
     "cart-section",
-    "product_list_NNFgcy",
-    "product_recommendations_BXDBiW"
+    "product_list_NNFgcy"
   ]
 }
