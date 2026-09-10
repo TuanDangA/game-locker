@@ -286,6 +286,7 @@
                   <div class="cart-items__product-info">
                     <!-- Product title -->
 
+                    <div class="cart-items__heading">
                     <div class="cart-items__title-row">
                       <a
                         href="{{ item.url }}"
@@ -311,14 +312,6 @@
                         mode: 'trigger'
                       %}
                     </div>
-
-                    <!-- Vendor -->
-
-                    {% if item.product.vendor and block_settings.vendor %}
-                      <p class="cart-items__vendor">
-                        {{ item.product.vendor }}
-                      </p>
-                    {% endif %}
 
                     <!-- Variant -->
 
@@ -346,6 +339,7 @@
                       {% endif %}
                     {% endif %}
 
+                  </div>
                     <!--
                       ==================================
                            METAFIELD DESCRIPTION
