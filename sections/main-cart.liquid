@@ -112,13 +112,15 @@
       display: grid;
       height: 100%;
       grid-column: 2;
-      grid-row: 1 / -1;
-      align-self: stretch;
-      grid-template-rows: subgrid;
+      grid-row: 2;
       padding-top: 0;
 
       /* needed to support blurred effect from hero section */
       position: relative;
+    }
+
+    .cart-page__items{
+      grid-row: 2;
     }
 
     .section--page-width .cart-page:has(.cart-summary--extend) {
