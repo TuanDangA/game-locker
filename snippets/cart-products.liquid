@@ -1461,15 +1461,80 @@
      RESPONSIVE TABLE
   ========================================================= */
 
-  @container cart-items (min-width: 720px) {
+   /* =========================================================
+     RESPONSIVE TABLE — NARROW CONTAINER (drawer)
+     Same compact layout as the @media(max-width:749px) block
+     below, but keyed to the actual container width so it also
+     fires inside a fixed-width drawer sitting on a wide screen.
+  ========================================================= */
+
+  @container cart-items (max-width: 520px) {
+
+    .cart-items__table-header-row {
+      display: none;
+    }
 
     .cart-items__table-row {
       grid-template-columns:
-        50px
-        110px
-        minmax(250px, 1fr)
-        180px
-        70px;
+        36px
+        80px
+        minmax(0, 1fr);
+
+      grid-template-areas:
+        'remove media details'
+        'remove media quantity'
+        'remove media total';
+
+      column-gap: var(--gap-sm);
+
+      align-items: start;
+
+      padding-block: var(--padding-md);
+    }
+
+    .cart-items__remove-column {
+      grid-area: remove;
+      padding-top: 4px;
+    }
+
+    .cart-items__media {
+      grid-area: media;
+    }
+
+    .cart-items__details {
+      grid-area: details;
+    }
+
+    .cart-items__quantity-column {
+      grid-area: quantity;
+      margin-top: var(--margin-xs);
+    }
+
+    .cart-items__price-quantity {
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-start;
+      gap: var(--gap-sm);
+    }
+
+    .cart-items__final-price {
+      grid-area: total;
+      margin-top: var(--margin-xs);
+      align-items: flex-start;
+      text-align: left;
+    }
+
+    .cart-items__error {
+      grid-column: 1 / -1;
+      grid-area: auto;
+    }
+
+    .cart-items__title {
+      font-size: var(--font-size--sm);
+    }
+
+    .cart-items__metafield-description {
+      font-size: var(--font-size--xs);
     }
 
   }
