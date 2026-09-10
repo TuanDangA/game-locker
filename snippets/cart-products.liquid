@@ -1322,104 +1322,49 @@
      MOBILE
   ========================================================= */
 
+
   @media screen and (max-width: 749px) {
-
-    .cart-items__table-header-row {
-      display: none;
-    }
-
-    .cart-items__table-row {
-      grid-template-columns:
-        36px
-        80px
-        minmax(0, 1fr);
-
-      grid-template-areas:
-        'remove media details'
-        'remove media quantity'
-        'remove media total';
-
-      column-gap: var(--gap-sm);
-
-      align-items: start;
-
-      padding-block: var(--padding-md);
-    }
-
-
-    /* Delete */
-
-    .cart-items__remove-column {
-      grid-area: remove;
-
-      padding-top: 4px;
-    }
-
-
-    /* Image */
-
-    .cart-items__media {
-      grid-area: media;
-    }
-
-
-    /* Details */
-
-    .cart-items__details {
-      grid-area: details;
-    }
-
-
-    /* Price + quantity */
-
-    .cart-items__quantity-column {
-      grid-area: quantity;
-
-      margin-top: var(--margin-xs);
-    }
-
-    .cart-items__price-quantity {
-      flex-direction: row;
-
-      align-items: center;
-
-      justify-content: flex-start;
-
-      gap: var(--gap-sm);
-    }
-
-
-    /* Final price */
-
-    .cart-items__final-price {
-      grid-area: total;
-
-      margin-top: var(--margin-xs);
-
-      align-items: flex-start;
-
-      text-align: left;
-    }
-
-
-    /* Error */
-
-    .cart-items__error {
-      grid-column: 1 / -1;
-
-      grid-area: auto;
-    }
-
-
-    .cart-items__title {
-      font-size: var(--font-size--sm);
-    }
-
-    .cart-items__metafield-description {
-      font-size: var(--font-size--xs);
-    }
-
+  .cart-items__table-row {
+    grid-template-columns: 90px 1fr auto auto;
+    grid-template-areas:
+      "media   details details details"
+      ".       qty     remove  total";
+    column-gap: var(--gap-sm);
+    row-gap: 0.75rem;
+    align-items: center;
+    padding-block: var(--padding-md);
   }
+
+  .cart-items__media {
+    grid-area: media;
+    align-self: start;
+  }
+
+  .cart-items__details {
+    grid-area: details;
+  }
+
+  .cart-items__quantity-column {
+    grid-area: qty;
+  }
+
+  .cart-items__remove-column {
+    grid-area: remove;
+    padding-top: 0;
+  }
+
+  .cart-items__final-price {
+    grid-area: total;
+    text-align: right;
+    align-items: flex-end;
+    margin-top: 0;
+  }
+
+  .cart-items__error {
+    grid-column: 1 / -1;
+    grid-area: auto;
+  }
+}
 
 
   /* =========================================================
