@@ -520,7 +520,7 @@
       "custom_css": [
         ".button[id^=\"BuyButtons-ProductSubmitButton-\"] {font-size: 0; width: 48px; height: 48px; padding: 12px;}",
         ".quantity-selector-wrapper {flex: 1 1 auto;}",
-        ".text-block--background {padding-block-start: 4px; padding-block-end: 4px; padding-inline-start: 12px; padding-inline-end: 12px; flex: none;}",
+        ".text-block--background {padding-block-start: 4px; padding-block-end: 4px; padding-inline-start: 12px; padding-inline-end: 12px; flex: none; background: linear-gradient(90deg, #EAF4FC 50%, #C7E0F4 100%, #8FB8DC 100%);}",
         ".text-block--background p {font-weight: 700;}",
         "@media screen and (max-width: 749px) {.product-grid__card .group-block > * {flex-direction: row; }}"
       ],
