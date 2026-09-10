@@ -274,7 +274,7 @@
           } else {
             var html = '<strong>There are multiple shipping rates for your address:</strong><ul>';
             rates.forEach(function (rate) {
-              html += '<li>' + rate.name +  'shipping:' + ': <strong>' + formatMoney(Math.round(parseFloat(rate.price) * 100)) + '</strong></li>';
+              html += '<li>' + rate.name +  ' shipping:' + ': <strong>' + formatMoney(Math.round(parseFloat(rate.price) * 100)) + '</strong></li>';
             });
             html += '</ul>';
             resultsBox.innerHTML = html;
