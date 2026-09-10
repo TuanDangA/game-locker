@@ -482,23 +482,60 @@
     var root = document.querySelector('.cart-page');
     if (!root) return;
 
-    /* --- Quantity stepper + remove (real /cart/change.js AJAX) --- */
+    /* ---------- money formatting, with a fallback if Shopify.formatMoney isn't loaded ---------- */
+    function formatMoney(cents) {
+      if (window.Shopify && Shopify.formatMoney) {
+        return Shopify.formatMoney(cents, '{{ shop.money_format }}');
+      }
+      return '{{ shop.currency }} ' + (cents / 100).toFixed(2);
+    }
+
+    /* ---------- header cart-count bubble + this page's own heading ---------- */
+    function refreshCartCount(cart) {
+      var heading = document.querySelector('.cart-page__heading');
+      if (heading) {
+        heading.textContent = 'Your Cart (' + cart.item_count + ')';
+      }
+      var bubbleCount = document.querySelector('[data-testid="cart-bubble"]');
+      if (bubbleCount) {
+        bubbleCount.textContent = cart.item_count;
+      }
+    }
+
+    /* ---------- quantity stepper + remove (real /cart/change.js AJAX) ---------- */
     function updateLineItem(key, quantity) {
       return fetch('/cart/change.js', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        credentials: 'same-origin',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
         body: JSON.stringify({ id: key, quantity: quantity }),
       }).then(function (res) {
+        if (!res.ok) {
+          return res.json().then(function (err) {
+            console.error('Cart update failed:', res.status, err);
+            throw new Error('Cart update failed: ' + res.status);
+          });
+        }
         return res.json();
       });
     }
 
     function refreshSubtotal(cart) {
       var subtotalEl = document.querySelector('[data-cart-subtotal]');
-      if (subtotalEl && Shopify && Shopify.formatMoney) {
-        subtotalEl.textContent = Shopify.formatMoney(cart.total_price, '{{ shop.money_format }}');
+      if (subtotalEl) {
+        subtotalEl.textContent = formatMoney(cart.total_price);
       }
     }
+
+    // Per-item request token (discards stale/out-of-order responses)
+    // + per-item debounce timer (coalesces rapid clicks into ONE
+    // network call instead of one per click — prevents 429s).
+    var qtyRequestTokens = {};
+    var qtyDebounceTimers = {};
+    var removeInFlight = {};
 
     root.querySelectorAll('[data-cart-item]').forEach(function (row) {
       var key = row.dataset.key;
@@ -509,18 +546,40 @@
       var linePriceEl = row.querySelector('[data-line-price]');
 
       function applyQuantity(newQty) {
-        if (newQty < 1) newQty = 1;
-        qtyInput.value = newQty;
-        updateLineItem(key, newQty).then(function (cart) {
-          refreshSubtotal(cart);
-          var updatedItem = cart.items.find(function (i) {
-            return i.key === key;
+        newQty = parseInt(newQty, 10);
+        if (isNaN(newQty) || newQty < 0) newQty = 0;
+
+        // Update the visible number instantly; the actual network call
+        // is delayed below so rapid clicks don't spam Shopify.
+        qtyInput.value = Math.max(newQty, 1);
+
+        clearTimeout(qtyDebounceTimers[key]);
+        qtyDebounceTimers[key] = setTimeout(function () {
+          qtyRequestTokens[key] = (qtyRequestTokens[key] || 0) + 1;
+          var thisRequest = qtyRequestTokens[key];
+
+          updateLineItem(key, newQty).then(function (cart) {
+            if (thisRequest !== qtyRequestTokens[key]) return; // stale response, discard
+
+            refreshSubtotal(cart);
+            refreshCartCount(cart);
+
+            var updatedItem = cart.items.find(function (i) {
+              return i.key === key;
+            });
+
+            if (!updatedItem) {
+              row.remove();
+              if (cart.item_count === 0) window.location.reload();
+            } else if (linePriceEl) {
+              linePriceEl.textContent = formatMoney(updatedItem.original_line_price);
+            }
+
+            document.dispatchEvent(new CustomEvent('cart:updated', { detail: { itemCount: cart.item_count } }));
+          }).catch(function (err) {
+            console.error(err);
           });
-          if (updatedItem && linePriceEl && Shopify && Shopify.formatMoney) {
-            linePriceEl.textContent = Shopify.formatMoney(updatedItem.original_line_price, '{{ shop.money_format }}');
-          }
-          document.dispatchEvent(new CustomEvent('cart:updated', { detail: { itemCount: cart.item_count } }));
-        });
+        }, 400);
       }
 
       if (minusBtn) {
@@ -540,15 +599,21 @@
       }
       if (removeBtn) {
         removeBtn.addEventListener('click', function () {
+          if (removeInFlight[key]) return; // ignore double-clicks
+          removeInFlight[key] = true;
+
           updateLineItem(key, 0).then(function (cart) {
             document.dispatchEvent(new CustomEvent('cart:updated', { detail: { itemCount: cart.item_count } }));
             window.location.reload();
+          }).catch(function (err) {
+            console.error('Remove failed:', err);
+            removeInFlight[key] = false;
           });
         });
       }
     });
 
-    /* --- Shipping estimator (real /cart/shipping_rates.json) --- */
+    /* ---------- shipping estimator (real /cart/shipping_rates.json) ---------- */
     var widget = document.querySelector('[data-shipping-widget]');
     if (!widget) return;
 
@@ -627,8 +692,7 @@
             } else {
               var html = '<strong>There are multiple shipping rates for your address:</strong><ul>';
               rates.forEach(function (rate) {
-                html +=
-                  '<li>' + rate.name + ': <strong>' + rate.presentment_currency + ' ' + rate.price + '</strong></li>';
+                html += '<li>' + rate.name + ': <strong>' + formatMoney(Math.round(parseFloat(rate.price) * 100)) + '</strong></li>';
               });
               html += '</ul>';
               resultsBox.innerHTML = html;
