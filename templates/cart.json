@@ -78,7 +78,7 @@
           "static": true,
           "settings": {
             "extend_summary": false,
-            "background_color": "#b91c1c",
+            "background_color": "rgba(0,0,0,0)",
             "text_color": "",
             "border": "none",
             "border_width": 1,
@@ -89,6 +89,10 @@
           "blocks": {}
         }
       },
+      "custom_css": [
+        ".cart-summary {background: transparent; color: transparent; border-radius: 0; padding: 0; }",
+        "@media screen and (min-width: 750px) {.cart-summary {display: block; grid-template-rows: subgrid; grid-row: 1 / -1; }}"
+      ],
       "settings": {
         "section_width": "page-width",
         "background_color": "{{ settings.color_palette.background }}",
