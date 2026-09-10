@@ -520,7 +520,7 @@
                   endif
                 -%}
 
-                <td
+                {% comment %} <td
                   class="cart-items__price cart-items__final-price"
                   role="cell"
                 >
@@ -535,7 +535,29 @@
                       {% render 'unit-price', price: unit_price, measurement: item.unit_price_measurement %}
                     </div>
                   {% endif %}
-                </td>
+                </td> {% endcomment %}
+
+                <td 
+  class="cart-items__price cart-items__final-price" 
+  role="cell"
+>
+ {% assign display_price = price | split: ' ' | first %}
+
+  <text-component 
+    value="{{ display_price | strip_html }}"
+  >
+    {{ display_price }}
+  </text-component>
+
+  {% if item.unit_price_measurement %}
+    <div class="cart-items__price-unit">
+      {% render 'unit-price',
+        price: unit_price,
+        measurement: item.unit_price_measurement
+      %}
+    </div>
+  {% endif %}
+</td>
 
                 <!-- Error -->
 
