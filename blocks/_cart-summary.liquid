@@ -32,7 +32,8 @@
   style="{% render 'border-override', settings: block_settings %}"
   {{ block.shopify_attributes }}
 >
-  <div class="{{ cart_summary_inner_class }}">
+  {% comment %} <div class="{{ cart_summary_inner_class }}"> {% endcomment %}
+   <div>
     {% render 'cart-summary', accelerated_checkout_buttons_layout: 'vertical', section_id: section.id %}
   </div>
 </div>
