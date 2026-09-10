@@ -62,7 +62,6 @@
   "
 >
   {% if cart.empty? or force_empty %}
-
     {%- if shop.customer_accounts_enabled and customer == null -%}
       <p>
         {{ 'actions.log_in_html' | t: link: routes.account_login_url }}
@@ -79,7 +78,6 @@
     </a>
 
   {%- else -%}
-
     <span
       class="visually-hidden"
       ref="cartItemCount"
@@ -94,17 +92,14 @@
       id="cart-form"
       method="post"
     >
-
       <div
         class="cart-items spacing-style{% if block_settings.dividers %} cart-items--dividers{% endif %}"
         style="{% render 'spacing-style', settings: block_settings %} --cart-items-gap:{{ block_settings.gap | append: 'px' }};"
       >
-
         <table
           class="cart-items__table"
           role="table"
         >
-
           <caption
             class="visually-hidden"
             role="caption"
@@ -113,9 +108,11 @@
             <span>{{ cart.total_price | money_with_currency }}</span>
           </caption>
 
-          <!-- =========================
-               TABLE HEAD
-          ========================== -->
+          <!--
+            =========================
+                 TABLE HEAD
+            ==========================
+          -->
 
           <thead
             class="cart-items__table-head"
@@ -125,7 +122,6 @@
               role="row"
               class="cart-items__table-header-row"
             >
-
               <!-- COLUMN 1: DELETE -->
               <th
                 scope="col"
@@ -154,9 +150,7 @@
                 role="columnheader"
                 class="cart-items__header cart-items__header--information"
               >
-                <span>
-                  Product
-                </span>
+                <span> Product </span>
               </th>
 
               <!-- COLUMN 4: PRICE + QUANTITY -->
@@ -165,9 +159,7 @@
                 role="columnheader"
                 class="cart-items__header cart-items__header--quantity"
               >
-                <span>
-                  Price / Quantity
-                </span>
+                <span> Price / Quantity </span>
               </th>
 
               <!-- COLUMN 5: TOTAL -->
@@ -176,22 +168,19 @@
                 role="columnheader"
                 class="cart-items__header cart-items__header--total"
               >
-                <span>
-                  Total
-                </span>
+                <span> Total </span>
               </th>
-
             </tr>
           </thead>
 
-          <!-- =========================
-               CART PRODUCTS
-          ========================== -->
+          <!--
+            =========================
+                 CART PRODUCTS
+            ==========================
+          -->
 
           <tbody role="rowgroup">
-
             {% for item in cart.items %}
-
               <tr
                 id="CartItem-{{ item.key }}"
                 role="row"
@@ -210,16 +199,16 @@
                 data-parent-key="{{ item.parent_relationship.parent.key }}"
                 data-key="{{ item.key }}"
               >
-
-                <!-- ==================================
-                     COLUMN 1: DELETE / BIN
-                =================================== -->
+                <!--
+                  ==================================
+                       COLUMN 1: DELETE / BIN
+                  ===================================
+                -->
 
                 <td
                   class="cart-items__remove-column"
                   role="cell"
                 >
-
                   {% assign can_remove = item.instructions.can_remove | default: true, allow_false: true %}
 
                   <button
@@ -231,29 +220,25 @@
                       hidden
                     {% endif %}
                   >
-
                     {{- 'icon-delete.svg' | inline_asset_content -}}
 
                     <span class="visually-hidden">
                       {{ 'accessibility.remove' | t }}
                     </span>
-
                   </button>
-
                 </td>
 
-
-                <!-- ==================================
-                     COLUMN 2: PRODUCT IMAGE
-                =================================== -->
+                <!--
+                  ==================================
+                       COLUMN 2: PRODUCT IMAGE
+                  ===================================
+                -->
 
                 <td
                   class="cart-items__media"
                   role="cell"
                 >
-
                   {% if item.image %}
-
                     {% liquid
                       assign ratio = 1
 
@@ -277,37 +262,31 @@
                       class="cart-items__media-container"
                       style="--ratio:{{ ratio }};"
                     >
-
                       {%- liquid
                         echo item.image | image_url: width: 250 | image_tag: class: 'cart-items__media-image border-style', style: border_override
                       -%}
-
                     </a>
-
                   {% endif %}
-
                 </td>
 
-
-                <!-- ==================================
-                     COLUMN 3:
-                     TITLE
-                     VARIANT
-                     METAFIELD DESCRIPTION
-                     PRICE
-                =================================== -->
+                <!--
+                  ==================================
+                       COLUMN 3:
+                       TITLE
+                       VARIANT
+                       METAFIELD DESCRIPTION
+                       PRICE
+                  ===================================
+                -->
 
                 <td
                   class="cart-items__details cart-primary-typography"
                   role="cell"
                 >
-
                   <div class="cart-items__product-info">
-
                     <!-- Product title -->
 
                     <div class="cart-items__title-row">
-
                       <a
                         href="{{ item.url }}"
                         class="cart-items__title"
@@ -331,111 +310,78 @@
                         unique_id: cart_disclosure_unique_id,
                         mode: 'trigger'
                       %}
-
                     </div>
-
 
                     <!-- Vendor -->
 
                     {% if item.product.vendor and block_settings.vendor %}
-
                       <p class="cart-items__vendor">
                         {{ item.product.vendor }}
                       </p>
-
                     {% endif %}
-
 
                     <!-- Variant -->
 
                     {% if item.product.has_only_default_variant == false %}
-
                       <dl class="cart-items__variants">
-
                         {% for option in item.options_with_values %}
-
                           <div class="cart-items__variant">
-
-                            <dt class="visually-hidden">
-                              {{ option.name }}:
-                            </dt>
+                            <dt class="visually-hidden">{{ option.name }}:</dt>
 
                             <dd>
                               {{ option.value }}
                             </dd>
-
                           </div>
-
                         {% endfor %}
-
                       </dl>
-
                     {% endif %}
 
-
-                    <!-- ==================================
-                         METAFIELD DESCRIPTION
-                    =================================== -->
+                    <!--
+                      ==================================
+                           METAFIELD DESCRIPTION
+                      ===================================
+                    -->
 
                     {% assign product_description = item.product.metafields.custom.description.value %}
 
                     {% if product_description != blank %}
-
                       <div class="cart-items__metafield-description">
-
                         {{ product_description }}
-
                       </div>
-
                     {% endif %}
-
 
                     <!-- Bundle components -->
 
                     {%- if item.item_components.size != 0 -%}
-
                       <ul class="cart-items__bundle list-unstyled">
-
                         {%- for component in item.item_components -%}
-
                           <li>
-
                             {{- component.title -}}
 
                             {%- if component.quantity > 1 -%}
-                              <span>
-                                × {{ component.quantity }}
-                              </span>
+                              <span> × {{ component.quantity }} </span>
                             {%- endif -%}
-
                           </li>
-
                         {%- endfor -%}
-
                       </ul>
-
                     {%- endif -%}
-
 
                     <!-- Selling plan -->
 
                     {%- if item.selling_plan_allocation -%}
-
                       <p class="cart-items__selling-plan">
                         {{ item.selling_plan_allocation.selling_plan.name }}
                       </p>
-
                     {%- endif -%}
 
-
-                    <!-- ==================================
-                         PRICE UNDER DESCRIPTION
-                    =================================== -->
+                    <!--
+                      ==================================
+                           PRICE UNDER DESCRIPTION
+                      ===================================
+                    -->
 
                     <div class="cart-items__product-price">
-
                       {% if item.original_price != item.final_price %}
-
                         <span class="visually-hidden">
                           {{ 'content.price_sale' | t }}
                         </span>
@@ -445,35 +391,26 @@
                         </span>
 
                         <s class="compare-at-price">
-
                           {% if item.variant.compare_at_price > item.original_price %}
                             {{ item.variant.compare_at_price | money }}
                           {% else %}
                             {{ item.original_price | money }}
                           {% endif %}
-
                         </s>
 
                       {% else %}
-
                         <span>
                           {{ item.original_price | money }}
                         </span>
 
                         {% if item.variant.compare_at_price > item.original_price %}
-
                           <s class="compare-at-price">
                             {{ item.variant.compare_at_price | money }}
                           </s>
-
                         {% endif %}
-
                       {% endif %}
-
                     </div>
-
                   </div>
-
 
                   <!-- Cart properties -->
 
@@ -481,91 +418,63 @@
                     assign has_visible_properties = false
 
                     for property in item.properties
-
                       assign property_first_char = property.first | slice: 0
 
                       if property.last != blank and property_first_char != '_'
                         assign has_visible_properties = true
                         break
                       endif
-
                     endfor
                   -%}
 
-
                   {% if has_visible_properties %}
-
                     <dl class="cart-items__properties">
-
                       {% for property in item.properties %}
-
                         {% assign property_first_char = property.first | slice: 0 %}
 
                         {% if property.last != blank and property_first_char != '_' %}
-
                           <div class="cart-items__property">
-
-                            <dt>
-                              {{ property.first }}:
-                            </dt>
+                            <dt>{{ property.first }}:</dt>
 
                             <dd>
-
                               {% if property.last contains '/uploads/' %}
-
                                 <a href="{{ property.last }}">
                                   {{ property.last | split: '/' | last }}
                                 </a>
 
                               {% else %}
-
                                 {{ property.last }}
-
                               {% endif %}
-
                             </dd>
-
                           </div>
-
                         {% endif %}
-
                       {% endfor %}
-
                     </dl>
-
                   {% endif %}
-
                 </td>
 
-
-                <!-- ==================================
-                     COLUMN 4:
-                     UNIT PRICE + QUANTITY
-                =================================== -->
+                <!--
+                  ==================================
+                       COLUMN 4:
+                       UNIT PRICE + QUANTITY
+                  ===================================
+                -->
 
                 <td
                   class="cart-items__quantity-column"
                   role="cell"
                 >
-
                   <div class="cart-items__price-quantity">
-
                     <!-- Unit price -->
 
                     <div class="cart-items__unit-price">
-
                       {% if settings.currency_code_enabled_cart_items %}
-
                         {{ item.final_price | money_with_currency }}
 
                       {% else %}
-
                         {{ item.final_price | money }}
-
                       {% endif %}
-
                     </div>
-
 
                     <!-- Quantity -->
 
@@ -574,7 +483,6 @@
                     %}
 
                     <div class="cart-items__quantity-controls">
-
                       {% render 'volume-pricing-info',
                         variant: item.variant,
                         unique_id: item.index,
@@ -589,62 +497,44 @@
                         class: 'cart-primary-typography',
                         can_update_quantity: can_update_quantity
                       %}
-
                     </div>
-
                   </div>
-
                 </td>
 
-
-                <!-- ==================================
-                     COLUMN 5:
-                     FINAL TOTAL
-                =================================== -->
+                <!--
+                  ==================================
+                       COLUMN 5:
+                       FINAL TOTAL
+                  ===================================
+                -->
 
                 {%- liquid
-
                   if settings.currency_code_enabled_cart_items
-
                     assign price = item.final_line_price | money_with_currency
                     assign unit_price = item.unit_price | money_with_currency
 
                   else
-
                     assign price = item.final_line_price | money
                     assign unit_price = item.unit_price | money
-
                   endif
-
                 -%}
 
                 <td
                   class="cart-items__price cart-items__final-price"
                   role="cell"
                 >
-
                   <text-component
                     value="{{ price | strip_html }}"
                   >
                     {{ price }}
                   </text-component>
 
-
                   {% if item.unit_price_measurement %}
-
                     <div class="cart-items__price-unit">
-
-                      {% render 'unit-price',
-                        price: unit_price,
-                        measurement: item.unit_price_measurement
-                      %}
-
+                      {% render 'unit-price', price: unit_price, measurement: item.unit_price_measurement %}
                     </div>
-
                   {% endif %}
-
                 </td>
-
 
                 <!-- Error -->
 
@@ -653,12 +543,10 @@
                   role="cell"
                   ref="cartItemErrorContainer-{{ item.index | plus: 1 }}"
                 >
-
                   <div
                     class="cart-item__error"
                     role="alert"
                   >
-
                     <span class="svg-wrapper">
                       {{- 'icon-error.svg' | inline_asset_content -}}
                     </span>
@@ -667,32 +555,22 @@
                       class="cart-item__error-text cart-primary-typography"
                       ref="cartItemError-{{ item.index | plus: 1 }}"
                     ></small>
-
                   </div>
-
                 </td>
-
               </tr>
-
             {% endfor %}
-
           </tbody>
-
         </table>
-
 
         <!-- Disclosure dialogs -->
 
         {% for item in cart.items %}
-
           {%- liquid
-
             assign cart_disclosure_unique_id = 'page-' | append: item.index
 
             if context == 'drawer'
               assign cart_disclosure_unique_id = 'drawer-' | append: item.index
             endif
-
           -%}
 
           {% render 'cart-disclosure-tooltip',
@@ -700,1059 +578,1038 @@
             unique_id: cart_disclosure_unique_id,
             mode: 'dialog'
           %}
-
         {% endfor %}
-
       </div>
-
     </form>
-
   {%- endif -%}
-
 </div>
 
-
 {% stylesheet %}
+  /* =========================================================
+     CART WRAPPER
+  ========================================================= */
 
-/* =========================================================
-   CART WRAPPER
-========================================================= */
+  .cart-items {
+    --cart-item-media-width-min: 2.5rem;
+    --cart-item-media-width-max: 7.5rem;
 
-.cart-items {
-  --cart-item-media-width-min: 2.5rem;
-  --cart-item-media-width-max: 7.5rem;
+    container-name: cart-items;
+    container-type: inline-size;
 
-  container-name: cart-items;
-  container-type: inline-size;
-
-  width: 100%;
-}
-
-.cart-items-disabled {
-  pointer-events: none;
-}
-
-.cart-items__wrapper {
-  display: flex;
-  flex-direction: column;
-}
-
-
-/* =========================================================
-   TABLE
-========================================================= */
-
-.cart-items__table {
-  width: 100%;
-  border-spacing: 0;
-  border-collapse: collapse;
-}
-
-.cart-items__table * {
-  margin: 0;
-}
-
-
-/* =========================================================
-   TABLE HEADER
-========================================================= */
-
-.cart-items__table-head {
-  display: table-header-group;
-}
-
-.cart-items__table-header-row {
-  display: grid;
-
-  grid-template-columns:
-    50px
-    110px
-    minmax(250px, 1fr)
-    180px
-    150px;
-
-  column-gap: var(--gap-md);
-
-  align-items: center;
-
-  padding-bottom: var(--padding-md);
-
-  border-bottom: 1px solid
-    rgb(var(--color-foreground-rgb) / var(--opacity-10-25));
-}
-
-.cart-items__header {
-  font-size: var(--font-size--sm);
-  font-weight: var(--font-weight-bold);
-
-  color: var(--color-foreground);
-
-  text-align: left;
-}
-
-.cart-items__header--total {
-  text-align: right;
-}
-
-
-/* =========================================================
-   PRODUCT ROW
-========================================================= */
-
-.cart-items__table-row {
-  display: grid;
-
-  grid-template-columns:
-    50px
-    110px
-    minmax(250px, 1fr)
-    180px
-    150px;
-
-  column-gap: var(--gap-md);
-
-  align-items: center;
-
-  padding-block: var(--padding-lg);
-
-  border-bottom: 1px solid
-    rgb(var(--color-foreground-rgb) / var(--opacity-10-25));
-
-  position: relative;
-}
-
-
-/* =========================================================
-   DELETE / BIN COLUMN
-========================================================= */
-
-.cart-items__remove-column {
-  display: flex;
-
-  align-items: center;
-  justify-content: center;
-
-  width: 100%;
-}
-
-.cart-items__remove {
-  background: transparent;
-
-  color: var(--color-foreground);
-
-  width: var(--minimum-touch-target);
-  height: var(--minimum-touch-target);
-
-  display: flex;
-
-  align-items: center;
-  justify-content: center;
-
-  padding: 0;
-
-  box-shadow: none;
-
-  border: 0;
-
-  cursor: pointer;
-}
-
-.cart-items__remove svg {
-  width: 20px;
-  height: 20px;
-}
-
-.cart-items__remove:hover {
-  color: var(--color-foreground);
-}
-
-
-/* =========================================================
-   IMAGE COLUMN
-========================================================= */
-
-.cart-items__media {
-  padding: 0;
-
-  width: 100%;
-}
-
-.cart-items__media-container {
-  display: flex;
-
-  aspect-ratio: var(--ratio);
-
-  position: relative;
-
-  width: 100%;
-
-  overflow: hidden;
-}
-
-.cart-items__media-image {
-  aspect-ratio: inherit;
-
-  object-fit: cover;
-
-  object-position: center center;
-
-  width: 100%;
-
-  height: auto;
-
-  display: block;
-}
-
-
-/* =========================================================
-   PRODUCT INFORMATION
-========================================================= */
-
-.cart-items__details {
-  min-width: 0;
-
-  color:
-    rgb(var(--color-foreground-rgb) / var(--opacity-70));
-}
-
-.cart-items__product-info {
-  min-width: 0;
-
-  display: flex;
-
-  flex-direction: column;
-
-  gap: var(--gap-3xs);
-}
-
-
-/* Product title */
-
-.cart-items__title-row {
-  display: flex;
-
-  align-items: center;
-
-  gap: var(--gap-xs);
-
-  max-width: 100%;
-
-  min-width: 0;
-}
-
-.cart-items__title {
-  font-size: var(--font-size--md);
-
-  font-weight: var(--font-weight-bold);
-
-  color: var(--color-foreground);
-
-  text-transform: var(--product-title-case);
-
-  text-decoration: none;
-
-  display: block;
-
-  min-width: 0;
-
-  overflow-wrap: break-word;
-}
-
-
-/* Vendor */
-
-.cart-items__vendor {
-  font-size: var(--font-size--sm);
-
-  color:
-    rgb(var(--color-foreground-rgb) / var(--opacity-70));
-}
-
-
-/* =========================================================
-   VARIANT
-========================================================= */
-
-.cart-items__variants {
-  display: flex;
-
-  flex-wrap: wrap;
-
-  gap: 4px;
-
-  padding: 0;
-
-  margin-top: 3px;
-}
-
-.cart-items__variant {
-  display: inline-flex;
-
-  font-size: var(--font-size--sm);
-
-  color:
-    rgb(var(--color-foreground-rgb) / var(--opacity-70));
-}
-
-.cart-items__variant dt {
-  display: none;
-}
-
-.cart-items__variant dd {
-  display: inline;
-
-  margin: 0;
-}
-
-
-/* =========================================================
-   METAFIELD DESCRIPTION
-========================================================= */
-
-.cart-items__metafield-description {
-  font-size: var(--font-size--sm);
-
-  line-height: 1.5;
-
-  color:
-    rgb(var(--color-foreground-rgb) / var(--opacity-70));
-
-  margin-top: 4px;
-
-  max-width: 600px;
-}
-
-
-/* =========================================================
-   PRICE UNDER DESCRIPTION
-========================================================= */
-
-.cart-items__product-price {
-  display: flex;
-
-  align-items: center;
-
-  gap: 8px;
-
-  margin-top: 7px;
-
-  font-size: var(--font-size--sm);
-
-  color: var(--color-foreground);
-
-  font-weight: var(--font-weight-medium);
-}
-
-.cart-items__sale-price {
-  color: var(--color-foreground);
-}
-
-.compare-at-price {
-  opacity: 0.6;
-}
-
-
-/* =========================================================
-   BUNDLE
-========================================================= */
-
-.cart-items__bundle {
-  display: block;
-
-  margin-top: 5px;
-}
-
-.cart-items__bundle li {
-  font-size: var(--font-size--sm);
-}
-
-
-/* =========================================================
-   PROPERTIES
-========================================================= */
-
-.cart-items__properties {
-  display: block;
-
-  margin-top: var(--margin-2xs);
-}
-
-.cart-items__property {
-  display: block;
-
-  font-size: var(--font-size--sm);
-}
-
-.cart-items__properties dt,
-.cart-items__properties dd {
-  display: inline;
-
-  margin: 0;
-
-  overflow-wrap: break-word;
-}
-
-
-/* =========================================================
-   COLUMN 4
-   PRICE + QUANTITY
-========================================================= */
-
-.cart-items__quantity-column {
-  width: 100%;
-}
-
-.cart-items__price-quantity {
-  display: flex;
-
-  flex-direction: column;
-
-  align-items: flex-start;
-
-  justify-content: center;
-
-  gap: var(--gap-sm);
-}
-
-
-/* Unit price */
-
-.cart-items__unit-price {
-  font-size: var(--font-size--sm);
-
-  color: var(--color-foreground);
-
-  font-weight: var(--font-weight-medium);
-}
-
-
-/* Quantity */
-
-.cart-items__quantity-controls {
-  display: flex;
-
-  align-items: center;
-
-  justify-content: flex-start;
-
-  gap: var(--gap-xs);
-
-  width: fit-content;
-}
-
-.cart-items__quantity-controls > .volume-pricing-info {
-  margin-inline-start:
-    calc(-1 * var(--minimum-touch-target) - var(--gap-xs));
-}
-
-.cart-items__quantity-controls .quantity-selector {
-  display: inline-flex;
-
-  font-size: var(--font-size--sm);
-
-  height: auto;
-}
-
-
-/* =========================================================
-   COLUMN 5
-   FINAL PRICE
-========================================================= */
-
-.cart-items__final-price {
-  min-width: 0;
-
-  text-align: right;
-
-  display: flex;
-
-  flex-direction: column;
-
-  align-items: flex-end;
-
-  justify-content: center;
-
-  font-size: var(--font-size--md);
-
-  font-weight: var(--font-weight-bold);
-
-  color: #1769e0;
-}
-
-.cart-items__final-price text-component {
-  font-weight: var(--font-weight-bold);
-
-  color: #1769e0;
-}
-
-.cart-items__price-unit {
-  font-size: var(--font-size--xs);
-
-  padding-block-start: var(--padding-2xs);
-
-  color:
-    rgb(var(--color-foreground-rgb) / var(--opacity-70));
-}
-
-
-/* =========================================================
-   ERROR
-========================================================= */
-
-.cart-items__error {
-  grid-column: 3 / -1;
-
-  display: flex;
-
-  align-items: flex-start;
-
-  width: 100%;
-
-  margin-block-start: var(--margin-xs);
-
-  opacity: 1;
-
-  overflow: hidden;
-
-  transform: translateY(0);
-
-  transition:
-    opacity var(--drawer-animation-speed) var(--animation-easing),
-    transform var(--drawer-animation-speed) var(--animation-easing);
-}
-
-.cart-item__error {
-  display: flex;
-
-  align-items: flex-start;
-
-  width: 100%;
-
-  font-size: var(--font-size--sm);
-
-  padding-block: var(--padding-2xs);
-}
-
-.cart-item__error .svg-wrapper {
-  flex-shrink: 0;
-
-  width: var(--icon-size-xs);
-
-  height: var(--icon-size-xs);
-
-  margin-inline:
-    var(--margin-3xs) var(--margin-xs);
-
-  margin-block-start: var(--margin-3xs);
-}
-
-
-/* =========================================================
-   EMPTY CART
-========================================================= */
-
-.cart-page--empty .cart-items__wrapper {
-  align-items: center;
-
-  margin-block-start: 0;
-
-  text-align: center;
-}
-
-.cart-items__wrapper--drawer-empty {
-  display: flex;
-
-  flex-direction: column;
-
-  align-items: center;
-
-  justify-content: center;
-
-  text-align: center;
-}
-
-.cart-items__empty-button {
-  margin-top: var(--margin-md);
-
-  margin-inline: auto;
-
-  padding-inline: var(--padding-4xl);
-
-  padding-block: var(--padding-lg);
-}
-
-
-/* =========================================================
-   DIVIDERS
-========================================================= */
-
-.cart-items--dividers .cart-items__table-row {
-  border-bottom:
-    1px solid
-    rgb(var(--color-foreground-rgb) / var(--opacity-10-25));
-}
-
-
-/* =========================================================
-   REMOVE ANIMATION
-========================================================= */
-
-.remove-icon-bottom,
-.remove-icon-top {
-  transition:
-    transform var(--animation-speed) var(--animation-easing);
-}
-
-.cart-items__remove:hover .remove-icon-top {
-  transform:
-    translate(
-      calc(-1 * var(--icon-stroke-width)),
-      var(--icon-stroke-width)
-    )
-    rotate(-15deg);
-}
-
-.cart-items__remove:is(:hover, :active) .remove-icon-bottom {
-  transform:
-    translateY(var(--icon-stroke-width));
-}
-
-.cart-items__table-row.removing .remove-icon-bottom {
-  transform: translateY(0);
-}
-
-.cart-items__table-row.removing .remove-icon-top {
-  animation:
-    removeButtonClickedIconTop
-    var(--animation-speed)
-    var(--animation-easing)
-    forwards;
-}
-
-@keyframes removeButtonClickedIconTop {
-
-  50% {
-    transform:
-      translate(
-        0,
-        calc(-1 * var(--icon-stroke-width))
-      );
+    width: 100%;
   }
 
-  100% {
-    transform:
-      translate(0, 0);
+  .cart-items-disabled {
+    pointer-events: none;
   }
 
-}
-
-
-/* =========================================================
-   REMOVE ROW ANIMATION
-========================================================= */
-
-.cart-items__table-row.removing {
-  overflow: hidden;
-
-  animation:
-    removeRow
-    calc(var(--animation-speed) * 2)
-    var(--animation-easing)
-    forwards;
-
-  animation-delay: var(--animation-speed);
-}
-
-@keyframes removeRow {
-
-  0% {
-    height: var(--row-height);
+  .cart-items__wrapper {
+    display: flex;
+    flex-direction: column;
   }
 
-  100% {
-    opacity: 0;
 
-    height: 0;
+  /* =========================================================
+     TABLE
+  ========================================================= */
 
-    padding-bottom: 0;
-
-    margin-bottom: 0;
-
-    border-color: transparent;
+  .cart-items__table {
+    width: 100%;
+    border-spacing: 0;
+    border-collapse: collapse;
   }
 
-}
-
-
-/* =========================================================
-   ADD ROW ANIMATION
-========================================================= */
-
-.cart-items__table-row.adding {
-  interpolate-size: allow-keywords;
-
-  overflow: hidden;
-
-  animation:
-    addRow
-    calc(var(--animation-speed) * 2)
-    var(--animation-easing)
-    forwards;
-}
-
-@keyframes addRow {
-
-  0% {
-    opacity: 0;
-
-    height: 0;
-
-    padding-bottom: 0;
-
-    margin-bottom: 0;
-
-    border-color: transparent;
+  .cart-items__table * {
+    margin: 0;
   }
 
-  100% {
-    opacity: 1;
 
-    height: auto;
+  /* =========================================================
+     TABLE HEADER
+  ========================================================= */
+
+  .cart-items__table-head {
+    display: table-header-group;
   }
-
-}
-
-
-/* =========================================================
-   MOBILE
-========================================================= */
-
-@media screen and (max-width: 749px) {
 
   .cart-items__table-header-row {
-    display: none;
-  }
+    display: grid;
 
-  .cart-items__table-row {
-    grid-template-columns:
-      36px
-      80px
-      minmax(0, 1fr);
-
-    grid-template-areas:
-      'remove media details'
-      'remove media quantity'
-      'remove media total';
-
-    column-gap: var(--gap-sm);
-
-    align-items: start;
-
-    padding-block: var(--padding-md);
-  }
-
-
-  /* Delete */
-
-  .cart-items__remove-column {
-    grid-area: remove;
-
-    padding-top: 4px;
-  }
-
-
-  /* Image */
-
-  .cart-items__media {
-    grid-area: media;
-  }
-
-
-  /* Details */
-
-  .cart-items__details {
-    grid-area: details;
-  }
-
-
-  /* Price + quantity */
-
-  .cart-items__quantity-column {
-    grid-area: quantity;
-
-    margin-top: var(--margin-xs);
-  }
-
-  .cart-items__price-quantity {
-    flex-direction: row;
-
-    align-items: center;
-
-    justify-content: flex-start;
-
-    gap: var(--gap-sm);
-  }
-
-
-  /* Final price */
-
-  .cart-items__final-price {
-    grid-area: total;
-
-    margin-top: var(--margin-xs);
-
-    align-items: flex-start;
-
-    text-align: left;
-  }
-
-
-  /* Error */
-
-  .cart-items__error {
-    grid-column: 1 / -1;
-
-    grid-area: auto;
-  }
-
-
-  .cart-items__title {
-    font-size: var(--font-size--sm);
-  }
-
-  .cart-items__metafield-description {
-    font-size: var(--font-size--xs);
-  }
-
-}
-
-
-/* =========================================================
-   DESKTOP QUANTITY SELECTOR
-========================================================= */
-
-@media screen and (min-width: 750px) {
-
-  .cart-items .quantity-selector {
-    --quantity-selector-width: 105px;
-
-    height: var(--button-size-md);
-
-    width: var(--quantity-selector-width);
-  }
-
-  .cart-items .quantity-selector button {
-    width: var(--button-size-md);
-
-    height: var(--button-size-md);
-  }
-
-  .cart-items .quantity-selector input {
-    max-width:
-      calc(
-        var(--quantity-selector-width)
-        - var(--button-size-md) * 2
-      );
-  }
-
-}
-
-
-/* =========================================================
-   RESPONSIVE TABLE
-========================================================= */
-
-@container cart-items (min-width: 720px) {
-
-  .cart-items__table-row {
     grid-template-columns:
       50px
       110px
       minmax(250px, 1fr)
       180px
       150px;
+
+    column-gap: var(--gap-md);
+
+    align-items: center;
+
+    padding-bottom: var(--padding-md);
+
+    border-bottom: 1px solid
+      rgb(var(--color-foreground-rgb) / var(--opacity-10-25));
   }
 
-}
+  .cart-items__header {
+    font-size: var(--font-size--sm);
+    font-weight: var(--font-weight-bold);
+
+    color: var(--color-foreground);
+
+    text-align: left;
+  }
+
+  .cart-items__header--total {
+    text-align: right;
+  }
 
 
-/* =========================================================
-   CART SUMMARY
-========================================================= */
+  /* =========================================================
+     PRODUCT ROW
+  ========================================================= */
 
-.cart__subtotal-container,
-.cart__total-container {
-  display: flex;
+  .cart-items__table-row {
+    display: grid;
 
-  flex-direction: column;
-}
+    grid-template-columns:
+      50px
+      110px
+      minmax(250px, 1fr)
+      180px
+      150px;
 
-.cart__total-container {
-  row-gap: var(--gap-2xs);
-}
+    column-gap: var(--gap-md);
 
-.cart__subtotal-container:empty {
-  display: none;
-}
+    align-items: center;
 
-.cart__summary-totals {
-  display: flex;
+    padding-block: var(--padding-lg);
 
-  flex-direction: column;
+    border-bottom: 1px solid
+      rgb(var(--color-foreground-rgb) / var(--opacity-10-25));
 
-  gap: var(--gap-xl);
-
-  width: 100%;
-
-  border-block-start: none;
-}
-
-.cart__subtotal-container,
-.cart__subtotal-container * {
-  font-size: var(--font-size--sm);
-}
-
-.cart__total {
-  font-weight: var(--font-weight-bold);
-}
-
-.cart__total-label {
-  font-size: var(--font-size--sm);
-}
-
-.cart__total-value {
-  font-size: var(--font-size--xl);
-}
-
-.cart__ctas {
-  width: 100%;
-
-  display: grid;
-
-  gap: var(--checkout-button-gap);
-
-  grid-auto-flow: row;
-
-  grid-template-columns: 1fr;
-}
-
-.cart__additional-checkout-buttons {
-  width: 100%;
-}
+    position: relative;
+  }
 
 
-/* =========================================================
-   SHOPIFY ACCELERATED CHECKOUT
-========================================================= */
+  /* =========================================================
+     DELETE / BIN COLUMN
+  ========================================================= */
 
-shopify-accelerated-checkout-cart {
-  --shopify-accelerated-checkout-inline-alignment: center;
+  .cart-items__remove-column {
+    display: flex;
 
-  --shopify-accelerated-checkout-button-border-radius:
-    var(--style-border-radius-buttons-primary);
+    align-items: center;
+    justify-content: center;
 
-  --shopify-accelerated-checkout-button-block-size:
-    var(--height-buy-buttons);
+    width: 100%;
+  }
 
-  --shopify-accelerated-checkout-row-gap:
-    var(--checkout-button-gap, 10px);
-}
+  .cart-items__remove {
+    background: transparent;
+
+    color: var(--color-foreground);
+
+    width: var(--minimum-touch-target);
+    height: var(--minimum-touch-target);
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 0;
+
+    box-shadow: none;
+
+    border: 0;
+
+    cursor: pointer;
+  }
+
+  .cart-items__remove svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .cart-items__remove:hover {
+    color: var(--color-foreground);
+  }
 
 
-/* =========================================================
-   REDUCED MOTION
-========================================================= */
+  /* =========================================================
+     IMAGE COLUMN
+  ========================================================= */
 
-@media screen and (prefers-reduced-motion: no-preference) {
+  .cart-items__media {
+    padding: 0;
 
-  html:active-view-transition-type(empty-cart-drawer) {
+    width: 100%;
+  }
 
-    .cart-items__empty-button,
-    .cart__checkout-button {
+  .cart-items__media-container {
+    display: flex;
 
-      view-transition-name:
-        cart-drawer-primary-action;
+    aspect-ratio: var(--ratio);
 
-      & > .button-text {
+    position: relative;
+
+    width: 100%;
+
+    overflow: hidden;
+  }
+
+  .cart-items__media-image {
+    aspect-ratio: inherit;
+
+    object-fit: cover;
+
+    object-position: center center;
+
+    width: 100%;
+
+    height: auto;
+
+    display: block;
+  }
+
+
+  /* =========================================================
+     PRODUCT INFORMATION
+  ========================================================= */
+
+  .cart-items__details {
+    min-width: 0;
+
+    color:
+      rgb(var(--color-foreground-rgb) / var(--opacity-70));
+  }
+
+  .cart-items__product-info {
+    min-width: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: var(--gap-3xs);
+  }
+
+
+  /* Product title */
+
+  .cart-items__title-row {
+    display: flex;
+
+    align-items: center;
+
+    gap: var(--gap-xs);
+
+    max-width: 100%;
+
+    min-width: 0;
+  }
+
+  .cart-items__title {
+    font-weight: 700;
+      font-size: 15px;
+      color: #1D1A17;
+      text-decoration: none;
+      font-family: 'Oswald';
+  }
+
+
+  /* Vendor */
+
+  .cart-items__vendor {
+    font-size: var(--font-size--sm);
+
+    color:
+      rgb(var(--color-foreground-rgb) / var(--opacity-70));
+  }
+
+
+  /* =========================================================
+     VARIANT
+  ========================================================= */
+
+  .cart-items__variants {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 4px;
+
+    padding: 0;
+
+    margin-top: 3px;
+  }
+
+  .cart-items__variant {
+    display: inline-flex;
+
+    font-size: var(--font-size--sm);
+
+    color:
+      rgb(var(--color-foreground-rgb) / var(--opacity-70));
+  }
+
+  .cart-items__variant dt {
+    display: none;
+  }
+
+  .cart-items__variant dd {
+    display: inline;
+
+    margin: 0;
+  }
+
+
+  /* =========================================================
+     METAFIELD DESCRIPTION
+  ========================================================= */
+
+  .cart-items__metafield-description {
+    font-size: var(--font-size--sm);
+
+    line-height: 1.5;
+
+    color:
+      rgb(var(--color-foreground-rgb) / var(--opacity-70));
+
+    margin-top: 4px;
+
+    max-width: 600px;
+  }
+
+
+  /* =========================================================
+     PRICE UNDER DESCRIPTION
+  ========================================================= */
+
+  .cart-items__product-price {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    margin-top: 7px;
+
+    font-size: 13px;
+      color: #6b6b6b;
+  }
+
+  .cart-items__sale-price {
+    color: var(--color-foreground);
+  }
+
+  .compare-at-price {
+    opacity: 0.6;
+  }
+
+
+  /* =========================================================
+     BUNDLE
+  ========================================================= */
+
+  .cart-items__bundle {
+    display: block;
+
+    margin-top: 5px;
+  }
+
+  .cart-items__bundle li {
+    font-size: var(--font-size--sm);
+  }
+
+
+  /* =========================================================
+     PROPERTIES
+  ========================================================= */
+
+  .cart-items__properties {
+    display: block;
+
+    margin-top: var(--margin-2xs);
+  }
+
+  .cart-items__property {
+    display: block;
+
+    font-size: var(--font-size--sm);
+  }
+
+  .cart-items__properties dt,
+  .cart-items__properties dd {
+    display: inline;
+
+    margin: 0;
+
+    overflow-wrap: break-word;
+  }
+
+
+  /* =========================================================
+     COLUMN 4
+     PRICE + QUANTITY
+  ========================================================= */
+
+  .cart-items__quantity-column {
+    width: 100%;
+  }
+
+  .cart-items__price-quantity {
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    justify-content: center;
+
+    gap: var(--gap-sm);
+  }
+
+
+  /* Unit price */
+
+  .cart-items__unit-price {
+    font-size: var(--font-size--sm);
+
+    color: var(--color-foreground);
+
+    font-weight: var(--font-weight-medium);
+  }
+
+
+  /* Quantity */
+
+  .cart-items__quantity-controls {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: flex-start;
+
+    gap: var(--gap-xs);
+
+    width: fit-content;
+  }
+
+  .cart-items__quantity-controls > .volume-pricing-info {
+    margin-inline-start:
+      calc(-1 * var(--minimum-touch-target) - var(--gap-xs));
+  }
+
+  .cart-items__quantity-controls .quantity-selector {
+    display: inline-flex;
+
+    font-size: var(--font-size--sm);
+
+    height: auto;
+  }
+
+
+  /* =========================================================
+     COLUMN 5
+     FINAL PRICE
+  ========================================================= */
+
+  .cart-items__final-price {
+    min-width: 0;
+
+    text-align: right;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: flex-end;
+
+    justify-content: center;
+
+    font-size: var(--font-size--md);
+
+    font-weight: var(--font-weight-bold);
+
+    color: #1769e0;
+  }
+
+  .cart-items__final-price text-component {
+    font-weight: var(--font-weight-bold);
+
+    color: #1769e0;
+  }
+
+  .cart-items__price-unit {
+    font-size: var(--font-size--xs);
+
+    padding-block-start: var(--padding-2xs);
+
+    color:
+      rgb(var(--color-foreground-rgb) / var(--opacity-70));
+  }
+
+
+  /* =========================================================
+     ERROR
+  ========================================================= */
+
+  .cart-items__error {
+    grid-column: 3 / -1;
+
+    display: flex;
+
+    align-items: flex-start;
+
+    width: 100%;
+
+    margin-block-start: var(--margin-xs);
+
+    opacity: 1;
+
+    overflow: hidden;
+
+    transform: translateY(0);
+
+    transition:
+      opacity var(--drawer-animation-speed) var(--animation-easing),
+      transform var(--drawer-animation-speed) var(--animation-easing);
+  }
+
+  .cart-item__error {
+    display: flex;
+
+    align-items: flex-start;
+
+    width: 100%;
+
+    font-size: var(--font-size--sm);
+
+    padding-block: var(--padding-2xs);
+  }
+
+  .cart-item__error .svg-wrapper {
+    flex-shrink: 0;
+
+    width: var(--icon-size-xs);
+
+    height: var(--icon-size-xs);
+
+    margin-inline:
+      var(--margin-3xs) var(--margin-xs);
+
+    margin-block-start: var(--margin-3xs);
+  }
+
+
+  /* =========================================================
+     EMPTY CART
+  ========================================================= */
+
+  .cart-page--empty .cart-items__wrapper {
+    align-items: center;
+
+    margin-block-start: 0;
+
+    text-align: center;
+  }
+
+  .cart-items__wrapper--drawer-empty {
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
+  }
+
+  .cart-items__empty-button {
+    margin-top: var(--margin-md);
+
+    margin-inline: auto;
+
+    padding-inline: var(--padding-4xl);
+
+    padding-block: var(--padding-lg);
+  }
+
+
+  /* =========================================================
+     DIVIDERS
+  ========================================================= */
+
+  .cart-items--dividers .cart-items__table-row {
+    border-bottom:
+      1px solid
+      rgb(var(--color-foreground-rgb) / var(--opacity-10-25));
+  }
+
+
+  /* =========================================================
+     REMOVE ANIMATION
+  ========================================================= */
+
+  .remove-icon-bottom,
+  .remove-icon-top {
+    transition:
+      transform var(--animation-speed) var(--animation-easing);
+  }
+
+  .cart-items__remove:hover .remove-icon-top {
+    transform:
+      translate(
+        calc(-1 * var(--icon-stroke-width)),
+        var(--icon-stroke-width)
+      )
+      rotate(-15deg);
+  }
+
+  .cart-items__remove:is(:hover, :active) .remove-icon-bottom {
+    transform:
+      translateY(var(--icon-stroke-width));
+  }
+
+  .cart-items__table-row.removing .remove-icon-bottom {
+    transform: translateY(0);
+  }
+
+  .cart-items__table-row.removing .remove-icon-top {
+    animation:
+      removeButtonClickedIconTop
+      var(--animation-speed)
+      var(--animation-easing)
+      forwards;
+  }
+
+  @keyframes removeButtonClickedIconTop {
+
+    50% {
+      transform:
+        translate(
+          0,
+          calc(-1 * var(--icon-stroke-width))
+        );
+    }
+
+    100% {
+      transform:
+        translate(0, 0);
+    }
+
+  }
+
+
+  /* =========================================================
+     REMOVE ROW ANIMATION
+  ========================================================= */
+
+  .cart-items__table-row.removing {
+    overflow: hidden;
+
+    animation:
+      removeRow
+      calc(var(--animation-speed) * 2)
+      var(--animation-easing)
+      forwards;
+
+    animation-delay: var(--animation-speed);
+  }
+
+  @keyframes removeRow {
+
+    0% {
+      height: var(--row-height);
+    }
+
+    100% {
+      opacity: 0;
+
+      height: 0;
+
+      padding-bottom: 0;
+
+      margin-bottom: 0;
+
+      border-color: transparent;
+    }
+
+  }
+
+
+  /* =========================================================
+     ADD ROW ANIMATION
+  ========================================================= */
+
+  .cart-items__table-row.adding {
+    interpolate-size: allow-keywords;
+
+    overflow: hidden;
+
+    animation:
+      addRow
+      calc(var(--animation-speed) * 2)
+      var(--animation-easing)
+      forwards;
+  }
+
+  @keyframes addRow {
+
+    0% {
+      opacity: 0;
+
+      height: 0;
+
+      padding-bottom: 0;
+
+      margin-bottom: 0;
+
+      border-color: transparent;
+    }
+
+    100% {
+      opacity: 1;
+
+      height: auto;
+    }
+
+  }
+
+
+  /* =========================================================
+     MOBILE
+  ========================================================= */
+
+  @media screen and (max-width: 749px) {
+
+    .cart-items__table-header-row {
+      display: none;
+    }
+
+    .cart-items__table-row {
+      grid-template-columns:
+        36px
+        80px
+        minmax(0, 1fr);
+
+      grid-template-areas:
+        'remove media details'
+        'remove media quantity'
+        'remove media total';
+
+      column-gap: var(--gap-sm);
+
+      align-items: start;
+
+      padding-block: var(--padding-md);
+    }
+
+
+    /* Delete */
+
+    .cart-items__remove-column {
+      grid-area: remove;
+
+      padding-top: 4px;
+    }
+
+
+    /* Image */
+
+    .cart-items__media {
+      grid-area: media;
+    }
+
+
+    /* Details */
+
+    .cart-items__details {
+      grid-area: details;
+    }
+
+
+    /* Price + quantity */
+
+    .cart-items__quantity-column {
+      grid-area: quantity;
+
+      margin-top: var(--margin-xs);
+    }
+
+    .cart-items__price-quantity {
+      flex-direction: row;
+
+      align-items: center;
+
+      justify-content: flex-start;
+
+      gap: var(--gap-sm);
+    }
+
+
+    /* Final price */
+
+    .cart-items__final-price {
+      grid-area: total;
+
+      margin-top: var(--margin-xs);
+
+      align-items: flex-start;
+
+      text-align: left;
+    }
+
+
+    /* Error */
+
+    .cart-items__error {
+      grid-column: 1 / -1;
+
+      grid-area: auto;
+    }
+
+
+    .cart-items__title {
+      font-size: var(--font-size--sm);
+    }
+
+    .cart-items__metafield-description {
+      font-size: var(--font-size--xs);
+    }
+
+  }
+
+
+  /* =========================================================
+     DESKTOP QUANTITY SELECTOR
+  ========================================================= */
+
+  @media screen and (min-width: 750px) {
+
+    .cart-items .quantity-selector {
+      --quantity-selector-width: 105px;
+
+      height: var(--button-size-md);
+
+      width: var(--quantity-selector-width);
+    }
+
+    .cart-items .quantity-selector button {
+      width: var(--button-size-md);
+
+      height: var(--button-size-md);
+    }
+
+    .cart-items .quantity-selector input {
+      max-width:
+        calc(
+          var(--quantity-selector-width)
+          - var(--button-size-md) * 2
+        );
+    }
+
+  }
+
+
+  /* =========================================================
+     RESPONSIVE TABLE
+  ========================================================= */
+
+  @container cart-items (min-width: 720px) {
+
+    .cart-items__table-row {
+      grid-template-columns:
+        50px
+        110px
+        minmax(250px, 1fr)
+        180px
+        150px;
+    }
+
+  }
+
+
+  /* =========================================================
+     CART SUMMARY
+  ========================================================= */
+
+  .cart__subtotal-container,
+  .cart__total-container {
+    display: flex;
+
+    flex-direction: column;
+  }
+
+  .cart__total-container {
+    row-gap: var(--gap-2xs);
+  }
+
+  .cart__subtotal-container:empty {
+    display: none;
+  }
+
+  .cart__summary-totals {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: var(--gap-xl);
+
+    width: 100%;
+
+    border-block-start: none;
+  }
+
+  .cart__subtotal-container,
+  .cart__subtotal-container * {
+    font-size: var(--font-size--sm);
+  }
+
+  .cart__total {
+    font-weight: var(--font-weight-bold);
+  }
+
+  .cart__total-label {
+    font-size: var(--font-size--sm);
+  }
+
+  .cart__total-value {
+    font-size: var(--font-size--xl);
+  }
+
+  .cart__ctas {
+    width: 100%;
+
+    display: grid;
+
+    gap: var(--checkout-button-gap);
+
+    grid-auto-flow: row;
+
+    grid-template-columns: 1fr;
+  }
+
+  .cart__additional-checkout-buttons {
+    width: 100%;
+  }
+
+
+  /* =========================================================
+     SHOPIFY ACCELERATED CHECKOUT
+  ========================================================= */
+
+  shopify-accelerated-checkout-cart {
+    --shopify-accelerated-checkout-inline-alignment: center;
+
+    --shopify-accelerated-checkout-button-border-radius:
+      var(--style-border-radius-buttons-primary);
+
+    --shopify-accelerated-checkout-button-block-size:
+      var(--height-buy-buttons);
+
+    --shopify-accelerated-checkout-row-gap:
+      var(--checkout-button-gap, 10px);
+  }
+
+
+  /* =========================================================
+     REDUCED MOTION
+  ========================================================= */
+
+  @media screen and (prefers-reduced-motion: no-preference) {
+
+    html:active-view-transition-type(empty-cart-drawer) {
+
+      .cart-items__empty-button,
+      .cart__checkout-button {
+
         view-transition-name:
-          cart-drawer-primary-action-text;
+          cart-drawer-primary-action;
+
+        & > .button-text {
+          view-transition-name:
+            cart-drawer-primary-action-text;
+        }
+
       }
 
     }
 
   }
 
-}
 
+  /* =========================================================
+     VIEW TRANSITION
+  ========================================================= */
 
-/* =========================================================
-   VIEW TRANSITION
-========================================================= */
+  ::view-transition-old(cart-drawer-primary-action-text),
+  ::view-transition-new(cart-drawer-primary-action-text) {
 
-::view-transition-old(cart-drawer-primary-action-text),
-::view-transition-new(cart-drawer-primary-action-text) {
+    height: 100%;
 
-  height: 100%;
+    object-fit: none;
 
-  object-fit: none;
+    overflow: clip;
 
-  overflow: clip;
+    overflow-clip-margin: 1em;
 
-  overflow-clip-margin: 1em;
-
-}
-
-::view-transition-old(cart-drawer-primary-action-text) {
-
-  animation:
-    cart-drawer-primary-action-text
-    var(--animation-speed)
-    var(--animation-easing)
-    reverse
-    forwards;
-
-}
-
-::view-transition-new(cart-drawer-primary-action-text) {
-
-  animation:
-    cart-drawer-primary-action-text
-    var(--animation-speed)
-    var(--animation-easing)
-    forwards;
-
-}
-
-::view-transition-old(cart-drawer-primary-action),
-::view-transition-new(cart-drawer-primary-action) {
-
-  height: 100%;
-
-}
-
-::view-transition-group(cart-drawer-primary-action-text),
-::view-transition-group(cart-drawer-primary-action) {
-
-  animation-duration:
-    var(--spring-d300-b0-duration);
-
-  animation-timing-function:
-    var(--spring-d300-b0-easing);
-
-}
-
-@keyframes cart-drawer-primary-action-text {
-
-  from {
-    filter: blur(3px);
-    opacity: 0;
   }
 
-  to {
-    filter: none;
-    opacity: 1;
+  ::view-transition-old(cart-drawer-primary-action-text) {
+
+    animation:
+      cart-drawer-primary-action-text
+      var(--animation-speed)
+      var(--animation-easing)
+      reverse
+      forwards;
+
   }
 
-}
+  ::view-transition-new(cart-drawer-primary-action-text) {
 
+    animation:
+      cart-drawer-primary-action-text
+      var(--animation-speed)
+      var(--animation-easing)
+      forwards;
+
+  }
+
+  ::view-transition-old(cart-drawer-primary-action),
+  ::view-transition-new(cart-drawer-primary-action) {
+
+    height: 100%;
+
+  }
+
+  ::view-transition-group(cart-drawer-primary-action-text),
+  ::view-transition-group(cart-drawer-primary-action) {
+
+    animation-duration:
+      var(--spring-d300-b0-duration);
+
+    animation-timing-function:
+      var(--spring-d300-b0-easing);
+
+  }
+
+  @keyframes cart-drawer-primary-action-text {
+
+    from {
+      filter: blur(3px);
+      opacity: 0;
+    }
+
+    to {
+      filter: none;
+      opacity: 1;
+    }
+
+  }
 {% endstylesheet %}
