@@ -475,16 +475,7 @@
                   role="cell"
                 >
                   <div class="cart-items__price-quantity">
-                    <!-- Unit price -->
-
-                    <div class="cart-items__unit-price">
-                      {% if settings.currency_code_enabled_cart_items %}
-                        {{ item.final_price | money_with_currency }}
-
-                      {% else %}
-                        {{ item.final_price | money }}
-                      {% endif %}
-                    </div>
+                    
 
                     <!-- Quantity -->
 
