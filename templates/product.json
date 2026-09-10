@@ -599,7 +599,7 @@
         "disclosures_g9mWze"
       ],
       "custom_css": [
-        ".quantity-selector-wrapper {width: 40%;}",
+        "@media screen and (min-width: 750px) {.quantity-selector-wrapper {width: 40%;}}",
         ".quantity-selector {justify-content: space-around;}",
         "#BuyButtons-ProductSubmitButton-ARStzK012Q3R4cUZvT__add-to-cart,button.shopify-payment-button__button--unbranded {width: 100% !important;}",
         ".add-to-cart-icon {display: none;}",
