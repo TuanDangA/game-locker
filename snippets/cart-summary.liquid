@@ -193,16 +193,16 @@
 
 <script>
 (function () {
-  /* --- Accordion toggle --- */
   var accordion = document.querySelector('[data-gl-shipping-accordion]');
-  var toggleBtn = document.querySelector('[data-gl-shipping-toggle]');
-  if (toggleBtn && accordion) {
+  if (!accordion) return;
+
+  var toggleBtn = accordion.querySelector('[data-gl-shipping-toggle]');
+  if (toggleBtn) {
     toggleBtn.addEventListener('click', function () {
       accordion.classList.toggle('is-open');
     });
   }
 
-  /* --- Money formatting, with fallback --- */
   function formatMoney(cents) {
     if (window.Shopify && Shopify.formatMoney) {
       return Shopify.formatMoney(cents, '{{ shop.money_format }}');
@@ -210,12 +210,11 @@
     return '{{ shop.currency }} ' + (cents / 100).toFixed(2);
   }
 
-  /* --- Shipping estimator (real /cart/shipping_rates.json) --- */
-  var countrySelect = document.querySelector('[data-gl-shipping-country]');
-  var provinceSelect = document.querySelector('[data-gl-shipping-province]');
-  var zipInput = document.querySelector('[data-gl-shipping-zip]');
-  var estimateBtn = document.querySelector('[data-gl-estimate-shipping]');
-  var resultsBox = document.querySelector('[data-gl-shipping-results]');
+  var countrySelect = accordion.querySelector('[data-gl-shipping-country]');
+  var provinceSelect = accordion.querySelector('[data-gl-shipping-province]');
+  var zipInput = accordion.querySelector('[data-gl-shipping-zip]');
+  var estimateBtn = accordion.querySelector('[data-gl-estimate-shipping]');
+  var resultsBox = accordion.querySelector('[data-gl-shipping-results]');
 
   function populateProvinces() {
     if (!countrySelect || !provinceSelect) return;
