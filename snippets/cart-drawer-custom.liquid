@@ -933,14 +933,17 @@
       if (el) el.textContent = formatMoney(cart.total_price);
     }
 
+
         function refreshCartCount(cart) {
       var heading = document.getElementById('gl-cart-drawer-heading');
       if (heading) {
         heading.textContent = 'Your cart (' + cart.item_count + ')';
       }
-      document.querySelectorAll('[data-cart-count], .cart-count-bubble, .cart-count').forEach(function (el) {
-        el.textContent = cart.item_count;
-      });
+
+      var bubbleCount = document.querySelector('[data-testid="cart-bubble"]');
+      if (bubbleCount) {
+        bubbleCount.textContent = cart.item_count;
+      }
     }
 
         function showEmptyCart() {
