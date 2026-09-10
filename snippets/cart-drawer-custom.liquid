@@ -865,14 +865,17 @@
 
                 return nativeFetch.apply(this, arguments).then(function (response) {
           if (isAddToCart && response.ok) {
-            refreshDrawerContent().then(openDrawer).catch(function (err) {
-              console.error('Drawer refresh failed, falling back to reload:', err);
-              sessionStorage.setItem('glOpenCartDrawer', '1');
-              window.location.reload();
-            });
+            setTimeout(function () {
+              refreshDrawerContent().then(openDrawer).catch(function (err) {
+                console.error('Drawer refresh failed, falling back to reload:', err);
+                sessionStorage.setItem('glOpenCartDrawer', '1');
+                window.location.reload();
+              });
+            }, 0);
           }
           return response;
         });
+
 
       };
     })();
