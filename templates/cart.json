@@ -23,6 +23,7 @@
     },
     "custom_main_cart_P6YQBG": {
       "type": "custom-main-cart",
+      "disabled": true,
       "name": "Custom cart",
       "settings": {
         "subtotal_bg_color": "#ad0807",
@@ -92,7 +93,7 @@
       "custom_css": [
         ".cart-summary {background: transparent; color: transparent; border-radius: 0; padding: 0;}",
         "@media screen and (min-width: 750px) {.cart-summary {display: block; grid-template-rows: subgrid; grid-row: 1 / -1; }}",
-        "@media screen and (min-width: 750px) and (max-width: 1120px) {.cart-page__summary {grid-column: 1; grid-row: 3; } .cart-page {grid-template-columns: 1fr 0fr; }}"
+        "@media screen and (min-width: 750px) and (max-width: 1020px) {.cart-page__summary {grid-column: 1; grid-row: 3; } .cart-page {grid-template-columns: 1fr 0fr; }}"
       ],
       "settings": {
         "section_width": "page-width",
